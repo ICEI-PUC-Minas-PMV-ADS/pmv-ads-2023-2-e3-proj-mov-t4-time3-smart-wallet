@@ -1,46 +1,31 @@
 # Introdução
+Muito têm-se discutido sobre renegociações dívidas. Fechar as contas fora do vermelho tornou-se uma tarefa ainda mais árdua após a pandemia do Covid-19 que, teve grandes impactos não apenas a saúde, mas também na economia.Recentemente o governo implementou uma medida de estímulo econômico, com o Programa Desenrola Brasil. 
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+Segundo o veículo de informação do Governo (gov.br), o programa tem como principal objetivo reintroduzir pessoas com restrição de crédito na economia, permitindo melhores condições de renegociação de suas dívidas[1].
+
+Neste contexto, é de fundamental importância que todos tenham um controle efetivo de suas contas evitando assim, sérios problemas financeiros de impactos incalculáveis.
+Pensando nisso, foi criada a solução Cabe no Bolso. Uma aplicação móvel  que fornece as ferramentas necessárias para gerenciar e planejar melhor a vida financeira dos usários, de forma prática e didática.
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
-
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+O endividamento dos brasileiros nunca alcançou patamares tão altos como atualmente, de acordo com o levantamento da CNC (Confederação Nacional do Comércio de Bens, Serviços e Turismo) antes da pandemia do Covid-19, que teve seu início em 2020, 64%[2] das pessoas abordadas nesta pesquisa tinham algum tipo de dívida. Já em 2022, segundo a PEIC (Pesquisa de Endividamento e Inadimplência do Consumidor), 77,9%[3] das famílias declararam ter dívidas 7% a mais do que em 2021, que fechou em 70,9%
 
 ## Objetivos
-
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
-
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+Disponibilizar ao usuário uma ferramenta que possibilite maior monitoramento e gestão de suas finanças de forma clara e fácil. Uma aplicação que siga as boas práticas de usabilidade, contribuindo para simplificar o acesso aos usuários e que possa:
+- Auxiliá-los no controle de seus gastos pessoais
+- Dar dicas e recomendações para um controle financeiro mais assertivo
 
 ## Justificativa
-
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
-
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+No Brasil, o percentual de endividados em junho de 2020 foi de 67% para 71% em junho de 2021[4]. Nota-se, então, que a educação financeira é fundamental para a reversão desse cenário.
+Nos últimos anos, em virtude dos avanços tecnológicos, teve-se um aumento significativo de usuários com acesso aos smartphones. Ajudar as pessoas a terem um melhor controle financeiro em sua vida pessoal e profissional para que possam realizar seus sonhos e desejos, é algo essencial.
 
 ## Público-Alvo
+A solução é destinada a homens e mulheres de 18 a 85 anos de idade que buscam um melhor gerenciamento de suas receitas e despesas de uma maneira simples e acessível, ao grande público no geral, que disponham de um aparelho móvel.
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+## Referências
+1 - https://www.gov.br/economia/pt-br/orgaos/orgaos-colegiados/conselho-de-recursos-do-sistema-financeiro-nacional/acesso-a-informacao/noticias/2023/bancos-e-governo-federal-lancam-programa-desenrola-brasil-para-dividas-bancarias
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+2 - https://g1.globo.com/jornal-nacional/noticia/2021/11/23/endividamento-das-familias-brasileiras-atinge-o-maior-nivel-em-11-anos.ghtml 
 
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+3 - https://economia.uol.com.br/noticias/redacao/2023/01/19/cnc-recorde-familias-endividadas-2022.htm 
+
+4 - https://www.fecomercio.com.br/noticia/endividamento-atinge-78-das-familias-brasileiras-maior-taxa-dos-ultimos-12-anos#:~:text=O%20porcentual%20de%20fam%C3%ADlias%20endividadas,para%2071%25%20em%20junho%202021. 
