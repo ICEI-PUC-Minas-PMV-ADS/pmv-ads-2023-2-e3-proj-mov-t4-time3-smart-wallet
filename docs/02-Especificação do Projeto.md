@@ -85,6 +85,7 @@ O escopo funcional do projeto é definido por meio dos requisitos funcionais que
 |RF-006| A aplicação deve emitir alertas próximo aos vencimentos dos pagamentos cadastrados   | BAIXA |
 |RF-007|A aplicação deve ter uma página com a Visão Geral dos Lançamentos(Despesas/Receitas) com Status de Efetivado ou Pendente, identificados com cores. | MÉDIA | 
 |RF-008|A aplicação deve ter a funcionalidade de ocultar o saldo  | MÉDIA | 
+|RF-009|A aplicação deve ter a funcionalidade de chat  | ALTA | 
 
 
 ### Requisitos não Funcionais
