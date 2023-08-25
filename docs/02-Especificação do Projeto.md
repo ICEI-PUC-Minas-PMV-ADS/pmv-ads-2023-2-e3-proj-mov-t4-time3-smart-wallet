@@ -113,7 +113,7 @@ O diagrama de casos de uso é o próximo passo após a elicitação de requisito
 ![Diagrama de Caso de Uso](img/diagramaDeCasoDeUso.png)
 # Matriz de Rastreabilidade
 
-A matriz de rastreabilidade, apresentada abaixo, contempla todos os elementos relevantes que fazem parte do sistema.
+A matriz de rastreabilidade apresentada abaixo, contempla todos os elementos relevantes que fazem parte do sistema.
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/114962362/764dfdc1-ce0b-4521-8200-91d9dfd6991a)
 
