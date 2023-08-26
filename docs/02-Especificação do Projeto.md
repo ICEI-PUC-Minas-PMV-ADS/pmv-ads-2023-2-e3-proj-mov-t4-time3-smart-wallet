@@ -135,7 +135,7 @@ Todo objetivo é constituído por uma meta que se pretende alcançar, e para tan
 https://github.com/orgs/ICEI-PUC-Minas-PMV-ADS/projects/455/views/1
 
 #### As atividades e sua execução, serão acompanhadas através de um kanban contendo todoas as tarefas e seus prazos de início e finalização para uma melhor rastreabilidade da execução
-https://github.com/thaisoliveira1356480/template/projects?query=is%3Aopen
+[https://github.com/orgs/ICEI-PUC-Minas-PMV-ADS/projects/455](https://github.com/orgs/ICEI-PUC-Minas-PMV-ADS/projects/455)
 
 
 ## Gerenciamento de Equipe
