@@ -35,7 +35,7 @@ Se você está procurando uma maneira de controlar melhor suas finanças pessoai
 
 ## Orientador
 
-* Nome completo do professor 1
+* Mateus Curcino de Lima
 
 ## Instruções de utilização
 
