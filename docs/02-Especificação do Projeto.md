@@ -42,11 +42,24 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+Muitas pessoas têm enormes dificuldades em acompanhar suas receitas e despesas, falta de conhecimento sobre finanças e falta de motivação para se manter disciplinado, a gestão das finanças pessoais é um desafio muito importante na vida de todos, uma gestão inassertiva pode acarretar consequências negativas, como endividamento, falta de planejamento e insegurança financeira.
+
+A portabilidade, facilidade de uso e o amplo uso de celulares em todo o mundo, amplia o leque de possibilidades para suprir as demandas dos usuários em relação ao controle de suas finanças.
 
 ### Descrição Geral da Proposta
 
-Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias.
+O aplicativo de finanças pessoais proposto neste projeto busca solucionar os problemas descritos acima, oferecendo uma aplicação:
+ - De fácil usabilidade
+ - Simples e intuitivo, facilitando o uso por pessoas de todos os níveis de conhecimento.
+ - Atualizado, com novas funcionalidades e recursos constantemente.
+
+O aplicativo contará com as seguintes funcionalidades:
+  - Rastreamento de receitas e despesas, permitindo que os usuários registrem todas as suas receitas e despesas.
+  - Análise de gastos, fornecendo relatórios e gráficos que ajudam os usuários a entenderem seus hábitos de consumo.
+  - Planejamento financeiro, permitindo que os usuários criem metas financeiras e acompanhem seu progresso.
+
+O aplicativo objetiva proporcionar uma considerável melhoria da gestão financeira pessoal de seus usuários, ajudando-os a controlarem seus gastos, planejar suas metas financeiras e alcançar seus objetivos.
+
 
 ### Processo 1 – NOME DO PROCESSO
 
