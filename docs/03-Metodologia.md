@@ -41,15 +41,16 @@ Para a execução do projeto da Smart Wallet, será utilizada a metodologia Scru
 
 A equipe de desenvolvimento do projeto da Smart Wallet está dividida assim:
  
-* **Product Owner**: Thais
+* **Gerente do Projetor**: Thais Cristine
   
 * **Equipe de Desenvolvimento**:
   * Leonardo B. Alves
-  * Joe Monteiro
-  * Thiago Gomes
-    
-* **Equipe de Design**:
+  * Joe Monteiro de Sousa
   * Leonardo Melo de Lima
+    
+* **Analista de Teste**:
+  * Thiago Gomes da Silva
+  
 
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando o GitHub Projects, onde as atividades a serem desenvolvidas, estão estruturada em listas de status, conforme descrito abaixo:
 
