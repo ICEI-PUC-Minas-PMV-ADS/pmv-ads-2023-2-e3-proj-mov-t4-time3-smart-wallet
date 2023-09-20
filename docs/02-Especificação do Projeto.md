@@ -61,17 +61,39 @@ O aplicativo contará com as seguintes funcionalidades:
 O aplicativo objetiva proporcionar uma considerável melhoria da gestão financeira pessoal de seus usuários, ajudando-os a controlarem seus gastos, planejar suas metas financeiras e alcançar seus objetivos.
 
 
-### Processo 1 – NOME DO PROCESSO
+## Fluxo Global da Aplicação
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN. 
+![Diagrama Smart Wallet](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/110863413/16950b01-d935-4e32-a6d3-c40018783036)
+*Os processos destacados em vermelho na imagem acima, são detalhados abaixo:
 
-![Processo 1](img/02-bpmn-proc1.png)
+<b>Processo 1</b>: Etapa onde verifica-se se o usuário já é cadastrado no sistema
+ 
+<b>Processo 2</b>: Se o usuário não é cadastrado, aplicação abrirá uma tela para que o usuário preencha seu Nome completo, e-mail e a senha desejada
 
-### Processo 2 – NOME DO PROCESSO
+<b>Processo 3</b>: Se o usuário é cadastrado, ele deverá digitará seu e-mail e senha e caso estejam corretos, após validação, terá acesso a aplicação
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 2. Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN.
+<b>Processo 4</b>: Após o login, o usuário é direcionado para sua página inicial, onde poderá ver as suas informações cadastradas. O usuário também poderá nesta seção, acessar relatórios, gerenciar o seu perfil.
 
-![Processo 2](img/02-bpmn-proc2.png)
+<b>Processo 5</b>: Após o acesso, quando desejar efetuar um lançamento, ele escolherá o opção de Lançar uma transação, A tela da escolha da transação, fará com que o usuário escolha se o lançamento deverá ser de uma Receita ou Despesas
+
+<b>Processo 6</b>: Caso o lançamento escolhido seja de uma Receita, o usuário deverá escolher a:
+ - Classificação: Salário, Rendimentos, Extras, Diversos
+ - Data de Vencimento
+ - Recorrente: Caso o lançamento seja de uma receita que ocorra mais de uma vez
+ - Valor
+ - Status: Efetivado ou Pendente
+ - Descrição: um breve relato do que se refere aquele lançamento
+
+<b>Processo 7</b>: Caso o lançamento escolhido seja de uma Despesa, o usuário deverá escolher a:
+- Classificação: Alimentação, Cartão de Crédito, Educação, Empréstimos, Entretenimento, Eventos, Impostos, Imprevistos, Moradia, Saúde, Seguros, Taxas, Transporte, Veículo, Vestuário e Outros
+- Data de Vencimento
+- Recorrente: Caso o lançamento seja de uma despesa que ocorra mais de uma vez
+- Valor
+- Status: Efetivado ou Pendente
+- Descrição: um breve relato do que se refere aquele lançamento
+
+<b>Processo 8</b>: Após o lançamento realizado, a aplicação realizará a atualização dos saldos da conta do usuário, sendo possível ele acompanhar suas receitas e despesas com maior assertividade.
+
 
 ## Indicadores de Desempenho
 
@@ -113,7 +135,7 @@ O escopo funcional do projeto é definido por meio dos requisitos funcionais que
 
 O projeto está restrito pelos itens apresentados na tabela a seguir.
 
-|ID| Restrição                                             |
+|ID| Restrição                                             | 
 |--|-------------------------------------------------------|
 |01| O projeto deverá ser entregue até o final do semestre|
 |02| O projeto deverá ser executado apenas pelos alunos que compõe o grupo, sem contratação de profissionais     |
@@ -180,4 +202,5 @@ Se é necessário ter um assertivo controle no gerenciamento de um projeto para 
 ## Gestão de Orçamento
 Projeto tem estimativa de ser realizado durante 5 meses, onde abaixo, temos o descritivo do custo planejado para a execução do projeto contemplando todos os itens necessários para este desenvolvimento.
 
-![image](https://github.com/thaisoliveira1356480/template/assets/110863413/2a2d9fcc-ed57-44c5-95d2-6599a868d75e)
+![Orçamento Smart Wallet](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/110863413/2848f37c-24ae-499d-ad02-e251acf176fd)
+
