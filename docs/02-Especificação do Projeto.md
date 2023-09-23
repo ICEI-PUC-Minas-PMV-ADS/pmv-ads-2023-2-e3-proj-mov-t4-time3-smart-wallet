@@ -97,12 +97,18 @@ O aplicativo objetiva proporcionar uma considerável melhoria da gestão finance
 
 ## Indicadores de Desempenho
 
-Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Colocar no mínimo 5 indicadores. 
+Abaixo o descritivo dos indicadores utilizados para avaliação da aplicação junto a seus usuários:
 
-Usar o seguinte modelo: 
 
-![Indicadores de Desempenho](img/02-indic-desemp.png)
-Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
+| Indicador | Objetivo | Medida |
+|-----------|---------------|---------|
+| Reclamações | Entender as principais pontos de reclamação dos usuários no uso da aplicação | Cálculo do quantitativo de reclamações recebidas dos usuários|
+| Retenção | Medir o número de usuários que continuam e que abandonaram a solução | Comparativo mensal do número de usuários ativos e inativos|
+| Desempenho | Entender o quanto a performance atual impacta na retenção dos usuários| Tempo de carregamento e resposta da aplicação as requisições do cliente|
+| Estabilidade | Mapear problemas que impactam o uso da aplicação pelo usuário | Quantitativo de bugs ou crashes da aplicação|
+| Atendimento e Suporte Técnico | Elevar o grau de satisfação do cliente para com a aplicação |Tempo médio de resposta a consultas ou problemas dos usuários|
+| Engajamento | Quantificar o engajamento dos usuários com a aplicação | Frequência de uso da aplicação |
+
 
 ## Requisitos
 
