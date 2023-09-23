@@ -44,7 +44,8 @@ Foram utilizadas as seguintes tecnologias:
 - React Native
 - npm
 - JSON Server
-- Figma
+- Miro
+- MarvelApp
 - drawio.com
 
 ## Hospedagem
