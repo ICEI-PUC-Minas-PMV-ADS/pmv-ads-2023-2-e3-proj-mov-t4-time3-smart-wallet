@@ -1,8 +1,49 @@
 # Template Padrão da Aplicação
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>
 
-Layout padrão da aplicação que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
+-  **LOGIN**
+
+  
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/a48c431e-9eb9-42c4-bd6f-4cda5dcfb905)
+
+
+
+
+-  **HOMEPAGE**
+
+
+  ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/86d1b4ee-cc18-4ec6-b666-7547ee5c5220)
+
+
+
+
+- **LANÇAMENTOS**
+
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/575150b2-31f5-4617-942b-0fea10dcb140)
+
+
+
+
+-  **EXTRATO**
+
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/ca62bca8-0d96-43fb-8691-602b5cadb15f)
+
+
+
+
+-  **RELATÓRIOS**
+
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/573fe09d-7a60-4658-87e5-86069a93dd2b)
+
+
+
+-  **CHAT**
+
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/c7ece76a-9921-4e96-aee8-8e123997c60e)
 
 > **Links Úteis**:
 >
