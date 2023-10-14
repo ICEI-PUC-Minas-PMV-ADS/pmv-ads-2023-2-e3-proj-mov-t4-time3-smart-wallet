@@ -1,17 +1,26 @@
-import React, { useState, useRef } from 'react';
-import { Alert, View, Text, TextInput, Button, StyleSheet, Image, KeyboardAvoidingView, Modal } from 'react-native';
-import Input from '../components/Input';
-import MyButton from '../components/button';
-import { useNavigation } from '@react-navigation/native';
-import { register } from '../services/auth.services.js';
+import React, { useState, useRef } from "react";
+import {
+  Alert,
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+} from "react-native";
+import Input from "../components/Input";
+import MyButton from "../components/button";
+import { useNavigation } from "@react-navigation/native";
+import { register } from "../services/auth.services.js";
 
 const Cadastro = () => {
-
   const navigation = useNavigation();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const emailInputRef = useRef(null);
@@ -21,16 +30,19 @@ const Cadastro = () => {
     register({
       name: name,
       email: email,
-      password: password
-    }).then(res => {
+      password: password,
+    }).then((res) => {
       console.log(res);
 
       if (res) {
-        Alert.alert('Atenção', 'Usuário cadastrado com sucesso!', [
-          { text: "OK", onPress: () => navigation.goBack() }
+        Alert.alert("Atenção", "Usuário cadastrado com sucesso!", [
+          { text: "OK", onPress: () => navigation.goBack() },
         ]);
       } else {
-        Alert.alert('Atenção', 'Usuário não cadastrado! Tente novamente mais tarde!');
+        Alert.alert(
+          "Atenção",
+          "Usuário não cadastrado! Tente novamente mais tarde!"
+        );
       }
     });
   };
@@ -50,7 +62,7 @@ const Cadastro = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
       <Image
-        source={require('../assets/logoSmartWallet.png')}
+        source={require("../assets/logoSmartWallet.png")}
         style={{
           width: 250, // Ajuste o tamanho da imagem conforme necessário
           height: 150, // Ajuste o tamanho da imagem conforme necessário
@@ -90,17 +102,13 @@ const Cadastro = () => {
         </Text>
       </View>
 
-        <MyButton
-          title="Cadastrar"
-          onPress={handleCadastro}
-          color='#010D8C'
-        />
+      <MyButton title="Cadastrar" onPress={handleCadastro} color="#010D8C" />
 
-        <MyButton
-          title="Voltar"
-          onPress={() => navigation.goBack('Login')}
-          color="darkgray"
-        />
+      <MyButton
+        title="Voltar"
+        onPress={() => navigation.goBack("Login")}
+        color="darkgray"
+      />
 
       <Modal
         visible={errorModalVisible}
@@ -110,20 +118,22 @@ const Cadastro = () => {
       >
         <View style={styles.modalContainer}>
           <Image
-            source={require('../assets/SmartWallet.png')}
+            source={require("../assets/SmartWallet.png")}
             style={{
               width: 250,
               height: 150,
             }}
             resizeMode="contain"
           />
-          <Text style={styles.errorText}>Por favor!{'\n'} Verifique as informações e tente novamente</Text>
+          <Text style={styles.errorText}>
+            Por favor!{"\n"} Verifique as informações e tente novamente
+          </Text>
           <Button title="Fechar" onPress={() => setErrorModalVisible(false)} />
         </View>
       </Modal>
-            <View style={styles.footer}>
+      <View style={styles.footer}>
         <Image
-          source={require('../assets/background.png')}
+          source={require("../assets/background.png")}
           style={styles.backgroundImage}
           resizeMode="cover"
         />
@@ -136,52 +146,52 @@ const styles = StyleSheet.create({
   container: {
     //flex: 1,
     //justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
     //marginBottom: 200,
     //marginTop: 5,
   },
   inputContainer: {
-    width: '80%',
+    width: "80%",
     marginTop: 5,
   },
   label: {
     marginBottom: 5,
-    color: 'darkblue',
-    fontWeight: 'bold',
+    color: "darkblue",
+    fontWeight: "bold",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#010D8C',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#010D8C",
   },
   errorText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginTop: 50,
     marginBottom: 50,
     paddingLeft: 70,
     paddingRight: 70,
   },
   passwordInfo: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 14,
-    fontStyle: 'italic',
-    color: 'gray',
+    fontStyle: "italic",
+    color: "gray",
     paddingBottom: 20,
   },
-    footer: {
-    width: '100%',
-    height: '27%',
-    resizeMode: 'cover',
+  footer: {
+    width: "100%",
+    height: "22%",
+    resizeMode: "cover",
   },
   backgroundImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    position: 'absolute',
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    position: "absolute",
   },
 });
 

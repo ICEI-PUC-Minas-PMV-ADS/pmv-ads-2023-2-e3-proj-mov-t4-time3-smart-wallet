@@ -30,7 +30,7 @@ const Login = () => {
         setName(res.user.name);
 
       } else {
-        Alert.alert('Atenção', 'Usuário ou senha incorretos!');
+        Alert.alert('Atenção', 'Usuário ou senha incorretos! Por favor, tente novamente');
       }
     });
   };
