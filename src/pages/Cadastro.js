@@ -22,21 +22,34 @@ const Cadastro = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState(""); 
 
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
 
   const handleCadastro = async () => {
+    if (!validateName(name) || !validateEmail(email) || !validatePassword(password)) {
+      setErrorModalVisible(true);
+      return;
+    }
+
+
     register({
       name: name,
       email: email,
       password: password,
     }).then((res) => {
       console.log(res);
-
       if (res) {
         Alert.alert("Atenção", "Usuário cadastrado com sucesso!", [
-          { text: "OK", onPress: () => navigation.goBack() },
+          {
+            text: "OK",
+            onPress: () => {
+              navigation.navigate("Login");
+            },
+          },
         ]);
       } else {
         Alert.alert(
@@ -47,16 +60,32 @@ const Cadastro = () => {
     });
   };
 
+  const validateName = (inputName) => {
+    if (inputName.trim() === "") {
+      setNameError("Nome é obrigatório");
+      return false;
+    } else {
+      setNameError("");
+      return true;
+    }
+  };
+
   const validateEmail = (inputEmail) => {
-    // Use uma expressão regular para validar o formato do email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(inputEmail);
+    const isValid = emailRegex.test(inputEmail);
+
+    setEmailError(isValid ? "" : "Email inválido");
+    
+    return isValid;
   };
 
   const validatePassword = (inputPassword) => {
-    // Use uma expressão regular para validar a senha
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-    return passwordRegex.test(inputPassword);
+    const isValid = passwordRegex.test(inputPassword);
+
+    setPasswordError(isValid ? "" : "Senha inválida");
+    
+    return isValid;
   };
 
   return (
@@ -64,8 +93,8 @@ const Cadastro = () => {
       <Image
         source={require("../assets/logoSmartWallet.png")}
         style={{
-          width: 250, // Ajuste o tamanho da imagem conforme necessário
-          height: 150, // Ajuste o tamanho da imagem conforme necessário
+          width: 250, 
+          height: 150, 
           marginTop: 100,
           marginBottom: 5,
         }}
@@ -144,8 +173,6 @@ const Cadastro = () => {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //justifyContent: 'center',
     alignItems: "center",
   },
   inputContainer: {
