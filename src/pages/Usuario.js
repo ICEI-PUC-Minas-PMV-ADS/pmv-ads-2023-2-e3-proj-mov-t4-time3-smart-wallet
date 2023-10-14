@@ -14,6 +14,16 @@ const Usuario = ({ navigation }) => {
       <View style={styles.container}>
         <Text>Olá {name}</Text>
         {/* Conteúdo da página do usuário aqui */}
+        <Image
+            source={require('../assets/logoSmartWallet.png')} 
+            style={{
+              width: 250, 
+              height: 150, 
+              marginTop: 150,
+              marginBottom: 30,
+            }}
+            resizeMode="contain"
+          />
       </View>
 
       <MyButton

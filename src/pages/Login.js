@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Alert, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, } from 'react-native';
 import Input from '../components/Input';
 import { Alert as CustomAlert } from 'react-native';
 import Container from '../components/Container';
@@ -36,15 +36,15 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <View>
           <Image
             source={require('../assets/logoSmartWallet.png')} 
             style={{
               width: 250, 
               height: 150, 
-              marginTop: 100,
-              marginBottom: 50,
+              marginTop: 150,
+              marginBottom: 30,
             }}
             resizeMode="contain"
           />
@@ -73,6 +73,7 @@ const Login = () => {
           title="Entrar"
           onPress={handleLogin}
           color="#010D8C"
+          style={{ marginBottom: 10 }}
         />
 
       <TouchableOpacity
@@ -90,15 +91,18 @@ const Login = () => {
           resizeMode="cover"
         />
       </View>
-    </Container>
+      </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
   inputContainer: {
     width: '80%',
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   label: {
     marginBottom: 5,
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
   },
     footer: {
     width: '100%',
-    height: '30%',
+    height: '31%',
     resizeMode: 'cover',
   },
   backgroundImage: {
