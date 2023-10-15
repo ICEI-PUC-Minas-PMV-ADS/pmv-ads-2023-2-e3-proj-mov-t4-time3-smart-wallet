@@ -26,7 +26,7 @@ Cenários de testes utilizados na realização dos testes da aplicação AgendAI
 | Caso de Teste 	| **CT-04 – Login**	|
 |Requisito Associado | RF-004	- A aplicação deve permitir que o usuário faça login|
 | Objetivo do Teste 	|  Verificar se o usuário conseguirá efetuar o login a partir das informações corretas. |
-| Passos 	| |
+| Passos 	| 1- Estar na tela de login do aplicativo "Smat Wallet". 2- Preencher corretamente o campo e-mail com o endereço cadastrado. 3-Preencher corretamente o campo senha . 4- Clicar no botão "Entrar". |
 |Critério de Êxito | - O login foi realizado com sucesso. |
 |  	|  	|
 | Caso de Teste 	| **CT-05 - Gráficos de Receitas** 	|
