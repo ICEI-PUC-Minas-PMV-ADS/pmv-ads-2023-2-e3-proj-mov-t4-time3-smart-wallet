@@ -40,7 +40,7 @@ https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-sm
 https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115894941/2d7c08e3-d8c2-4535-8d08-b8736dba8445
 
 
-| **Caso de Teste** 	| **CTU-03 – Validar exigências de login.**  	|
+| **Caso de Teste** 	| **CTU-04 – Validar exigências de login.**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar as exigências de login. |
