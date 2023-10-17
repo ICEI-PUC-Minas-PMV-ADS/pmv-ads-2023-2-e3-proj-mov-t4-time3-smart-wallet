@@ -8,15 +8,16 @@ const Stack = createNativeStackNavigator();
 const Main = () => {
 
   return (
-     <Stack.Navigator initialRouteName="Home">
-       <Stack.Screen
-        name="Home"
-        component={Usuario}
-        options={{
-          header: () => null
-        }}
-       />
-     </Stack.Navigator>
+    <></>
+    //  <Stack.Navigator initialRouteName="Home">
+    //    <Stack.Screen
+    //     name="Home"
+    //     component={Usuario}
+    //     options={{
+    //       header: () => null
+    //     }}
+    //    />
+    //  </Stack.Navigator>
   );
 }
 
