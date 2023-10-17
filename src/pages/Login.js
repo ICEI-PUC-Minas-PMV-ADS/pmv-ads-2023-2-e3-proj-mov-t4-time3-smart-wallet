@@ -6,8 +6,6 @@ import Container from '../components/Container';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../context/UserContext';
 import MyButton from '../components/button';
-import styled from 'styled- components';
-
 import { login } from '../services/auth.services.js';
 
 const Login = () => {

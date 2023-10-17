@@ -31,13 +31,6 @@ const Main = () => {
           header: () => null,
         }}
       />
-      <Stack.Screen
-        name="MyPage"
-        component={MyPage}
-        options={{
-          header: () => null,
-        }}
-      />
     </Stack.Navigator>
   );
 };

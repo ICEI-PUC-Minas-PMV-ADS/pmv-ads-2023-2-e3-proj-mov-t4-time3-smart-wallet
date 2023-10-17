@@ -2,18 +2,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import UserProvider from './context/UserContext';
 import Route from './navigations/Route';
-//import Login from './pages/Login';
-import MyPage from './pages/MyPage';
-
+import Login from './pages/Login';
 
 const App = () => {
   return (
-    <MyPage />
-    // <UserProvider>
-    //   <NavigationContainer>
-    //     <Route />
-    //   </NavigationContainer>
-    // </UserProvider>
+    <UserProvider>
+      <NavigationContainer>
+        <Route />
+      </NavigationContainer>
+    </UserProvider>
   );
 };
 
