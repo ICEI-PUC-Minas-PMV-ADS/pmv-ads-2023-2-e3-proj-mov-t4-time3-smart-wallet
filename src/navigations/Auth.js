@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
-import Usuario from "../pages/Usuario";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,13 +19,6 @@ const Main = () => {
       <Stack.Screen
         name="Cadastro"
         component={Cadastro}
-        options={{
-          header: () => null,
-        }}
-      />
-      <Stack.Screen
-        name="Usuario"
-        component={Usuario}
         options={{
           header: () => null,
         }}
