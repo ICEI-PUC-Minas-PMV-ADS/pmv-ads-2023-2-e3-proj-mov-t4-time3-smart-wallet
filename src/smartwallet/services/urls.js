@@ -1,1 +1,0 @@
-export const BASE_URL = 'https://smart-wallet-server.loca.lt';
