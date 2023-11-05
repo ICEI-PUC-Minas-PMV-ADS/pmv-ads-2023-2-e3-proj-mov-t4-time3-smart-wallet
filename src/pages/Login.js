@@ -6,12 +6,14 @@ import Container from '../components/Container';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../context/UserContext';
 import MyButton from '../components/button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { login } from '../services/auth.services.js';
 
 const Login = () => {
 
   const navigation = useNavigation();
-  const { setSigned, setName } = useUser();
+  const { setSigned, setName, setEmails } = useUser();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +29,9 @@ const Login = () => {
 
         setSigned(true);
         setName(res.user.name);
+        setEmails(res.user.email);
+
+        AsyncStorage.setItem('@TOKEN_KEY', res.accessToken).then();
 
       } else {
         Alert.alert('Atenção', 'Usuário ou senha incorretos! Por favor, tente novamente');

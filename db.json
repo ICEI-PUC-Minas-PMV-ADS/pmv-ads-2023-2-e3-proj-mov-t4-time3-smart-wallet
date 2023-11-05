@@ -1,3 +1,17 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "leo@gmail.com",
+      "password": "$2a$10$bLXujRFwKemcEE.7Aq2bIu.yclLC/y7X8SqugzOZRYB7hLm9.KESa",
+      "name": "Leobunduro",
+      "id": 1
+    }
+  ],
+  "lancamentos": [],
+  "chat": [
+    {
+      "id": 1,
+      "mensagem": "Pau no seu, amigo."
+    }
+  ]
 }
