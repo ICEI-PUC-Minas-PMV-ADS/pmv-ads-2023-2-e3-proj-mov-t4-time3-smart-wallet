@@ -1,26 +1,13 @@
-/*import React from 'react';
-import { Header as RNHeader, StyleSheet } from 'react-native';
-
-const Header = (props) => {
-  return (
-      <RNHeader 
-        style={styles.Header}
-        {...props}      
-      />)
-    ;
-};
-
-export default Header;*/
-
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
-const Header = ({ navigation }) => {
+const headerPages = ({ navigation }) => {
   return (
     <Appbar.Header style={styles.appbar}>
+      <Appbar.BackAction onPress={() => navigation.navigate('Usuario')} />
       <Image
         source={require("../assets/SmartWallet.png")}
         style={styles.logo}
@@ -46,7 +33,6 @@ const styles = {
     width: 50,
     height: 50,
     marginTop: 20,
-    marginLeft: 20,
   },
   header: {
     flexDirection: 'row',
@@ -61,8 +47,8 @@ const styles = {
   bellIcon: {
     position: 'absolute',
     left: 195,
-    marginLeft: 50,
+    marginLeft: 40,
   },
 };
 
-export default Header;
+export default headerPages;

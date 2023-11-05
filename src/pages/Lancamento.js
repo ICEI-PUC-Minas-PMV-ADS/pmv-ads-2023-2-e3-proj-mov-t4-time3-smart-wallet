@@ -1,208 +1,291 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native';
-import { Appbar, TextInput, Checkbox, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
-import { Picker } from '@react-native-picker/picker'; // Importe o Picker da nova localização
+import React, { useState } from "react";
+import {View, Text, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView,} from "react-native";
+import {Divider, TextInput, Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
+import { RadioButton } from "react-native-paper";
+import { lancar } from "../services/lancamento.services.js";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+import FooterNavigation from '../components/footer';
+import HeaderPages from '../components/headerPages'; 
 
 const Lancamento = () => {
   const navigation = useNavigation();
 
-  const [tipo, setTipo] = useState(''); // Estado para o campo "Tipo"
-  const [classificacao, setClassificacao] = useState(''); // Estado para o campo "Classificação"
-  const [status, setStatus] = useState(''); // Estado para o campo "Status"
+  const [tipo, setTipo] = useState("");
+  const [classificacao, setClassificacao] = useState("");
+  const [valor, setValor] = useState("");
+  const [dataVencimento, setDatavencimento] = useState(new Date());
+  const [recorrente, setRecorrente] = useState("");
+  const [status, setStatus] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const resetState = () => {
+    setTipo("");
+    setClassificacao("");
+    setValor("");
+    setDatavencimento("");
+    setRecorrente("");
+    setStatus("");
+    setDescricao("");
+  };
+  
+  const handleSave = async () => {
+    const formattedDataVencimento = moment(dataVencimento).format("DD / MM / YYYY");
+    lancar({
+      tipo: tipo,
+      classificacao: classificacao,
+      valor: valor,
+      dataVencimento: formattedDataVencimento,
+      recorrente: recorrente,
+      status: status,
+      descricao: descricao,
+    }).then((res) => {
+      resetState();
+      navigation.navigate("Extrato");
+    });
+  };
+  
 
   return (
-    <View style={styles.container}>
-      <Appbar.Header style={styles.appbar}>
-      <Appbar.BackAction onPress={() => navigation.goBack()} />
-        <Image
-          source={require("../assets/SmartWallet.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      <View style={styles.header}>
-        <Text style={styles.userName}>Olá Usuário</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
-      </View>
-    </Appbar.Header>
+    <KeyboardAvoidingView
+      style={styles.container}
+    >
+      <View style={styles.container}>
+      <HeaderPages navigation={navigation} />
 
-      <View>
-        <Text style={{marginTop: 20, marginLeft: 10, fontSize: 20, color: 'darkblue', fontWeight: "bold"}}>Adicionar Lançamento</Text>
-      </View>
-
-      <View style={styles.formContainer}>
-        <Picker
-          selectedValue={tipo}
-          onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
-        >
-          <Picker.Item label="Selecione o Tipo" value="" />
-          <Picker.Item label="Receita" value="Receita" />
-          <Picker.Item label="Despesa" value="Despesa" />
-        </Picker>
-        <Picker
-          selectedValue={classificacao}
-          onValueChange={(itemValue, itemIndex) => setClassificacao(itemValue)}
-        >
-          <Picker.Item label="Selecione a Classificação" value="" />
-          <Picker.Item label="Classe 1" value="classe1" />
-          <Picker.Item label="Classe 2" value="classe2" />
-        </Picker>
-        
-        <TextInput label="Data de Vencimento" mode="outlined" style={styles.input} />
-
-        <View style={styles.checkboxContainer}>
-          <Text>Recorrente</Text>
-          <Checkbox status="" />
+        <View>
+          <Text style={styles.titlePage}>
+            Adicionar Lançamento
+          </Text>
         </View>
 
-        <TextInput label="Valor" mode="outlined" style={styles.input} />
-        <Picker
-          selectedValue={status}
-          onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}
-        >
-          <Picker.Item label="Selecione o Status" value="" />
-          <Picker.Item label="Ativo" value="ativo" />
-          <Picker.Item label="Inativo" value="inativo" />
-        </Picker>
-        <TextInput label="Descrição" mode="outlined" style={styles.input} />
+        <View style={styles.formContainer}>
+          <View style={styles.pickerContainer}>
+           
+           
+            <Text style={styles.label}>Tipo</Text>
+            <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5}} />
+            <Picker
+              style={styles.picker}
+              selectedValue={tipo}
+              onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
+            >
+              <Picker.Item label="Selecione o Tipo" value="" />
+              <Picker.Item label="Receita" value="Receita" />
+              <Picker.Item label="Despesa" value="Despesa" />
+            </Picker>
 
-        <Button mode="contained" style={{backgroundColor: 'darkblue'}}>
-          Salvar
-        </Button>
-      </View>
+            <Text style={styles.label}>Classificação</Text>
+            <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5}} />
+            <Picker
+              style={styles.picker}
+              selectedValue={classificacao}
+              onValueChange={(itemValue, itemIndex) =>
+                setClassificacao(itemValue)
+              }
+            >
+              <Picker.Item label="Selecione a Classificação" value="" />
+              <Picker.Item label="Alimentação" value="Alimentação" />
+              <Picker.Item label="Cartão de Crédito" value="CartãoDeCrédito" />
+              <Picker.Item label="Educação" value="Educação" />
+              <Picker.Item label="Empréstimos" value="Empréstimos" />
+              <Picker.Item label="Entretenimento" value="Entretenimento" />
+              <Picker.Item label="Eventos" value="Eventos" />
+              <Picker.Item label="Impostos" value="Impostos" />
+              <Picker.Item label="Imprevistos" value="Imprevistos" />
+              <Picker.Item label="Investimentos" value="Investimentos" />
+              <Picker.Item label="Moradia" value="Moradia" />
+              <Picker.Item label="Salário" value="Salário" />
+              <Picker.Item label="Saúde" value="Saúde" />
+              <Picker.Item label="Seguros" value="Seguros" />
+              <Picker.Item label="Taxas" value="Taxas" />
+              <Picker.Item label="Transporte" value="Transporte" />
+              <Picker.Item label="Veículo" value="Veículo" />
+              <Picker.Item label="Vestuário" value="Vestuário" />
+              <Picker.Item label="Outros" value="Outros" />
+            </Picker>
 
-      <View style={styles.footer}>
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-            <TouchableOpacity onPress={() => navigation.navigate('Extrato')}>
-              <Text style={styles.navItemText}><Icon name="file" size={20} color='darkblue' justifyContent='center'/>  Extrato</Text>
-            </TouchableOpacity>
+
+          <View style={styles.formContainer}>
+            {show && (
+              <DateTimePicker
+                style={styles.dateTimePicker}
+                testID="dateTimePicker"
+                value={date}
+                mode={"date"}
+                is24Hour={true}
+                display="default"
+                onTouchCancel={() => setShow(false)}
+                onChange={(event, date) => {
+                  setShow(false);
+                  setDatavencimento(moment(date, "DD/MM/YYYY").toDate());
+                }}
+              />
+            )}
+
+            <View style={styles.columnsContainer}>
+              <View style={styles.column}>
+                <Text style={styles.label}>Valor</Text>
+                <TextInput
+                  mode="outlined"
+                  keyboardType="numeric"
+                  style={{ fontSize: 14, color: "darkblue", height: 40 }}
+                  value={valor}
+                  onChangeText={(itemValue) => {
+                    const numericValue = itemValue.replace(/[^0-9]/g, '');
+                    const formattedValue = numericValue
+                      ? `R$ ${parseFloat(numericValue / 100).toLocaleString('pt-BR', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}`
+                      : '';
+                
+                    setValor(formattedValue);
+                  }}
+                  placeholder="R$ 0,00"
+                />
+              </View>
+
+              <View style={styles.column}>
+                <Text style={styles.label}>Vencimento</Text>
+                <TouchableOpacity onPress={() => setShow(true)}>
+                  <TextInput
+                    style={{ fontSize: 14, color: "darkblue", height: 50 }}
+                    value={moment(dataVencimento).format("DD/MM/YYYY")}
+                    left={<TextInput.Icon name="calendar" />}
+                    editable={false}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.formContainer}>
+            <View style={styles.columnsContainer}>
+              <View style={styles.column}>
+                <Text style={styles.label}>Recorrente?</Text>
+                <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5}} />
+                <RadioButton.Group
+                  onValueChange={(value) => setRecorrente(value)}
+                  value={recorrente}
+                >
+                  <View style={styles.radioContainer}>
+                    <Text>Sim</Text>
+                    <RadioButton value="Sim" />
+                  </View>
+                  <View style={styles.radioContainer}>
+                    <Text>Não</Text>
+                    <RadioButton value="Não" />
+                  </View>
+                </RadioButton.Group>
+              </View>
+
+              <View style={styles.column}>
+                <Text style={styles.label}>Status</Text>
+                <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5}} />
+                <RadioButton.Group
+                  onValueChange={(value) => setStatus(value)}
+                  value={status}
+                >
+                  <View style={styles.radioContainer}>
+                    <Text>Pendente</Text>
+                    <RadioButton value="Pendente" />
+                  </View>
+                  <View style={styles.radioContainer}>
+                    <Text>Efetivado</Text>
+                    <RadioButton value="Efetivado" />
+                  </View>
+                </RadioButton.Group>
+              </View>
+            </View>
+            <Text style={styles.label}>Descrição</Text>
+            
+            <TextInput
+              mode="outlined"
+              style={{marginLeft: 10, marginRight: 10, marginBottom: 5, fontSize: 14, color: "darkblue", height: 40,}}
+              value={descricao}
+              onChangeText={(itemValue) => setDescricao(itemValue)}
+            />
           </View>
         </View>
-
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-            <TouchableOpacity onPress={() => navigation.navigate('Lancamento')}>
-              <Text style={styles.navItemText}><Icon name="plus-square" size={20} color='darkblue' justifyContent='center'/>  Lançamento</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-          <TouchableOpacity onPress={() => navigation.navigate('Relatorio')}>
-              <Text style={styles.navItemText}><Icon name="pie-chart" size={20} color='darkblue' justifyContent='center'/>  Relatório</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.column}>
+          <Button style={{marginLeft: 15, marginRight: 15}}
+            title="Cadastrar"
+            onPress={handleSave}
+            color="#010D8C"
+            mode="contained"
+          >
+            Salvar
+          </Button>
         </View>
+        <FooterNavigation navigation={navigation} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    appbar: {
-      backgroundColor: 'whitesmoke',
-      marginTop: 35,
-      marginBottom: 20,
-    },
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      marginTop: 30,
-      marginLeft: 20,
-    },
-    logo: {
-      width: 50,
-      height: 50,
-      marginTop: 20,
-    },
-    userName: {
-      marginLeft: 1,
-    },
-    card: {
-      backgroundColor: 'darkblue',
-      color: 'white',
-      alignContent: 'center',
-      borderRadius: 10,
-      margin: 5,
-      marginTop: 15,
-    },
-    cardContainer: {
-      flexDirection: 'row',
-      margin: 5,
-      justifyContent: 'center',
-    },
-    receita: {
-      backgroundColor: '#7FFFD4',
-      width: '50%',
-      borderRadius: 10,
-    },
-    despesa: {
-      backgroundColor: '#FFB6C1',
-      width: '50%',
-      borderRadius: 10,
-    },
-    verExtratoText: {
-      color: 'white',
-      fontSize: 12,
-      marginRight: 10,
-    },
-    evolucao: {
-      fontSize: 15,
-      padding: 20,
-      fontWeight: '700',
-      color: 'darkblue',
-      justifyContent: 'center',
-    },
-    footer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: 'lightgray',
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-    },
-    navItem: {
-      flex: 1,
-      alignItems: 'center',
-      padding: 3,
-    },
-    navItemContent: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: 10,
-    },
-    navItemText: {
-      marginTop: 1,
-    },
-    bellIcon: {
-      position: 'absolute',
-      left: 195,
-      marginLeft: 40,
-    },  
-    formContainer: {
-      padding: 16,
-    },
-    input: {
-      marginBottom: 16,
-    },
-    checkboxContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 16,
-    },
-    submitButton: {
-      marginTop: 16,
-    },
-  });
+  container: {
+    flex: 1,
+  },
+  titlePage: {
+    marginTop: 20,
+    marginLeft: 10,
+    marginBottom: 1,
+    fontSize: 20,
+    color: "darkblue",
+    fontWeight: "bold",
+  },
+  pickerContainer: {
+    margin: 10,
+  },
+  picker: {
+    backgroundColor: "white",
+    borderRadius: 50,
+    margin: 10,
+    borderWidth: 1,
+    color: "black",
+    fontSize: 5,
+  },
+  formContainer: {
+    padding: 1,
+    marginTop: 1,
+  },
+  input: {
+    marginBottom: 10,
+    margin: 0,
+    backgroundColor: "white",
+  },
+  submitButton: {
+    marginTop: 1,
+  },
+  columnsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  column: {
+    flex: 1,
+    marginHorizontal: 5,
+    marginTop: 10,
+  },
+  label: {
+    marginTop: 2,
+    marginBottom: 5,
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: "darkblue"
+  },
+  radioContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 20,
+    paddingBottom: 5,
+  },
+});
 
 export default Lancamento;

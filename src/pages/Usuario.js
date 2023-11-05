@@ -1,28 +1,17 @@
 import * as React from "react";
-import { Appbar, Avatar, Card } from "react-native-paper";
+import { Divider, Card } from "react-native-paper";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { BarChart } from "react-native-chart-kit";
 import { useNavigation } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { BarChart } from "react-native-chart-kit";
+import FooterNavigation from "../components/footer";
+import Header from "../components/Header";
 
 const Usuario = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Appbar.Header style={styles.appbar}>
-        <Image
-          source={require("../assets/SmartWallet.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      <View style={styles.header}>
-        <Text style={styles.userName}>Olá Usuário</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
-      </View>
-    </Appbar.Header>
+      <Header navigation={navigation} />
 
       <Card.Title
         title="Saldo"
@@ -77,57 +66,14 @@ const Usuario = () => {
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
 
-      <BarChart
-  data={{
-    labels: [
-      "Jan",
-      "Fev",
-      "Mar",
-      "Abr",
-      "Mai",
-      "Jun",
-      "Jul",
-      "Ago",
-      "Set",
-      "Out",
-      "Nov",
-      "Dez",
-    ],
-    datasets: [
-      {
-        data: [50, 45, 60, 70, 55, 80],
-      },
-    ],
-  }}
-  width={390}
-  height={200}
-  fromZero={true}
-  chartConfig={{
-    backgroundGradientFrom: "white",
-    backgroundGradientTo: "white",
-    color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
-    labelColor: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
-    barPercentage: 0.5,
-    propsForLabels: {
-      fontSize: 12,
-    },
-    showValuesOnTopOfBars: true, // Exibe os valores no topo das barras
-  }}
-  style={{ marginVertical: 8 }}
-  yAxisSuffix=""
-/>
+      <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20}} />
 
+      <View>
 
-      <Card.Title
-        title="Próximos Eventos"
-        style={{ backgroundColor: "white" }}
-        titleStyle={{ color: "darkblue", fontSize: 10 }}
-        right={(props) => (
-          <View>
-            <Text></Text>
-          </View>
-        )}
-      />
+      </View>
+
+      <Text style={styles.evolucao}>Próximos Eventos</Text>
+      <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20}} />
 
       <Card.Title
         title="Energia Elétrica"
@@ -138,32 +84,7 @@ const Usuario = () => {
         right={(props) => <View></View>}
       />
 
-      {/* Barra de navegação no rodapé com posicionamento absoluto */}
-      <View style={styles.footer}>
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-            <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>              
-      <Text style={styles.navItemText}><Icon name="file" size={20} color='darkblue' justifyContent='center'/>  Extrato</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-            <TouchableOpacity onPress={() => navigation.navigate("Lancamento")}>
-            <Text style={styles.navItemText}><Icon name="plus-square" size={20} color='darkblue' />  Lançamento</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.navItem}>
-          <View style={styles.navItemContent}>
-            <TouchableOpacity onPress={() => navigation.navigate("Relatorio")}>
-            <Text style={styles.navItemText}><Icon name="pie-chart" size={20} color='darkblue' justifyContent='center'/>  Relatório</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <FooterNavigation navigation={navigation} />
     </View>
   );
 };
@@ -172,33 +93,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  appbar: {
-    backgroundColor: "whitesmoke",
-    marginTop: 35,
-    marginBottom: 20,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    marginTop: 30,
-    marginLeft: 20,
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    marginTop: 20,
-  },
-  userName: {
-    marginLeft: 1,
-  },
   card: {
-    backgroundColor: "darkblue",
+    backgroundColor: "#000080",
     color: "white",
     alignContent: "center",
     borderRadius: 17,
     margin: 5,
     marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10,
   },
   cardContainer: {
     flexDirection: "row",
@@ -206,14 +109,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   receita: {
-    backgroundColor: "#7FFFD4",
+    backgroundColor: "#F0FFF0",
     width: "50%",
     borderRadius: 17,
+    marginLeft: 20,
   },
   despesa: {
-    backgroundColor: "#FFB6C1",
+    backgroundColor: "#FFC0CB",
     width: "50%",
     borderRadius: 17,
+    marginRight: 30,
   },
   verExtratoText: {
     color: "white",
@@ -225,34 +130,7 @@ const styles = StyleSheet.create({
     padding: 20,
     fontWeight: "700",
     color: "darkblue",
-    justifyContent: "center",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "lightgray",
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-  },
-  navItem: {
-    flex: 1,
-    alignItems: "center",
-    padding: 3,
-  },
-  navItemContent: {
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 10,
-  },
-  navItemText: {
-    marginTop: 1,
-  },
-  bellIcon: {
-    position: 'absolute',
-    left: 250,
-    marginLeft: 40,
+    textAlign: "left",
   },
 });
 

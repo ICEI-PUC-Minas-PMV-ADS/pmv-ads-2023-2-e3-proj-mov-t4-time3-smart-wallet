@@ -1,74 +1,96 @@
-import * as React from 'react';
-import { Appbar, Card, Title } from 'react-native-paper';
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Card, Divider } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
+import FooterNavigation from '../components/footer';
+import HeaderPages from '../components/headerPages';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Extrato = () => {
-    const navigation=useNavigation();
-  
+  const navigation = useNavigation();
+  const [data, setData] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
+  useEffect(() => {
+    const jsonFileUrl = 'https://smartwallet.loca.lt/extrato';
+
+    fetch(jsonFileUrl)
+  .then((response) => response.text())
+  .then((text) => {
+    console.log('Response:', text); // Exibe a resposta no console para depuração
+    return JSON.parse(text);
+  })
+  .then((jsonData) => setData(jsonData))
+  .catch((error) => console.error('Error reading JSON:', error));
+
+  }, []);
+
   return(
 
   <View style={styles.container}>
-      <Appbar.Header style={styles.appbar}>
-        <Appbar.BackAction onPress={() => navigation.goBack()} />
-        <Image
-          source={require('../assets/SmartWallet.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <View style={styles.header}>
-          <Text style={styles.userName}>Olá Usuário</Text>
+      <HeaderPages navigation={navigation} />
+      <View>
+
+      <View>
+          <Text style={styles.titlePage}>
+            Extrato
+          </Text>
         </View>
-      </Appbar.Header>
 
-    <Card.Title
-     title="Próximos Eventos"
-      style={{backgroundColor: 'white'}}
-      titleStyle={{ color: 'darkblue', fontSize: 10}}
-      right={(props) => (
-        <View>
-          <Text>XPTO</Text>
-        </View>
-      )}
-    />
 
-    <View style={styles.footer}>
-
-    <View style={styles.navItem}>
-  <View style={styles.navItemContent}>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Extrato')}
-    >
-      <View style={styles.navItemIconContainer}>
-      </View>
-      <Text style={styles.navItemText}><Icon name="file" size={20} color='darkblue' justifyContent='center'/>  Extrato</Text>
-    </TouchableOpacity>
-  </View>
+        <View style={styles.searchContainer}>
+  <TextInput
+    style={styles.searchInput}
+    placeholder="Pesquisar..."
+    value={searchText}
+    onChangeText={(text) => setSearchText(text)}
+  />
 </View>
 
-    <View style={styles.navItem}>
-      <View style={styles.navItemContent}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Lancamento')}
-      >
-      <Text style={styles.navItemText}><Icon name="plus-square" size={20} color='darkblue' justifyContent='center'/>  Lançamento</Text>
-      </TouchableOpacity>
-      </View>
-    </View>
+<ScrollView>
+  {/* Renderize os itens do seu extrato filtrando com base no valor da pesquisa */}
+  {data
+    .filter((item) => {
+      return (
+        item.classificacao.toLowerCase().includes(searchText.toLowerCase()) ||
+        (item.valor || '').toString().includes(searchText) ||
+        item.recorrente.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchText.toLowerCase()) ||
+        (item.descricao || '').toLowerCase().includes(searchText.toLowerCase())
+      );
+    })
+    .map((item) => (
+      // Renderize os itens filtrados aqui
+    ))}
+</ScrollView>
+    
+<ScrollView>
+{data.map((item) => (
+  <Card key={item.id} style={styles.card}>
+    <Text style={{ fontWeight: 'bold', color: 'darkblue' }}>Data de Vencimento: {item.dataVencimento || 'N/A'}</Text>
+    <Divider style={{ borderColor: 'gray', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginRight: 15 }} />
 
-    <View style={styles.navItem}>
-      <View style={styles.navItemContent}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Relatorio')}
-      >
-      <Text style={styles.navItemText}><Icon name="pie-chart" size={20} color='darkblue' justifyContent='center'/>  Relatório</Text>
+    <Text>▪️ Classificação: {item.classificacao}</Text>
+    <Text>▪️ Valor: {item.valor || 'N/A'}</Text>
+    <Text>▪️ Recorrente: {item.recorrente}</Text>
+    <Text>▪️ Status: {item.status}</Text>
+    <Text>▪️ Descrição: {item.descricao || 'N/A'}</Text>
+    <View style={styles.buttonContainer}>
+
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditLancamento', { lancamento: item })}>
+        <Icon name="edit" size={20} color="darkblue" />
       </TouchableOpacity>
-      </View>
-    </View>
+      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item.id)}>
+        <Icon name="delete" size={20} color="darkblue" />
+      </TouchableOpacity>
 
     </View>
+  </Card>
+))}
+    </ScrollView>
+  </View>
+
+      <FooterNavigation navigation={navigation} />
   </View>
 );
 };
@@ -76,83 +98,61 @@ const Extrato = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-    },
-    appbar: {
-      backgroundColor: 'whitesmoke',
-      marginTop: 35,
-      marginBottom: 20,
-    },
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginTop: 30,
-      marginLeft: 20,
-    },
-    logo: {
-      width: 50,
-      height: 50,
-      marginTop: 20,
-    },
-    userName: {
-      marginLeft: 1,
+      backgroundColor: "whitesmoke"
     },
     card: {
-      backgroundColor: 'darkblue',
-      color: 'white',
+      backgroundColor: 'white',
       alignContent: 'center',
       borderRadius: 10,
       margin: 5,
       marginTop: 15,
+      marginLeft: 20,
+      marginRight: 20,
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingLeft: 15,
     },
     cardContainer: {
       flexDirection: 'row',
       margin: 5,
       justifyContent: 'center',
+      marginBottom: 15,
     },
-    receita: {
-      backgroundColor: '#7FFFD4',
-      width: '50%',
-      borderRadius: 10,
+    titlePage: {
+      marginTop: 20,
+      marginLeft: 10,
+      marginBottom: 1,
+      fontSize: 20,
+      color: "darkblue",
+      fontWeight: "bold",
     },
-    despesa: {
-      backgroundColor: '#FFB6C1',
-      width: '50%',
-      borderRadius: 10,
-    },
-    verExtratoText: {
-      color: 'white',
-      fontSize: 12,
-      marginRight: 10,
-    },
-    evolucao: {
-      fontSize: 15,
-      padding: 20,
-      fontWeight: '700',
-      color: 'darkblue',
-      justifyContent: 'center',
-    },
-    footer: {
+    buttonContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: 'lightgray',
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
+      justifyContent: 'space-between',
     },
-    navItem: {
+    editButton: {
+      backgroundColor: 'white',
+      marginLeft: 290,
+      marginRight: 10,
+      borderRadius: 10,
+    },
+    deleteButton: {
+      backgroundColor: 'white',
+      marginRight: 45,
+      borderRadius: 10,
+    },
+    searchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      margin: 10,
+      padding: 5,
+      backgroundColor: 'white',
+      borderRadius: 5,
+    },
+    searchInput: {
       flex: 1,
-      alignItems: 'center',
-      padding: 3,
-    },
-    navItemContent: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: 10,
-    },
-    navItemText: {
-      marginTop: 1,
+      paddingLeft: 10,
     },
   });
 
