@@ -1,61 +1,96 @@
-import React, { useState } from "react";
-import {View, Text, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView,} from "react-native";
-import {Divider, TextInput, Button } from "react-native-paper";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, } from "react-native";
+import { Divider, TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { RadioButton } from "react-native-paper";
-import { lancar } from "../services/lancamento.services.js";
+import { postLancamento, putLancamento } from "../services/lancamento.services.js";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import FooterNavigation from '../components/footer';
-import HeaderPages from '../components/headerPages'; 
+import HeaderPages from '../components/headerPages';
 
-const Lancamento = () => {
+const Lancamento = ({ route }) => {
+
   const navigation = useNavigation();
+
+  const { item } = route.params ? route.params : {};
+
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const [tipo, setTipo] = useState("");
   const [classificacao, setClassificacao] = useState("");
   const [valor, setValor] = useState("");
-  const [dataVencimento, setDatavencimento] = useState(new Date());
+  // const [dataVencimento, setDatavencimento] = useState(new Date());
+  const [dataVencimento, setDatavencimento] = useState(moment(new Date()).format('DD/MM/YYYY'));
   const [recorrente, setRecorrente] = useState("");
   const [status, setStatus] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [show, setShow] = useState(false);
-  const [date, setDate] = useState(new Date());
 
-  const resetState = () => {
-    setTipo("");
-    setClassificacao("");
-    setValor("");
-    setDatavencimento("");
-    setRecorrente("");
-    setStatus("");
-    setDescricao("");
-  };
-  
+  useEffect(() => {
+    if (item) {
+      setTipo(item.tipo)
+      setClassificacao(item.classificacao)
+      setValor(item.valor)
+      setDatavencimento(item.dataVencimento)
+      setRecorrente(item.recorrente)
+      setStatus(item.status)
+      setDescricao(item.descricao)
+    }
+  }, [item]);
+
   const handleSave = async () => {
-    const formattedDataVencimento = moment(dataVencimento).format("DD / MM / YYYY");
-    lancar({
-      tipo: tipo,
-      classificacao: classificacao,
-      valor: valor,
-      dataVencimento: formattedDataVencimento,
-      recorrente: recorrente,
-      status: status,
-      descricao: descricao,
-    }).then((res) => {
-      resetState();
-      navigation.navigate("Extrato");
-    });
+    // const formattedDataVencimento = moment(dataVencimento).format("DD / MM / YYYY");
+    if (item) {
+      putLancamento({
+        tipo: tipo,
+        classificacao: classificacao,
+        valor: valor,
+        // dataVencimento: formattedDataVencimento,
+        dataVencimento: dataVencimento,
+        recorrente: recorrente,
+        status: status,
+        descricao: descricao,
+        id: item.id
+      }).then((res) => {
+        navigation.goBack();
+      });
+    } else {
+      postLancamento({
+        tipo: tipo,
+        classificacao: classificacao,
+        valor: valor,
+        // dataVencimento: formattedDataVencimento,
+        dataVencimento: dataVencimento,
+        recorrente: recorrente,
+        status: status,
+        descricao: descricao
+      }).then((res) => {
+        // resetState();
+        // navigation.navigate("Extrato");
+        navigation.navigate('Extrato');
+      });
+    }
   };
-  
+
+  // const resetState = () => {
+  //   setTipo("");
+  //   setClassificacao("");
+  //   setValor("");
+  //   setDatavencimento("");
+  //   setRecorrente("");
+  //   setStatus("");
+  //   setDescricao("");
+  // };
+
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
     >
       <View style={styles.container}>
-      <HeaderPages navigation={navigation} />
+        <HeaderPages navigation={navigation} />
 
         <View>
           <Text style={styles.titlePage}>
@@ -65,10 +100,10 @@ const Lancamento = () => {
 
         <View style={styles.formContainer}>
           <View style={styles.pickerContainer}>
-           
-           
+
+
             <Text style={styles.label}>Tipo</Text>
-            <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5}} />
+            <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5 }} />
             <Picker
               style={styles.picker}
               selectedValue={tipo}
@@ -80,7 +115,7 @@ const Lancamento = () => {
             </Picker>
 
             <Text style={styles.label}>Classificação</Text>
-            <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5}} />
+            <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5 }} />
             <Picker
               style={styles.picker}
               selectedValue={classificacao}
@@ -110,111 +145,111 @@ const Lancamento = () => {
             </Picker>
 
 
-          <View style={styles.formContainer}>
-            {show && (
-              <DateTimePicker
-                style={styles.dateTimePicker}
-                testID="dateTimePicker"
-                value={date}
-                mode={"date"}
-                is24Hour={true}
-                display="default"
-                onTouchCancel={() => setShow(false)}
-                onChange={(event, date) => {
-                  setShow(false);
-                  setDatavencimento(moment(date, "DD/MM/YYYY").toDate());
-                }}
-              />
-            )}
+            <View style={styles.formContainer}>
+              {show && (
+                <DateTimePicker
+                  style={styles.dateTimePicker}
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={"date"}
+                  is24Hour={true}
+                  display="default"
+                  onTouchCancel={() => setShow(false)}
+                  onChange={(event, date) => {
+                    setShow(false);
+                    setDatavencimento(moment(date).format('DD/MM/YYYY'));
+                  }}
+                />
+              )}
 
-            <View style={styles.columnsContainer}>
-              <View style={styles.column}>
-                <Text style={styles.label}>Valor</Text>
-                <TextInput
-                  mode="outlined"
-                  keyboardType="numeric"
-                  style={{ fontSize: 14, color: "darkblue", height: 40 }}
-                  value={valor}
-                  onChangeText={(itemValue) => {
-                    const numericValue = itemValue.replace(/[^0-9]/g, '');
-                    const formattedValue = numericValue
-                      ? `R$ ${parseFloat(numericValue / 100).toLocaleString('pt-BR', {
+              <View style={styles.columnsContainer}>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Valor</Text>
+                  <TextInput
+                    mode="outlined"
+                    keyboardType="numeric"
+                    style={{ fontSize: 14, color: "darkblue", height: 40 }}
+                    value={valor}
+                    onChangeText={(itemValue) => {
+                      const numericValue = itemValue.replace(/[^0-9]/g, '');
+                      const formattedValue = numericValue
+                        ? `R$ ${parseFloat(numericValue / 100).toLocaleString('pt-BR', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}`
-                      : '';
-                
-                    setValor(formattedValue);
-                  }}
-                  placeholder="R$ 0,00"
-                />
-              </View>
+                        : '';
 
-              <View style={styles.column}>
-                <Text style={styles.label}>Vencimento</Text>
-                <TouchableOpacity onPress={() => setShow(true)}>
-                  <TextInput
-                    style={{ fontSize: 14, color: "darkblue", height: 50 }}
-                    value={moment(dataVencimento).format("DD/MM/YYYY")}
-                    left={<TextInput.Icon name="calendar" />}
-                    editable={false}
+                      setValor(formattedValue);
+                    }}
+                    placeholder="R$ 0,00"
                   />
-                </TouchableOpacity>
+                </View>
+
+                <View style={styles.column}>
+                  <Text style={styles.label}>Vencimento</Text>
+                  <TouchableOpacity onPress={() => setShow(true)}>
+                    <TextInput
+                      style={{ fontSize: 14, color: "darkblue", height: 50 }}
+                      value={dataVencimento}
+                      left={<TextInput.Icon name="calendar" />}
+                      editable={false}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
 
-          <View style={styles.formContainer}>
-            <View style={styles.columnsContainer}>
-              <View style={styles.column}>
-                <Text style={styles.label}>Recorrente?</Text>
-                <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5}} />
-                <RadioButton.Group
-                  onValueChange={(value) => setRecorrente(value)}
-                  value={recorrente}
-                >
-                  <View style={styles.radioContainer}>
-                    <Text>Sim</Text>
-                    <RadioButton value="Sim" />
-                  </View>
-                  <View style={styles.radioContainer}>
-                    <Text>Não</Text>
-                    <RadioButton value="Não" />
-                  </View>
-                </RadioButton.Group>
-              </View>
+            <View style={styles.formContainer}>
+              <View style={styles.columnsContainer}>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Recorrente?</Text>
+                  <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5 }} />
+                  <RadioButton.Group
+                    onValueChange={(value) => setRecorrente(value)}
+                    value={recorrente}
+                  >
+                    <View style={styles.radioContainer}>
+                      <Text>Sim</Text>
+                      <RadioButton value="Sim" />
+                    </View>
+                    <View style={styles.radioContainer}>
+                      <Text>Não</Text>
+                      <RadioButton value="Não" />
+                    </View>
+                  </RadioButton.Group>
+                </View>
 
-              <View style={styles.column}>
-                <Text style={styles.label}>Status</Text>
-                <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5}} />
-                <RadioButton.Group
-                  onValueChange={(value) => setStatus(value)}
-                  value={status}
-                >
-                  <View style={styles.radioContainer}>
-                    <Text>Pendente</Text>
-                    <RadioButton value="Pendente" />
-                  </View>
-                  <View style={styles.radioContainer}>
-                    <Text>Efetivado</Text>
-                    <RadioButton value="Efetivado" />
-                  </View>
-                </RadioButton.Group>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Status</Text>
+                  <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginBottom: 5, marginLeft: 5, marginRight: 5 }} />
+                  <RadioButton.Group
+                    onValueChange={(value) => setStatus(value)}
+                    value={status}
+                  >
+                    <View style={styles.radioContainer}>
+                      <Text>Pendente</Text>
+                      <RadioButton value="Pendente" />
+                    </View>
+                    <View style={styles.radioContainer}>
+                      <Text>Efetivado</Text>
+                      <RadioButton value="Efetivado" />
+                    </View>
+                  </RadioButton.Group>
+                </View>
               </View>
+              <Text style={styles.label}>Descrição</Text>
+
+              <TextInput
+                mode="outlined"
+                style={{ marginLeft: 10, marginRight: 10, marginBottom: 5, fontSize: 14, color: "darkblue", height: 40, }}
+                value={descricao}
+                onChangeText={(itemValue) => setDescricao(itemValue)}
+              />
             </View>
-            <Text style={styles.label}>Descrição</Text>
-            
-            <TextInput
-              mode="outlined"
-              style={{marginLeft: 10, marginRight: 10, marginBottom: 5, fontSize: 14, color: "darkblue", height: 40,}}
-              value={descricao}
-              onChangeText={(itemValue) => setDescricao(itemValue)}
-            />
           </View>
-        </View>
         </View>
         <View style={styles.column}>
-          <Button style={{marginLeft: 15, marginRight: 15}}
+          <Button style={{ marginLeft: 15, marginRight: 15 }}
             title="Cadastrar"
             onPress={handleSave}
             color="#010D8C"
