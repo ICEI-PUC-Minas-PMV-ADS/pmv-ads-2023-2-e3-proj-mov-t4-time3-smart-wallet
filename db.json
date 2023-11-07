@@ -1,28 +1,5 @@
 {
-  "users": [
-    {
-      "email": "leo@gmail.com",
-      "password": "$2a$10$qZEaxW2WYw4cf9fc1y45eup0e.XVk2q2gfHXchHgO/3CBg3wDsZqS",
-      "name": "leonardobuck",
-      "id": 1
-    }
-  ],
-  "lancamentos": [
-    {
-      "tipo": "Receita",
-      "classificacao": "Salário",
-      "valor": "R$ 1.500,00",
-      "dataVencimento": "06/11/2023",
-      "recorrente": "Sim",
-      "status": "Efetivado",
-      "descricao": "A puta que pariu",
-      "id": 1
-    }
-  ],
-  "chat": [
-    {
-      "id": 1,
-      "mensagem": "Pau no seu, amigo."
-    }
-  ]
+  "users": [],
+  "lancamentos": [],
+  "chat": []
 }

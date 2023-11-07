@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { RadioButton } from "react-native-paper";
 import { postLancamento, putLancamento } from "../services/lancamento.services.js";
+import { useUser } from '../context/UserContext.js';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import FooterNavigation from '../components/footer';
@@ -15,6 +16,8 @@ const Lancamento = ({ route }) => {
   const navigation = useNavigation();
 
   const { item } = route.params ? route.params : {};
+
+  const { emails } = useUser();
 
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -52,6 +55,7 @@ const Lancamento = ({ route }) => {
         recorrente: recorrente,
         status: status,
         descricao: descricao,
+        email: emails,
         id: item.id
       }).then((res) => {
         navigation.goBack();
@@ -65,7 +69,8 @@ const Lancamento = ({ route }) => {
         dataVencimento: dataVencimento,
         recorrente: recorrente,
         status: status,
-        descricao: descricao
+        descricao: descricao,
+        email: emails
       }).then((res) => {
         // resetState();
         // navigation.navigate("Extrato");

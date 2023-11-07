@@ -5,15 +5,20 @@ import { useNavigation } from '@react-navigation/native';
 import FooterNavigation from '../components/footer';
 import HeaderPages from '../components/headerPages';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { useIsFocused } from '@react-navigation/native';
+
+import { useUser } from '../context/UserContext.js';
 
 import { getLancamentos, deleteLancamento } from '../services/lancamento.services'
 
-const Extrato = ({ route }) => {
+const Extrato = () => {
 
   const navigation = useNavigation();
 
   const isFocused = useIsFocused();
+
+  const { emails } = useUser();
   
   // const [data, setData] = useState([])
   const [searchText, setSearchText] = useState('');
@@ -36,12 +41,15 @@ const Extrato = ({ route }) => {
 
   useEffect(() => {
     getLancamentos().then(dados => {
-      setLancamentos(dados);
+      const lancamentos = dados.filter(user => user.email === emails);
+      setLancamentos(lancamentos);
     });
   }, [isFocused]);
 
   const handleDelete = (item) => {
     deleteLancamento(item.id).then(res => {
+      const updatedLancamentos = lancamentos.filter((l) => l.id !== item.id);
+      setLancamentos(updatedLancamentos)
       navigation.navigate('Extrato');
     });
   }
