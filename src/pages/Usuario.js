@@ -1,17 +1,52 @@
-import * as React from "react";
+import React, { useEffect, useState} from "react";
 import { Divider, Card } from "react-native-paper";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BarChart } from "react-native-chart-kit";
+import { useUser } from '../context/UserContext.js';
+import { getLancamentos } from '../services/lancamento.services';
 import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 
 const Usuario = () => {
+
   const navigation = useNavigation();
+
+  const { emails } = useUser();
+
+  const [saldoTotal, setSaldoTotal] = useState(0)
+
+  useEffect(() => {
+    getLancamentos().then(dados => {
+      const lancamentos = dados.filter(user => user.email === emails);
+      const receitas = lancamentos.filter(i => i.tipo == "Receita");
+
+      let saldoParaSoma = 0
+      for (let i = 0; i < receitas.length; i++) {
+        const element = receitas[i].valor;
+        // Troca o ponto e virgula para o javascript somar direito
+        const elementSwitched = element.replace(/^R\$\s*/, '');
+        const elementReplaced = elementSwitched.replace(/\./g, '').replace(',', '.');
+        // Retira o formato "R$ " e transforma em float.
+        const elementWithoutCurrencyFormat = elementReplaced.replace(/^R\$\s*/, '');
+        const flotElement = parseFloat(elementWithoutCurrencyFormat);
+        // Soma tudo
+        saldoParaSoma += flotElement
+      }
+      // Transforma o saldo em moeda brasileira  
+      const saldo = saldoParaSoma.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+      setSaldoTotal(saldo)
+    });
+  });
 
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
+
+      <Text>SEU SALDO: {saldoTotal}</Text>
 
       <Card.Title
         title="Saldo"

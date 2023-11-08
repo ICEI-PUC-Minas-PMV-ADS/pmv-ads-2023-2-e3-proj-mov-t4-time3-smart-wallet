@@ -10,7 +10,7 @@ import { useIsFocused } from '@react-navigation/native';
 
 import { useUser } from '../context/UserContext.js';
 
-import { getLancamentos, deleteLancamento } from '../services/lancamento.services'
+import { getLancamentos, deleteLancamento } from '../services/lancamento.services';
 
 const Extrato = () => {
 
