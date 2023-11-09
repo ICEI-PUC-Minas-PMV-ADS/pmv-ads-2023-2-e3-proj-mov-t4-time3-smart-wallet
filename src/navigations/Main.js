@@ -5,7 +5,7 @@ import Usuario from '../pages/Usuario';
 import Lancamento from '../pages/Lancamento';
 import Relatorio from '../pages/Relatorio';
 import Extrato from '../pages/Extrato';
-
+import Chat from '../pages/Chat';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +32,12 @@ const Main = () => (
     <Stack.Screen
       name="Extrato"
       component={Extrato}
+      options={{
+        header: () => null
+      }} />
+    <Stack.Screen
+      name="Chat"
+      component={Chat}
       options={{
         header: () => null
       }} />

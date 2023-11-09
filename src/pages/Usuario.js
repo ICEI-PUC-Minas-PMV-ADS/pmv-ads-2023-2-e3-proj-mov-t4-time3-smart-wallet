@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BarChart } from "react-native-chart-kit";
 import { useIsFocused } from '@react-navigation/native';
@@ -8,6 +8,8 @@ import { useUser } from '../context/UserContext.js';
 import { getLancamentos } from '../services/lancamento.services';
 import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Usuario = () => {
 
@@ -58,29 +60,28 @@ const Usuario = () => {
   const calculateTotalAmount = (lancamentos, tipo) => {
     let total = 0;
     const filteredLancamentos = lancamentos.filter((item) => item.tipo === tipo);
-    
+
     for (let i = 0; i < filteredLancamentos.length; i++) {
       const element = filteredLancamentos[i].valor;
       const formattedValue = formatCurrency(element);
       total += formattedValue;
     }
-  
+
     return total;
   };
-  
+
 
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
 
-      {/* Display dos atributos */}
-      <Text>SEU SALDO: {saldoTotal}</Text>
-      <Text>SUA RECEITA: {receita}</Text>
-      <Text>SUA DESPESA: {despesa}</Text>
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('Chat')}>
+        <Text>CHAT CHAT CHAT</Text>
+      </TouchableOpacity>
 
       <Card.Title
         title="Saldo"
-        subtitle="R$ 3.000,00"
+        subtitle={saldoTotal}
         style={styles.card}
         titleStyle={{ color: "white", fontSize: 12, paddingTop: 10 }}
         subtitleStyle={{
@@ -102,7 +103,7 @@ const Usuario = () => {
         <Card style={styles.receita}>
           <Card.Title
             title="Receitas"
-            subtitle="R$ 23.000,00"
+            subtitle={receita}
             titleStyle={{
               color: "darkgreen",
               fontSize: 12,
@@ -118,7 +119,7 @@ const Usuario = () => {
         <Card style={styles.despesa}>
           <Card.Title
             title="Despesas"
-            subtitle="R$ 20.000,00"
+            subtitle={despesa}
             titleStyle={{ color: "darkred", fontSize: 12, fontWeight: "bold" }}
             subtitleStyle={{
               color: "darkred",
