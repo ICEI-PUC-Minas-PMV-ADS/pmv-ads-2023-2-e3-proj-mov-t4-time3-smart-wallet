@@ -1,8 +1,9 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BarChart } from "react-native-chart-kit";
+import { useIsFocused } from '@react-navigation/native';
 import { useUser } from '../context/UserContext.js';
 import { getLancamentos } from '../services/lancamento.services';
 import FooterNavigation from "../components/footer";
@@ -12,41 +13,70 @@ const Usuario = () => {
 
   const navigation = useNavigation();
 
+  const isFocused = useIsFocused();
+
   const { emails } = useUser();
 
   const [saldoTotal, setSaldoTotal] = useState(0)
+  const [receita, setReceita] = useState(0)
+  const [despesa, setDespesa] = useState(0)
 
   useEffect(() => {
     getLancamentos().then(dados => {
       const lancamentos = dados.filter(user => user.email === emails);
-      const receitas = lancamentos.filter(i => i.tipo == "Receita");
 
-      let saldoParaSoma = 0
-      for (let i = 0; i < receitas.length; i++) {
-        const element = receitas[i].valor;
-        // Troca o ponto e virgula para o javascript somar direito
-        const elementSwitched = element.replace(/^R\$\s*/, '');
-        const elementReplaced = elementSwitched.replace(/\./g, '').replace(',', '.');
-        // Retira o formato "R$ " e transforma em float.
-        const elementWithoutCurrencyFormat = elementReplaced.replace(/^R\$\s*/, '');
-        const flotElement = parseFloat(elementWithoutCurrencyFormat);
-        // Soma tudo
-        saldoParaSoma += flotElement
-      }
-      // Transforma o saldo em moeda brasileira  
-      const saldo = saldoParaSoma.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
-      setSaldoTotal(saldo)
+      const saldoParaReceita = calculateTotalAmount(lancamentos, 'Receita');
+      const receita = setCurrencyFormat(saldoParaReceita);
+      setReceita(receita);
+
+      const saldoParaDespesa = calculateTotalAmount(lancamentos, 'Despesa');
+      const despesa = setCurrencyFormat(saldoParaDespesa);
+      setDespesa(despesa);
+
+      const somaSaldo = saldoParaReceita - saldoParaDespesa;
+      const saldo = setCurrencyFormat(somaSaldo);
+      setSaldoTotal(saldo);
+
     });
-  });
+
+  }, [isFocused]);
+
+  // Transforma a moeda para realizar os calculos
+  const formatCurrency = (value) => {
+    const replaced = value.replace(/^R\$\s*/, '').replace(/\./g, '').replace(',', '.').replace(/^R\$\s*/, '');
+    return parseFloat(replaced);
+  };
+
+  // Transforma em moeda brasileira 
+  const setCurrencyFormat = (value) => {
+    return value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+  };
+
+  const calculateTotalAmount = (lancamentos, tipo) => {
+    let total = 0;
+    const filteredLancamentos = lancamentos.filter((item) => item.tipo === tipo);
+    
+    for (let i = 0; i < filteredLancamentos.length; i++) {
+      const element = filteredLancamentos[i].valor;
+      const formattedValue = formatCurrency(element);
+      total += formattedValue;
+    }
+  
+    return total;
+  };
+  
 
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
 
+      {/* Display dos atributos */}
       <Text>SEU SALDO: {saldoTotal}</Text>
+      <Text>SUA RECEITA: {receita}</Text>
+      <Text>SUA DESPESA: {despesa}</Text>
 
       <Card.Title
         title="Saldo"
@@ -101,14 +131,14 @@ const Usuario = () => {
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
 
-      <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20}} />
+      <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20 }} />
 
       <View>
 
       </View>
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <Divider style={{borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20}} />
+      <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20 }} />
 
       <Card.Title
         title="Energia Elétrica"
