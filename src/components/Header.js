@@ -1,22 +1,9 @@
-/*import React from 'react';
-import { Header as RNHeader, StyleSheet } from 'react-native';
-
-const Header = (props) => {
-  return (
-      <RNHeader 
-        style={styles.Header}
-        {...props}      
-      />)
-    ;
-};
-
-export default Header;*/
-
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { Badge } from 'react-native-paper';
 
 const Header = ({ navigation }) => {
   return (
@@ -28,9 +15,6 @@ const Header = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Text style={styles.userName}>Olá Usuário</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
       </View>
     </Appbar.Header>
   );
@@ -62,6 +46,9 @@ const styles = {
     position: 'absolute',
     left: 195,
     marginLeft: 50,
+  },
+  badge: {
+  marginLeft: 15,
   },
 };
 

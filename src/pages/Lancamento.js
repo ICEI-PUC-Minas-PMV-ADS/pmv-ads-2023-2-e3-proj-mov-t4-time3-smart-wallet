@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {View, Text, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView,} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, ScrollView} from "react-native";
 import {Divider, TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
@@ -51,12 +51,9 @@ const Lancamento = () => {
   
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-    >
-      <View style={styles.container}>
-      <HeaderPages navigation={navigation} />
-
+    <KeyboardAvoidingView style={styles.container}>
+            <HeaderPages navigation={navigation} />
+      <ScrollView>
         <View>
           <Text style={styles.titlePage}>
             Adicionar Lançamento
@@ -202,8 +199,8 @@ const Lancamento = () => {
                 </RadioButton.Group>
               </View>
             </View>
-            <Text style={styles.label}>Descrição</Text>
-            
+
+            <Text style={styles.label}>Descrição</Text>          
             <TextInput
               mode="outlined"
               style={{marginLeft: 10, marginRight: 10, marginBottom: 5, fontSize: 14, color: "darkblue", height: 40,}}
@@ -214,7 +211,7 @@ const Lancamento = () => {
         </View>
         </View>
         <View style={styles.column}>
-          <Button style={{marginLeft: 15, marginRight: 15}}
+          <Button style={{ marginLeft: 15, marginRight: 15 }}
             title="Cadastrar"
             onPress={handleSave}
             color="#010D8C"
@@ -223,8 +220,8 @@ const Lancamento = () => {
             Salvar
           </Button>
         </View>
-        <FooterNavigation navigation={navigation} />
-      </View>
+      </ScrollView>
+      <FooterNavigation navigation={navigation} />
     </KeyboardAvoidingView>
   );
 };

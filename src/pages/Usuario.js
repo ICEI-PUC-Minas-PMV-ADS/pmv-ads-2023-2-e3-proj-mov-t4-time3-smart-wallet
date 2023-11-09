@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Divider, Card } from "react-native-paper";
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BarChart } from "react-native-chart-kit";
 import FooterNavigation from "../components/footer";

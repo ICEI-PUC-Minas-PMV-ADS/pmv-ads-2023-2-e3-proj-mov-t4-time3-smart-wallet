@@ -33,7 +33,7 @@ const styles = {
       position: "absolute",  
       bottom: 0,        
       width: "100%",
-      left: 0,              
+      left: 0,          
     },
       navItem: {
         flex: 1,
@@ -42,7 +42,7 @@ const styles = {
         border: 1,
         borderColor: 'white',
         backgroundColor: '#DCDCDC',
-        borderWidth: 0.5,
+        borderWidth: 1,
       },
       navItemContent: {
         flexDirection: 'column',
