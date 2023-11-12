@@ -18,7 +18,7 @@ const Extrato = () => {
 
   const isFocused = useIsFocused();
 
-  const { emails } = useUser();
+  const { userId } = useUser();
   
   // const [data, setData] = useState([])
   const [searchText, setSearchText] = useState('');
@@ -41,7 +41,7 @@ const Extrato = () => {
 
   useEffect(() => {
     getLancamentos().then(dados => {
-      const lancamentos = dados.filter(user => user.email === emails);
+      const lancamentos = dados.filter(user => user.userId === userId);
       setLancamentos(lancamentos);
     });
   }, [isFocused]);

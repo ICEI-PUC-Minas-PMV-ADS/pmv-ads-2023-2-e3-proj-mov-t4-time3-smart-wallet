@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Header = ({ navigation }) => {
   
-  const { name } = useUser();
+  const { userId, name } = useUser();
 
   return (
     <Appbar.Header style={styles.appbar}>

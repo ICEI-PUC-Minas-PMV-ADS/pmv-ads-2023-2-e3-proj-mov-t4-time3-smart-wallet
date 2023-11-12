@@ -11,7 +11,7 @@ const Chat = () => {
 
     const navigation = useNavigation();
 
-    const { name ,emails } = useUser();
+    const { name , userId } = useUser();
 
     const isFocused = useIsFocused();
 
@@ -25,7 +25,7 @@ const Chat = () => {
 
     const updateMessages = () => {
         getMessages().then(dados => {
-            const mensagens = dados.filter(user => user.email === emails);
+            const mensagens = dados.filter(user => user.userId === userId);
             setMensagem(mensagens);
         });
     };
@@ -34,7 +34,7 @@ const Chat = () => {
         postMessages({
             nome: name,
             mensagem: text,
-            email: emails
+            userId: userId
         }).then((res) => {
             updateMessages()
             setText('');

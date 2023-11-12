@@ -13,7 +13,7 @@ import { login } from '../services/auth.services.js';
 const Login = () => {
 
   const navigation = useNavigation();
-  const { setSigned, setName, setEmails } = useUser();
+  const { setSigned, setUserId, setName } = useUser();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +29,7 @@ const Login = () => {
 
         setSigned(true);
         setName(res.user.name);
-        setEmails(res.user.email);
+        setUserId(res.user.id);
 
         AsyncStorage.setItem('@TOKEN_KEY', res.accessToken).then();
 

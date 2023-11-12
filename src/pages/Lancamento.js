@@ -17,7 +17,7 @@ const Lancamento = ({ route }) => {
 
   const { item } = route.params ? route.params : {};
 
-  const { emails } = useUser();
+  const { userId } = useUser();
 
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -55,7 +55,7 @@ const Lancamento = ({ route }) => {
         recorrente: recorrente,
         status: status,
         descricao: descricao,
-        email: emails,
+        userId: userId,
         id: item.id
       }).then((res) => {
         navigation.goBack();
@@ -70,7 +70,7 @@ const Lancamento = ({ route }) => {
         recorrente: recorrente,
         status: status,
         descricao: descricao,
-        email: emails
+        userId: userId
       }).then((res) => {
         // resetState();
         // navigation.navigate("Extrato");

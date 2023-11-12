@@ -17,7 +17,7 @@ const Usuario = () => {
 
   const isFocused = useIsFocused();
 
-  const { emails } = useUser();
+  const { userId } = useUser();
 
   const [saldoTotal, setSaldoTotal] = useState(0)
   const [receita, setReceita] = useState(0)
@@ -25,7 +25,7 @@ const Usuario = () => {
 
   useEffect(() => {
     getLancamentos().then(dados => {
-      const lancamentos = dados.filter(user => user.email === emails);
+      const lancamentos = dados.filter(user => user.userId === userId);
 
       const saldoParaReceita = calculateTotalAmount(lancamentos, 'Receita');
       const receita = setCurrencyFormat(saldoParaReceita);
@@ -59,7 +59,7 @@ const Usuario = () => {
 
   const calculateTotalAmount = (lancamentos, tipo) => {
     let total = 0;
-    const filteredLancamentos = lancamentos.filter((item) => item.tipo === tipo);
+    const filteredLancamentos = lancamentos.filter((item) => item.tipo === tipo && item.status == "Efetivado");
 
     for (let i = 0; i < filteredLancamentos.length; i++) {
       const element = filteredLancamentos[i].valor;
