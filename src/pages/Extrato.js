@@ -1,42 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { Card, Divider } from "react-native-paper";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import FooterNavigation from "../components/footer";
-import HeaderPages from "../components/headerPages";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import React, { useState, useEffect } from 'react';
+import { Card, Divider } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import FooterNavigation from '../components/footer';
+import HeaderPages from '../components/headerPages';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { useIsFocused } from '@react-navigation/native';
+
+import { useUser } from '../context/UserContext.js';
+
+import { getLancamentos, deleteLancamento } from '../services/lancamento.services';
 
 const Extrato = () => {
+
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
-  const [searchText, setSearchText] = useState("");
+
+  const isFocused = useIsFocused();
+
+  const { userId } = useUser();
+  
+  // const [data, setData] = useState([])
+  const [searchText, setSearchText] = useState('');
+
+  const [lancamentos, setLancamentos] = useState([]);
+
+  // useEffect(() => {
+  //   const jsonFileUrl = 'https://smartwallet.loca.lt/extrato';
+
+  //   fetch(jsonFileUrl)
+  //     .then((response) => response.text())
+  //     .then((text) => {
+  //       console.log('Response:', text); // Exibe a resposta no console para depuração
+  //       return JSON.parse(text);
+  //     })
+  //     .then((jsonData) => setData(jsonData))
+  //     .catch((error) => console.error('Error reading JSON:', error));
+
+  // }, []);
 
   useEffect(() => {
-    const jsonFileUrl = "https://smartwallet.loca.lt/extrato";
+    getLancamentos().then(dados => {
+      const lancamentos = dados.filter(user => user.userId === userId);
+      setLancamentos(lancamentos);
+    });
+  }, [isFocused]);
 
-    fetch(jsonFileUrl)
-      .then((response) => response.text())
-      .then((text) => {
-        console.log("Response:", text);
-        return JSON.parse(text);
-      })
-      .then((jsonData) => setData(jsonData))
-      .catch((error) => console.error("Error reading JSON:", error));
-  }, []);
+  const handleDelete = (item) => {
+    deleteLancamento(item.id).then(res => {
+      const updatedLancamentos = lancamentos.filter((l) => l.id !== item.id);
+      setLancamentos(updatedLancamentos)
+      navigation.navigate('Extrato');
+    });
+  }
 
   return (
+
     <View style={styles.container}>
       <HeaderPages navigation={navigation} />
       <View>
+
         <View>
-          <Text style={styles.titlePage}>Extrato</Text>
+          <Text style={styles.titlePage}>
+            Extrato
+          </Text>
         </View>
 
         {/* Caixa de pesquisa */}
