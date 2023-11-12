@@ -11,9 +11,9 @@ Abaixo, temos a descrição dos ambientes que serão utilizados pelo projeto par
 
 | ITEM    | FERRAMENTA  | LINK    |
 |--------------------------|-------|----------|
-| Prototipagem das telas   | MIRO | https://miro.com/app/board/uXjVMqHQrjQ=/?share_link_id=707920397701 |
-| Testes de software  | ANDROID STUDIO | | 
-| Ambiente de Desenvolvimento | |
+| Prototipagem das telas   | MARVEL APP | https://marvelapp.com/prototype/f0c92id/screen/92679732 |
+| Testes de software  |  Expo Go e Visual Code | 
+| Ambiente de Desenvolvimento | Expo Go e Visual Code |
 
 ## Controle de Versão
 
@@ -23,7 +23,7 @@ O projeto segue a seguinte convenção para o nome de branches:
 
 * `main`: versão já testada do software
 * `homolog`: versão em que são realizados os testes do software
-* `dev`: versão de desenvolvimento do software
+* `dev`: versão de desenvolvimento do software de cada membro
 
 Quanto à gerência de issues, o projeto adota a seguinte convenção para
 etiquetas:

@@ -3,11 +3,11 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import { Badge } from 'react-native-paper';
 
-const Header = ({ navigation }) => {
+const headerPages = ({ navigation }) => {
   return (
     <Appbar.Header style={styles.appbar}>
+      <Appbar.BackAction onPress={() => navigation.navigate('Usuario')} />
       <Image
         source={require("../assets/SmartWallet.png")}
         style={styles.logo}
@@ -30,7 +30,6 @@ const styles = {
     width: 50,
     height: 50,
     marginTop: 20,
-    marginLeft: 20,
   },
   header: {
     flexDirection: 'row',
@@ -45,11 +44,8 @@ const styles = {
   bellIcon: {
     position: 'absolute',
     left: 195,
-    marginLeft: 50,
-  },
-  badge: {
-  marginLeft: 15,
+    marginLeft: 40,
   },
 };
 
-export default Header;
+export default headerPages;
