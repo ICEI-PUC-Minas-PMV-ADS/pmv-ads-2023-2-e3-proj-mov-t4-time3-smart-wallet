@@ -20,7 +20,6 @@ const Extrato = () => {
 
   const { userId } = useUser();
   
-  const [data, setData] = useState([])
   const [searchText, setSearchText] = useState('');
 
   const [lancamentos, setLancamentos] = useState([]);
@@ -40,18 +39,6 @@ const Extrato = () => {
   // }, []);
 
   useEffect(() => {
-
-    const jsonFileUrl = 'https://b379-2804-14d-1c7b-8658-6003-5d11-72f1-97e0.ngrok-free.app';
-
-    fetch(jsonFileUrl)
-      .then((response) => response.text())
-      .then((text) => {
-        console.log('Response:', text); // Exibe a resposta no console para depuração
-        return JSON.parse(text);
-      })
-      .then((jsonData) => setData(jsonData))
-      .catch((error) => console.error('Error reading JSON:', error));
-
     getLancamentos().then(dados => {
       const lancamentos = dados.filter(user => user.userId === userId);
       setLancamentos(lancamentos);
@@ -138,23 +125,21 @@ const Extrato = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  • Tipo: {item.status}
+                  • Status: {item.status}
                 </Text>
                 <Text>• Descrição: {item.descricao || "N/A"}</Text>
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.editButton}
                     onPress={() =>
-                      navigation.navigate("EditLancamento", {
-                        lancamento: item,
-                      })
+                      navigation.navigate("Lancamento", {item})
                     }
                   >
                     <Icon name="edit" size={20} color="darkblue" />
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.deleteButton}
-                    onPress={() => handleDelete(item.id)}
+                    onPress={() => handleDelete(item)}
                   >
                     <Icon name="delete" size={20} color="darkblue" />
                   </TouchableOpacity>
