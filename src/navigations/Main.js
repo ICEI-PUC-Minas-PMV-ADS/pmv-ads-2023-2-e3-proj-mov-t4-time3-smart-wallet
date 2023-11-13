@@ -5,8 +5,7 @@ import Usuario from '../pages/Usuario';
 import Lancamento from '../pages/Lancamento';
 import Relatorio from '../pages/Relatorio';
 import Extrato from '../pages/Extrato';
-import EditLancamento from '../pages/Editlancamento'; // Importe a tela de edição
-
+import Chat from '../pages/Chat';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,9 +35,9 @@ const Main = () => (
       options={{
         header: () => null
       }} />
-      <Stack.Screen
-      name="EditLancamento"
-      component={EditLancamento}
+    <Stack.Screen
+      name="Chat"
+      component={Chat}
       options={{
         header: () => null
       }} />

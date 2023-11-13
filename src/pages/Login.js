@@ -6,12 +6,14 @@ import Container from '../components/Container';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../context/UserContext';
 import MyButton from '../components/button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { login } from '../services/auth.services.js';
 
 const Login = () => {
 
   const navigation = useNavigation();
-  const { setSigned, setName } = useUser();
+  const { setSigned, setUserId, setName } = useUser();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +29,9 @@ const Login = () => {
 
         setSigned(true);
         setName(res.user.name);
+        setUserId(res.user.id);
+
+        AsyncStorage.setItem('@TOKEN_KEY', res.accessToken).then();
 
       } else {
         Alert.alert('Atenção', 'Usuário ou senha incorretos! Por favor, tente novamente');
@@ -72,7 +77,7 @@ const Login = () => {
           title="Entrar"
           onPress={handleLogin}
           color="#010D8C"
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 10, }}
         />
 
       <TouchableOpacity
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
   },
     footer: {
     width: '100%',
-    height: '31%',
+    height: '35%',
     resizeMode: 'cover',
   },
   backgroundImage: {
