@@ -3,63 +3,67 @@ import { Divider, Card } from "react-native-paper";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BarChart } from "react-native-chart-kit";
-import { useIsFocused } from '@react-navigation/native';
-import { useUser } from '../context/UserContext.js';
-import { getLancamentos } from '../services/lancamento.services';
+import { useIsFocused } from "@react-navigation/native";
+import { useUser } from "../context/UserContext.js";
+import { getLancamentos } from "../services/lancamento.services";
 import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
+import { IconButton } from "react-native-paper";
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Usuario = () => {
-
   const navigation = useNavigation();
 
   const isFocused = useIsFocused();
 
   const { userId } = useUser();
 
-  const [saldoTotal, setSaldoTotal] = useState(0)
-  const [receita, setReceita] = useState(0)
-  const [despesa, setDespesa] = useState(0)
+  const [saldoTotal, setSaldoTotal] = useState(0);
+  const [receita, setReceita] = useState(0);
+  const [despesa, setDespesa] = useState(0);
 
   useEffect(() => {
-    getLancamentos().then(dados => {
-      const lancamentos = dados.filter(user => user.userId === userId);
+    getLancamentos().then((dados) => {
+      const lancamentos = dados.filter((user) => user.userId === userId);
 
-      const saldoParaReceita = calculateTotalAmount(lancamentos, 'Receita');
+      const saldoParaReceita = calculateTotalAmount(lancamentos, "Receita");
       const receita = setCurrencyFormat(saldoParaReceita);
       setReceita(receita);
 
-      const saldoParaDespesa = calculateTotalAmount(lancamentos, 'Despesa');
+      const saldoParaDespesa = calculateTotalAmount(lancamentos, "Despesa");
       const despesa = setCurrencyFormat(saldoParaDespesa);
       setDespesa(despesa);
 
       const somaSaldo = saldoParaReceita - saldoParaDespesa;
       const saldo = setCurrencyFormat(somaSaldo);
       setSaldoTotal(saldo);
-
     });
-
   }, [isFocused]);
 
   // Transforma a moeda para realizar os calculos
   const formatCurrency = (value) => {
-    const replaced = value.replace(/^R\$\s*/, '').replace(/\./g, '').replace(',', '.').replace(/^R\$\s*/, '');
+    const replaced = value
+      .replace(/^R\$\s*/, "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .replace(/^R\$\s*/, "");
     return parseFloat(replaced);
   };
 
-  // Transforma em moeda brasileira 
+  // Transforma em moeda brasileira
   const setCurrencyFormat = (value) => {
-    return value.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
     });
   };
 
   const calculateTotalAmount = (lancamentos, tipo) => {
     let total = 0;
-    const filteredLancamentos = lancamentos.filter((item) => item.tipo === tipo && item.status == "Efetivado");
+    const filteredLancamentos = lancamentos.filter(
+      (item) => item.tipo === tipo && item.status == "Efetivado"
+    );
 
     for (let i = 0; i < filteredLancamentos.length; i++) {
       const element = filteredLancamentos[i].valor;
@@ -70,15 +74,9 @@ const Usuario = () => {
     return total;
   };
 
-
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
-
-      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('Chat')}>
-        <Text>CHAT CHAT CHAT</Text>
-      </TouchableOpacity>
-
       <Card.Title
         title="Saldo"
         subtitle={saldoTotal}
@@ -132,14 +130,24 @@ const Usuario = () => {
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
 
-      <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20 }} />
-
-      <View>
-
-      </View>
+      <Divider
+        style={{
+          borderColor: "darkblue",
+          borderWidth: 0.5,
+          marginLeft: 20,
+          marginRight: 20,
+        }}
+      />
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginLeft: 20, marginRight: 20 }} />
+      <Divider
+        style={{
+          borderColor: "darkblue",
+          borderWidth: 0.5,
+          marginLeft: 20,
+          marginRight: 20,
+        }}
+      />
 
       <Card.Title
         title="Energia Elétrica"
@@ -150,6 +158,27 @@ const Usuario = () => {
         right={(props) => <View></View>}
       />
 
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          margin: 10,
+        }}
+      >
+        <TouchableOpacity
+          style={styles.chatButton}
+          onPress={() => navigation.navigate("Chat")}
+        >
+          <IconButton icon="chat-processing" size={50} color="#000080" />
+          <Text
+            style={{ textAlign: "center", color: "darkblue", marginLeft: 5 }}
+          >
+            CHAT
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       <FooterNavigation navigation={navigation} />
     </View>
   );
@@ -158,6 +187,7 @@ const Usuario = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "space-evenly",
   },
   card: {
     backgroundColor: "#000080",

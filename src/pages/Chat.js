@@ -1,89 +1,111 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, TextInput, Button } from 'react-native'
-import { List } from 'react-native-paper';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  Button,
+  Text,
+} from "react-native";
+import { List, Divider } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { useUser } from '../context/UserContext.js';
-import { useIsFocused } from '@react-navigation/native';
-import { getMessages, postMessages } from '../services/chat.services';
-import HeaderPages from '../components/headerPages';
+import { useUser } from "../context/UserContext.js";
+import { useIsFocused } from "@react-navigation/native";
+import { getMessages, postMessages } from "../services/chat.services";
+import HeaderPages from "../components/headerPages";
+import MyButton from "../components/button.js";
 
 const Chat = () => {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const { name, userId } = useUser();
 
-    const { name , userId } = useUser();
+  const isFocused = useIsFocused();
 
-    const isFocused = useIsFocused();
+  const [mensagem, setMensagem] = useState([]);
 
-    const [mensagem, setMensagem] = useState([]);
+  const [text, setText] = useState("");
 
-    const [text, setText] = useState('');
+  useEffect(() => {
+    updateMessages();
+  }, [isFocused]);
 
-    useEffect(() => {
-        updateMessages()
-    }, [isFocused]);
+  const updateMessages = () => {
+    getMessages().then((dados) => {
+      const mensagens = dados.filter((user) => user.userId === userId);
+      setMensagem(mensagens);
+    });
+  };
 
-    const updateMessages = () => {
-        getMessages().then(dados => {
-            const mensagens = dados.filter(user => user.userId === userId);
-            setMensagem(mensagens);
-        });
-    };
+  const handleSendMessage = () => {
+    postMessages({
+      nome: name,
+      mensagem: text,
+      userId: userId,
+    }).then((res) => {
+      updateMessages();
+      setText("");
+      navigation.navigate("Chat");
+    });
+  };
 
-    const handleSendMessage = () => {
-        postMessages({
-            nome: name,
-            mensagem: text,
-            userId: userId
-        }).then((res) => {
-            updateMessages()
-            setText('');
-            navigation.navigate('Chat');
-          });
-    }
+  return (
+    <>
+      <HeaderPages navigation={navigation} />
+      <View style={styles.container}>
+        <View style={styles.body}>
+          <FlatList
+            data={mensagem}
+            renderItem={({ item }) => (
+              <List.Item title={name + ":"} description={item.mensagem} />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+        <View style={{ margin: 10, marginBottom: 10, marginTop: 10 }}>
+          <Divider
+            style={{
+              borderColor: "blue",
+              borderWidth: 0.5,
+              marginTop: 5,
+              marginBottom: 5,
+              marginLeft: 5,
+              marginRight: 15,
+            }}
+          />
+          <TextInput
+          placeholder="digite aqui sua mensagem.."
+            mode="outlined"
+            style={{
+              marginLeft: 10,
+              marginRight: 10,
+              marginBottom: 5,
+              fontSize: 14,
+              height: 40,
+              backgroundColor: "Whitesmoke",
+            }}
+          />
 
-    return (
-        <>
-            <HeaderPages navigation={navigation} />
-            <View style={styles.container}>
-                <View style={styles.body}>
-                    <FlatList
-                        data={mensagem}
-                        renderItem={({ item }) =>
-                            <List.Item
-                                title={name + ":"}
-                                description={item.mensagem}
-                            />
-                        }
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-                <TextInput
-                mode="outlined"
-                style={{ backgroundColor: "darkblue"}}
-                value={text}
-                onChangeText={(text) => setText(text)}
-              />
-                <Button
-                    onPress={handleSendMessage}
-                    title="Send"
-                    color="#841584"
-                />
-            </View>
-        </>
-    );
-}
+<MyButton onPress={handleSendMessage} title="Enviar" color="darkblue"/>
+        </View>
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF',
-    },
-    body: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        margin: 8
-    }
+  container: {
+    flex: 1,
+    backgroundColor: "#FFF",
+  },
+  body: {
+    flex: 1,
+    backgroundColor: "#FFF",
+    margin: 8,
+  },
+  enviar: {
+    paddingLeft: 10,
+},
 });
 
 export default Chat;

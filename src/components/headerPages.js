@@ -19,9 +19,6 @@ const headerPages = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Text style={styles.userName}>Olá {name}</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
       </View>
     </Appbar.Header>
   );

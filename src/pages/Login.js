@@ -77,7 +77,7 @@ const Login = () => {
           title="Entrar"
           onPress={handleLogin}
           color="#010D8C"
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 10, }}
         />
 
       <TouchableOpacity
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
     footer: {
     width: '100%',
-    height: '31%',
+    height: '35%',
     resizeMode: 'cover',
   },
   backgroundImage: {
