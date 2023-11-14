@@ -12,7 +12,6 @@ import { IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Swiper from 'react-native-swiper';
 
-
 const Usuario = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -39,7 +38,7 @@ const Usuario = () => {
       const saldo = setCurrencyFormat(somaSaldo);
       setSaldoTotal(saldo);
     });
-  }, [isFocused]);
+  }, [isFocused, userId]);
 
   // Transforma a moeda para realizar os calculos
   const formatCurrency = (value) => {
@@ -72,6 +71,18 @@ const Usuario = () => {
     }
 
     return total;
+  };
+
+
+  const data = {
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    datasets: [
+      {
+        data: [
+        
+        ],
+      },
+    ],
   };
 
   return (
@@ -139,8 +150,23 @@ const Usuario = () => {
           marginTop: 0,
         }}
       />
-      <Text style={{height: 170, padding: 20}}>texto teste</Text>
-
+<View>
+<BarChart
+        data={data}
+        width={300}
+        height={300}
+        yAxisLabel="Valor"
+        chartConfig={{  
+          decimalPlaces: 2,
+          color: (opacity = 1) => `#F8F8FF`,
+          backgroundColor: 'white',
+          style: {
+            borderRadius: 16,
+            paddingTop: 0,
+                      },
+        }}
+      />
+</View>
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
       <Divider

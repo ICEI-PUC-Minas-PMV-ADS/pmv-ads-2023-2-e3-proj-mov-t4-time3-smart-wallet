@@ -27,17 +27,6 @@
     },
     {
       "tipo": "Despesa",
-      "classificacao": "Moradia",
-      "valor": "R$ 1.500,00",
-      "dataVencimento": "14/11/2023",
-      "recorrente": "Sim",
-      "status": "Efetivado",
-      "descricao": "aluguel mensal",
-      "userId": 2,
-      "id": 2
-    },
-    {
-      "tipo": "Despesa",
       "classificacao": "Educação",
       "valor": "R$ 450,00",
       "dataVencimento": "20/11/2023",
@@ -57,6 +46,17 @@
       "descricao": "crédito investimento",
       "userId": 2,
       "id": 4
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "CartãoDeCrédito",
+      "valor": "R$ 2.500,00",
+      "dataVencimento": "30/11/2023",
+      "recorrente": "Não",
+      "status": "Pendente",
+      "descricao": "Despedas diversas",
+      "userId": 2,
+      "id": 5
     }
   ],
   "chat": []

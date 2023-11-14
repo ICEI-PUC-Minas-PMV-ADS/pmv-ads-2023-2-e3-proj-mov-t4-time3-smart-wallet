@@ -4,7 +4,6 @@ import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useUser } from '../context/UserContext.js';
 import { useNavigation } from '@react-navigation/native';
-import { Badge } from 'react-native-paper';
 
 const Header = ({ navigation }) => {
   
@@ -13,7 +12,6 @@ const Header = ({ navigation }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('Login');
   };
 
   return (
