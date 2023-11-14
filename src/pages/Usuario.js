@@ -9,8 +9,9 @@ import { getLancamentos } from "../services/lancamento.services";
 import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
-
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Swiper from 'react-native-swiper';
+
 
 const Usuario = () => {
   const navigation = useNavigation();
@@ -89,7 +90,7 @@ const Usuario = () => {
           paddingBottom: 20,
         }}
         right={(props) => (
-          <View style={styles.rightContainer}>
+          <View style={styles.Container}>
             <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>
               <Text style={styles.verExtratoText}>Ver Extrato</Text>
             </TouchableOpacity>
@@ -129,6 +130,17 @@ const Usuario = () => {
       </View>
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
+      <Divider
+        style={{
+          borderColor: "darkblue",
+          borderWidth: 0.5,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 0,
+          marginTop: 0,
+        }}
+      />
+      <Text style={{height: 170, padding: 20}}>texto teste</Text>
 
       <Divider
         style={{
@@ -149,14 +161,18 @@ const Usuario = () => {
         }}
       />
 
-      <Card.Title
-        title="Energia Elétrica"
-        subtitle="R$ 550,00"
-        style={{ backgroundColor: "whitesmoke" }}
-        titleStyle={{ color: "darkred", fontWeight: "bold", fontSize: 18 }}
-        subtitleStyle={{ color: "darkred", fontSize: 20, fontWeight: "bold" }}
-        right={(props) => <View></View>}
-      />
+<Swiper style={styles.wrapper} showsButtons={true}>
+      <View style={styles.slide1}>
+        <Text style={styles.text}>Energia Elétrica
+        </Text>
+      </View>
+      <View style={styles.slide2}>
+        <Text style={styles.text}>Slide 2</Text>
+      </View>
+      <View style={styles.slide3}>
+        <Text style={styles.text}>Slide 3</Text>
+      </View>
+    </Swiper>
 
       <View
         style={{
@@ -178,7 +194,6 @@ const Usuario = () => {
           </Text>
         </TouchableOpacity>
       </View>
-
       <FooterNavigation navigation={navigation} />
     </View>
   );
@@ -227,6 +242,32 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
+  },
+  wrapper: {
+  height: 300,
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'whitesmoke',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'whitesmoke3',
+  },
+  text: {
+    color: 'darkblue',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Divider } from 'react-native-paper';
-import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput, Modal, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FooterNavigation from '../components/footer';
 import HeaderPages from '../components/headerPages';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import { useIsFocused } from '@react-navigation/native';
-
 import { useUser } from '../context/UserContext.js';
-
 import { getLancamentos, deleteLancamento } from '../services/lancamento.services';
 
 const Extrato = () => {
 
   const navigation = useNavigation();
-
   const isFocused = useIsFocused();
-
   const { userId } = useUser();
-  
-  const [data, setData] = useState([])
   const [searchText, setSearchText] = useState('');
-
   const [lancamentos, setLancamentos] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   // useEffect(() => {
   //   const jsonFileUrl = 'https://smartwallet.loca.lt/extrato';
@@ -41,30 +35,36 @@ const Extrato = () => {
 
   useEffect(() => {
 
-    const jsonFileUrl = 'https://b379-2804-14d-1c7b-8658-6003-5d11-72f1-97e0.ngrok-free.app';
-
-    fetch(jsonFileUrl)
-      .then((response) => response.text())
-      .then((text) => {
-        console.log('Response:', text); // Exibe a resposta no console para depuração
-        return JSON.parse(text);
-      })
-      .then((jsonData) => setData(jsonData))
-      .catch((error) => console.error('Error reading JSON:', error));
-
     getLancamentos().then(dados => {
       const lancamentos = dados.filter(user => user.userId === userId);
       setLancamentos(lancamentos);
     });
   }, [isFocused]);
 
+  const openModal = (item) => {
+    setItemToDelete(item);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setItemToDelete(null);
+  };
+
   const handleDelete = (item) => {
-    deleteLancamento(item.id).then(res => {
-      const updatedLancamentos = lancamentos.filter((l) => l.id !== item.id);
-      setLancamentos(updatedLancamentos)
-      navigation.navigate('Extrato');
-    });
-  }
+    openModal(item);
+  };
+
+  const handleConfirmDelete = () => {
+    closeModal();
+    if (itemToDelete) {
+      deleteLancamento(itemToDelete.id).then(res => {
+        const updatedLancamentos = lancamentos.filter((l) => l.id !== itemToDelete.id);
+        setLancamentos(updatedLancamentos);
+        navigation.navigate('Extrato');
+      });
+    }
+  };
 
   return (
 
@@ -78,7 +78,6 @@ const Extrato = () => {
           </Text>
         </View>
 
-        {/* Caixa de pesquisa */}
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
@@ -110,7 +109,7 @@ const Extrato = () => {
             .map((item) => (
               <Card key={item.id} style={styles.card}>
                 <Text style={{ fontWeight: "bold", color: "darkblue" }}>
-                  Data de Vencimento: {item.dataVencimento || "N/A"}
+                  Vencimento: {item.dataVencimento || "N/A"}
                 </Text>
                 <Divider
                   style={{
@@ -138,23 +137,21 @@ const Extrato = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  • Tipo: {item.status}
+                  • Status: {item.status}
                 </Text>
                 <Text>• Descrição: {item.descricao || "N/A"}</Text>
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.editButton}
                     onPress={() =>
-                      navigation.navigate("EditLancamento", {
-                        lancamento: item,
-                      })
+                      navigation.navigate("Lancamento", {item})
                     }
                   >
                     <Icon name="edit" size={20} color="darkblue" />
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.deleteButton}
-                    onPress={() => handleDelete(item.id)}
+                    onPress={() => handleDelete(item)}
                   >
                     <Icon name="delete" size={20} color="darkblue" />
                   </TouchableOpacity>
@@ -163,6 +160,30 @@ const Extrato = () => {
             ))}
         </ScrollView>
       </View>
+
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+        <Image
+            source={require('../assets/SmartWallet.png')}
+            style={{
+              width: 250,
+              height: 150,
+              marginBottom: 30,
+              alignSelf: 'center',
+            }}
+            resizeMode="contain"
+          />
+          <Text style={styles.modalText}>Tem certeza que deseja excluir?</Text>
+          <View style={styles.modalButtonContainer}>      
+            <Button title="Cancelar" onPress={closeModal} />
+            <Button title="Confirmar" onPress={handleConfirmDelete} />
+          </View>
+        </View>
+      </Modal>
 
       <FooterNavigation navigation={navigation} />
     </View>
@@ -229,6 +250,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     height: 35,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'darkblue',
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'white',
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
   },
 });
 

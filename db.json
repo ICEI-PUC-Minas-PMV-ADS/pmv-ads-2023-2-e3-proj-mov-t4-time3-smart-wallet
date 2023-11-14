@@ -5,8 +5,37 @@
       "password": "$2a$10$/YLqZamwn44gt/N7f1EEDeVCi5cFTCLOwwvmxhaCWinrTW5GevYvG",
       "name": "Admin",
       "id": 1
+    },
+    {
+      "email": "fleps@xpto.com",
+      "password": "$2a$10$OWqGUJHNmXRT6XrGpkOe9OQRE.E4pzg/0kfUmp2S3.5LedNVW4jtC",
+      "name": "Fleps",
+      "id": 2
     }
   ],
-  "lancamentos": [],
+  "lancamentos": [
+    {
+      "tipo": "Receita",
+      "classificacao": "Salário",
+      "valor": "R$ 2.500,00",
+      "dataVencimento": "17/11/2023",
+      "recorrente": "Sim",
+      "status": "Efetivado",
+      "descricao": "Salário do mês ",
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "Moradia",
+      "valor": "R$ 1.500,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Sim",
+      "status": "Efetivado",
+      "descricao": "aluguel mensal",
+      "userId": 2,
+      "id": 2
+    }
+  ],
   "chat": []
 }

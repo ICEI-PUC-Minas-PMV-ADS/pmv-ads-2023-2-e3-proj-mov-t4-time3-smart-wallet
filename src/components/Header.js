@@ -19,9 +19,6 @@ const Header = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Text style={styles.userName}>Olá {name}</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
       </View>
     </Appbar.Header>
   );
@@ -48,11 +45,6 @@ const styles = {
   },
   userName: {
     marginLeft: 1,
-  },
-  bellIcon: {
-    position: 'absolute',
-    left: 195,
-    marginLeft: 50,
   },
   badge: {
   marginLeft: 15,
