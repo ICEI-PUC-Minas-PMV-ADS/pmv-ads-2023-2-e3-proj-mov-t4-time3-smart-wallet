@@ -141,14 +141,6 @@ const Usuario = () => {
       />
       <Text style={{height: 170, padding: 20}}>texto teste</Text>
 
-      <Divider
-        style={{
-          borderColor: "darkblue",
-          borderWidth: 0.5,
-          marginLeft: 20,
-          marginRight: 20,
-        }}
-      />
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
       <Divider
@@ -187,7 +179,7 @@ const Usuario = () => {
         >
           <IconButton icon="chat-processing" size={50} color="#000080" />
           <Text
-            style={{ textAlign: "center", color: "darkblue", marginLeft: 5 }}
+            style={{ textAlign: "center", color: "darkblue", marginLeft: 5, paddingBottom: 10,}}
           >
             CHAT
           </Text>
@@ -249,7 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#F8F8FF',
   },
   slide2: {
     flex: 1,

@@ -186,7 +186,9 @@ const Extrato = () => {
         </View>
       </Modal>
       </ScrollView>
+      <View style={{marginTop: 70,}}>
       <FooterNavigation navigation={navigation} />
+      </View>
     </View>
   );
 };

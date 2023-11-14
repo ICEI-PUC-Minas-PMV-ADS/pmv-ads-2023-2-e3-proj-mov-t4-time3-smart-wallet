@@ -20,7 +20,7 @@
       "valor": "R$ 2.500,00",
       "dataVencimento": "17/11/2023",
       "recorrente": "Sim",
-      "status": "Efetivado",
+      "status": "Pendente",
       "descricao": "Salário do mês ",
       "userId": 2,
       "id": 1
@@ -46,6 +46,17 @@
       "descricao": "Faculdade",
       "userId": 2,
       "id": 3
+    },
+    {
+      "tipo": "Receita",
+      "classificacao": "Investimentos",
+      "valor": "R$ 2.100,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Não",
+      "status": "Efetivado",
+      "descricao": "crédito investimento",
+      "userId": 2,
+      "id": 4
     }
   ],
   "chat": []

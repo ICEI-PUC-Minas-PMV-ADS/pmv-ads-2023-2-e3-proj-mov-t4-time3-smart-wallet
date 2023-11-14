@@ -8,7 +8,13 @@ import { Badge } from 'react-native-paper';
 
 const Header = ({ navigation }) => {
   
-  const { userId, name } = useUser();
+  const { name, logout } = useUser();
+  const { navigate } = useNavigation();
+
+  const handleLogout = () => {
+    logout();
+    navigate('Login');
+  };
 
   return (
     <Appbar.Header style={styles.appbar}>
@@ -19,6 +25,9 @@ const Header = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Text style={styles.userName}>Olá {name}</Text>
+        <TouchableOpacity onPress={handleLogout}>
+          <Icon name="sign-out" size={27} color="darkblue" style={styles.logoutIcon} />
+        </TouchableOpacity>
       </View>
     </Appbar.Header>
   );
@@ -46,8 +55,11 @@ const styles = {
   userName: {
     marginLeft: 1,
   },
+  logoutIcon: {
+    marginLeft: 200,
+  },
   badge: {
-  marginLeft: 15,
+    marginLeft: 15,
   },
 };
 
