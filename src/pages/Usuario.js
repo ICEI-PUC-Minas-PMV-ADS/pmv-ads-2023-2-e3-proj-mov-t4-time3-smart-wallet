@@ -39,7 +39,7 @@ const Usuario = () => {
       const saldo = setCurrencyFormat(somaSaldo);
       setSaldoTotal(saldo);
     });
-  }, [isFocused]);
+  }, [isFocused, userId]);
 
   // Transforma a moeda para realizar os calculos
   const formatCurrency = (value) => {
