@@ -8,6 +8,14 @@ import MyButton from '../components/button';
 const Usuario = ({ navigation }) => {
   const { name } = useUser();
 
+  const newPosting = ()=>{
+    navigation.navigate('NovoLançamento');
+  }
+
+  const extract = ()=>{
+    navigation.navigate('Extrato');
+  }
+
   return (
     <View style={styles.page}>
       <View style={styles.header}>
@@ -19,6 +27,9 @@ const Usuario = ({ navigation }) => {
       </View>
       <Container style={styles.container}>
         <Text>Olá {name}</Text>
+        <MyButton onPress={newPosting} title="Novo lançamento"></MyButton>
+        <MyButton onPress={extract} title="Extrato"></MyButton>
+
         {/* Conteúdo da página do usuário aqui */}
       </Container>
     </View>
@@ -30,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: '1',
+    flexDirection: 'column',
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     paddingTop: 10,
