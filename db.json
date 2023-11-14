@@ -35,6 +35,17 @@
       "descricao": "aluguel mensal",
       "userId": 2,
       "id": 2
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "Educação",
+      "valor": "R$ 450,00",
+      "dataVencimento": "20/11/2023",
+      "recorrente": "Sim",
+      "status": "Pendente",
+      "descricao": "Faculdade",
+      "userId": 2,
+      "id": 3
     }
   ],
   "chat": []

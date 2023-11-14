@@ -70,6 +70,7 @@ const Extrato = () => {
 
     <View style={styles.container}>
       <HeaderPages navigation={navigation} />
+      <ScrollView >
       <View>
 
         <View>
@@ -184,7 +185,7 @@ const Extrato = () => {
           </View>
         </View>
       </Modal>
-
+      </ScrollView>
       <FooterNavigation navigation={navigation} />
     </View>
   );

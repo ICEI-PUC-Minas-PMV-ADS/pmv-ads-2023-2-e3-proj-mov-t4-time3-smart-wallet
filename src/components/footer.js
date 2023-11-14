@@ -33,7 +33,7 @@ const styles = {
       position: "absolute",  
       bottom: 0,        
       width: "100%",
-      left: 0,          
+      left: 0,        
     },
       navItem: {
         flex: 1,

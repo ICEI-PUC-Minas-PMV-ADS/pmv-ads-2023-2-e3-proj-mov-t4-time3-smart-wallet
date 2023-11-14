@@ -15,7 +15,6 @@ import Swiper from 'react-native-swiper';
 
 const Usuario = () => {
   const navigation = useNavigation();
-
   const isFocused = useIsFocused();
 
   const { userId } = useUser();
