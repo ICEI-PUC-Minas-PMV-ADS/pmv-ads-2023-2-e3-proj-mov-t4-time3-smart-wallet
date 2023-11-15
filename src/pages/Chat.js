@@ -1,7 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { useNavigation } from '@react-navigation/native';
+import HeaderPages from '../components/headerPages';
 
 const Chat = () => {
+
+  const navigation = useNavigation();
+
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -64,13 +69,17 @@ const Chat = () => {
   }, []);
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={(newMessages) => onSend(newMessages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <>
+      <HeaderPages navigation={navigation} />
+      <GiftedChat
+        messages={messages}
+        onSend={(newMessages) => onSend(newMessages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    </>
+    
   );
 };
 
