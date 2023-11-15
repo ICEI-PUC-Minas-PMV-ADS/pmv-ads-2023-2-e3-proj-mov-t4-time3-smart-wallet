@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { BarChart } from "react-native-chart-kit";
+import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
 import { getLancamentos } from "../services/lancamento.services";
@@ -73,17 +73,19 @@ const Usuario = () => {
     return total;
   };
 
-
-  const data = {
-    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    datasets: [
-      {
-        data: [
-        
-        ],
-      },
-    ],
-  };
+  const data = [
+    { x: 'Jan', y: 10 },
+    { x: 'Fev', y: 20 },
+    { x: 'Mar', y: 15 },
+    { x: 'Abr', y: 15 },
+    { x: 'Mai', y: 15 },
+    { x: 'Jun', y: 15 },
+    { x: 'Jul', y: 15 },
+    { x: 'Ago', y: 15 },
+    { x: 'Set', y: 15 },
+    { x: 'Nov', y: 15 },
+    { x: 'Dez', y: 15 },
+  ];
 
   return (
     <View style={styles.container}>
@@ -140,7 +142,19 @@ const Usuario = () => {
       </View>
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
-      <Divider
+<View>
+<VictoryChart width={430} height={230} theme={VictoryTheme.material}>
+          <VictoryBar
+            data={data}
+            x="x"
+            y="y"
+            style={{
+              data: { fill: "darkblue" },
+            }}
+          />
+        </VictoryChart>
+</View>
+<Divider
         style={{
           borderColor: "darkblue",
           borderWidth: 0.5,
@@ -150,33 +164,8 @@ const Usuario = () => {
           marginTop: 0,
         }}
       />
-<View>
-<BarChart
-        data={data}
-        width={300}
-        height={300}
-        yAxisLabel="Valor"
-        chartConfig={{  
-          decimalPlaces: 2,
-          color: (opacity = 1) => `#F8F8FF`,
-          backgroundColor: 'white',
-          style: {
-            borderRadius: 16,
-            paddingTop: 0,
-                      },
-        }}
-      />
-</View>
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <Divider
-        style={{
-          borderColor: "darkblue",
-          borderWidth: 0.5,
-          marginLeft: 20,
-          marginRight: 20,
-        }}
-      />
 
 <Swiper style={styles.wrapper} showsButtons={true}>
       <View style={styles.slide1}>
@@ -185,9 +174,6 @@ const Usuario = () => {
       </View>
       <View style={styles.slide2}>
         <Text style={styles.text}>Slide 2</Text>
-      </View>
-      <View style={styles.slide3}>
-        <Text style={styles.text}>Slide 3</Text>
       </View>
     </Swiper>
 
@@ -203,7 +189,7 @@ const Usuario = () => {
           style={styles.chatButton}
           onPress={() => navigation.navigate("Chat")}
         >
-          <IconButton icon="chat-processing" size={50} color="#000080" />
+          <IconButton icon="chat-processing" size={35} color="#000080" />
           <Text
             style={{ textAlign: "center", color: "darkblue", marginLeft: 5, paddingBottom: 10,}}
           >
@@ -255,7 +241,7 @@ const styles = StyleSheet.create({
   },
   evolucao: {
     fontSize: 15,
-    padding: 20,
+    padding: 15,
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
@@ -267,24 +253,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F8F8FF',
+    backgroundColor: 'aliceblue',
+    height: 300,
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'whitesmoke',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'whitesmoke3',
+    backgroundColor: 'aliceblue',
   },
   text: {
     color: 'darkblue',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
+    textAlign: "left",
   },
 });
 

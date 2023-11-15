@@ -11,6 +11,12 @@
       "password": "$2a$10$OWqGUJHNmXRT6XrGpkOe9OQRE.E4pzg/0kfUmp2S3.5LedNVW4jtC",
       "name": "Fleps",
       "id": 2
+    },
+    {
+      "email": "leo@leo.com",
+      "password": "$2a$10$hfy6JsP1SlB7vq989RvasuN4814SSZTMXOUmrRle9VMlzHUQV.cEW",
+      "name": "Leo",
+      "id": 3
     }
   ],
   "lancamentos": [
@@ -57,6 +63,50 @@
       "descricao": "Despedas diversas",
       "userId": 2,
       "id": 5
+    },
+    {
+      "tipo": "Receita",
+      "classificacao": "Salário",
+      "valor": "R$ 15.000,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Não",
+      "status": "Efetivado",
+      "descricao": "Salário ",
+      "userId": 3,
+      "id": 6
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "Moradia",
+      "valor": "R$ 2.500,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Não",
+      "status": "Efetivado",
+      "descricao": "Aluguel ",
+      "userId": 3,
+      "id": 7
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "Imprevistos",
+      "valor": "R$ 1.250,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Sim",
+      "status": "Efetivado",
+      "descricao": "Gastos diversos",
+      "userId": 3,
+      "id": 8
+    },
+    {
+      "tipo": "Despesa",
+      "classificacao": "Moradia",
+      "valor": "R$ 1.350,00",
+      "dataVencimento": "14/11/2023",
+      "recorrente": "Não",
+      "status": "Efetivado",
+      "descricao": "Feira",
+      "userId": 3,
+      "id": 9
     }
   ],
   "chat": []
