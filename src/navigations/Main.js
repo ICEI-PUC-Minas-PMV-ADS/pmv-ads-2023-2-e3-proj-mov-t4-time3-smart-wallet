@@ -1,11 +1,11 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Usuario from '../pages/Usuario';
-import Lancamento from '../pages/Lancamento';
-import Relatorio from '../pages/Relatorio';
-import Extrato from '../pages/Extrato';
-import Chat from '../pages/Chat';
+import Usuario from "../pages/Usuario";
+import Lancamento from "../pages/Lancamento";
+import Relatorio from "../pages/Relatorio";
+import Extrato from "../pages/Extrato";
+import Chat from "../pages/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,33 +15,38 @@ const Main = () => (
       name="Usuario"
       component={Usuario}
       options={{
-        header: () => null
-      }} />
+        header: () => null,
+      }}
+    />
     <Stack.Screen
       name="Lancamento"
       component={Lancamento}
       options={{
-        header: () => null
-      }} />
+        header: () => null,
+      }}
+    />
     <Stack.Screen
       name="Relatorio"
       component={Relatorio}
       options={{
-        header: () => null
-      }} />
+        header: () => null,
+      }}
+    />
     <Stack.Screen
       name="Extrato"
       component={Extrato}
       options={{
-        header: () => null
-      }} />
+        header: () => null,
+      }}
+    />
     <Stack.Screen
       name="Chat"
       component={Chat}
       options={{
-        header: () => null
-      }} />
+        header: () => null,
+      }}
+    />
   </Stack.Navigator>
-)
+);
 
 export default Main;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { BarChart } from "react-native-chart-kit";
+import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
 import { getLancamentos } from "../services/lancamento.services";
@@ -11,11 +11,10 @@ import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
 
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Swiper from 'react-native-swiper';
 
 const Usuario = () => {
   const navigation = useNavigation();
-
   const isFocused = useIsFocused();
 
   const { userId } = useUser();
@@ -80,6 +79,11 @@ const Usuario = () => {
       const somaSaldo = saldoParaReceita - saldoParaDespesa;
       const saldo = setCurrencyFormat(somaSaldo);
       setSaldoTotal(saldo);
+
+      const percentualDespesas = (saldoParaDespesa / saldoParaReceita) * 100;
+      if (percentualDespesas > 75) {
+        alert("As despesas ultrapassaram 75% das suas receitas!");
+      }
     });
   }, [isFocused, userId]);
 
@@ -131,6 +135,20 @@ const Usuario = () => {
     });
   };
 
+  const data = [
+    { x: 'Jan', y: 10 },
+    { x: 'Fev', y: 20 },
+    { x: 'Mar', y: 15 },
+    { x: 'Abr', y: 15 },
+    { x: 'Mai', y: 15 },
+    { x: 'Jun', y: 15 },
+    { x: 'Jul', y: 15 },
+    { x: 'Ago', y: 15 },
+    { x: 'Set', y: 15 },
+    { x: 'Nov', y: 15 },
+    { x: 'Dez', y: 15 },
+  ];
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -142,11 +160,12 @@ const Usuario = () => {
         subtitleStyle={{
           color: "white",
           fontSize: 30,
+          fontWeight: 900,
           paddingTop: 10,
           paddingBottom: 20,
         }}
         right={(props) => (
-          <View style={styles.rightContainer}>
+          <View style={styles.Container}>
             <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>
               <Text style={styles.verExtratoText}>Ver Extrato</Text>
             </TouchableOpacity>
@@ -185,56 +204,59 @@ const Usuario = () => {
         </Card>
       </View>
 
-      <Text style={styles.evolucao}>Evolução Mensal</Text>
-
       <Divider
         style={{
-          borderColor: "darkblue",
-          borderWidth: 0.5,
+          borderColor: "gray",
+          borderWidth: 0.2,
           marginLeft: 20,
           marginRight: 20,
+          marginBottom: 0,
+          marginTop: 10,
+        }}
+      />
+
+      <Text style={styles.evolucao}>Evolução Mensal</Text>
+<View>
+<VictoryChart width={430} height={200} theme={VictoryTheme.material}>
+          <VictoryBar
+            data={data}
+            x="x"
+            y="y"
+            style={{
+              data: { fill: "darkblue" },
+            }}
+          />
+        </VictoryChart>
+</View>
+<Divider
+        style={{
+          borderColor: "gray",
+          borderWidth: 0.2,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 0,
+          marginTop: 0,
         }}
       />
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <Divider
-        style={{
-          borderColor: "darkblue",
-          borderWidth: 0.5,
-          marginLeft: 20,
-          marginRight: 20,
-        }}
-      />
-
-      <Card.Title
-        title="Energia Elétrica"
-        subtitle="R$ 550,00"
-        style={{ backgroundColor: "whitesmoke" }}
-        titleStyle={{ color: "darkred", fontWeight: "bold", fontSize: 18 }}
-        subtitleStyle={{ color: "darkred", fontSize: 20, fontWeight: "bold" }}
-        right={(props) => <View></View>}
-      />
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          margin: 10,
-        }}
-      >
-        <TouchableOpacity
-          style={styles.chatButton}
-          onPress={() => navigation.navigate("Chat")}
-        >
-          <IconButton icon="chat-processing" size={50} color="#000080" />
-          <Text
-            style={{ textAlign: "center", color: "darkblue", marginLeft: 5 }}
-          >
-            CHAT
-          </Text>
-        </TouchableOpacity>
+      <View style={{paddingBottom: 50, marginBottom: 50,}}>
+      <Swiper showsButtons={true}>
+        <View style={styles.slide1}>
+          <Text style={styles.text}>Energia Elétrica</Text>
+        </View>
+        <View style={styles.slide2}>
+          <Text style={styles.text}>Slide 2</Text>
+        </View>
+      </Swiper>
       </View>
+
+      <TouchableOpacity
+        style={styles.chatButton}
+        onPress={() => navigation.navigate("Chat")}
+      >
+        <IconButton icon="chat-processing" size={50} color="#000080" />
+      </TouchableOpacity>
 
       <FooterNavigation navigation={navigation} />
     </View>
@@ -247,44 +269,87 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   card: {
-    backgroundColor: "#000080",
-    color: "white",
-    alignContent: "center",
+    backgroundColor: "darkblue",
+    borderColor: "whitesmoke",
+    borderWidth: 0.3,
     borderRadius: 17,
+    alignContent: "center",
     margin: 5,
-    marginTop: 15,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 35,
+    marginRight: 35,
   },
   cardContainer: {
     flexDirection: "row",
     margin: 5,
     justifyContent: "center",
+    marginBottom: 0,
+    paddingBottom: 0,
   },
   receita: {
     backgroundColor: "#F0FFF0",
-    width: "50%",
+    width: "43%",
+    borderWidth: 0.3,
     borderRadius: 17,
-    marginLeft: 20,
+    marginLeft: 40,
+    marginRight: 7,
+    textAlign: "left",
+    alignContent: "space-between",
   },
   despesa: {
     backgroundColor: "#FFC0CB",
-    width: "50%",
+    width: "43%",
+    borderWidth: 0.3,
     borderRadius: 17,
-    marginRight: 30,
+    marginRight: 40,
   },
   verExtratoText: {
     color: "white",
     fontSize: 12,
     marginRight: 10,
+    fontWeight: 900,
   },
   evolucao: {
     fontSize: 15,
-    padding: 20,
+    margin: 15,
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  wrapper: {
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  chatButton: {
+    position: 'absolute',
+    bottom: 50,
+    right: 10,
+    zIndex: 2,
   },
 });
 
 export default Usuario;
+
+
+/*style={{
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  margin: 10,
+}}*/

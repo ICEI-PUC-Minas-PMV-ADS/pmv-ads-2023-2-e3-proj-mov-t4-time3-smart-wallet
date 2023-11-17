@@ -25,7 +25,6 @@ const Lancamento = ({ route }) => {
   const [tipo, setTipo] = useState("");
   const [classificacao, setClassificacao] = useState("");
   const [valor, setValor] = useState("");
-  // const [dataVencimento, setDatavencimento] = useState(new Date());
   const [dataVencimento, setDatavencimento] = useState(moment(new Date()).format('DD/MM/YYYY'));
   const [recorrente, setRecorrente] = useState("");
   const [status, setStatus] = useState("");
@@ -44,13 +43,11 @@ const Lancamento = ({ route }) => {
   }, [item]);
 
   const handleSave = async () => {
-    // const formattedDataVencimento = moment(dataVencimento).format("DD / MM / YYYY");
     if (item) {
       putLancamento({
         tipo: tipo,
         classificacao: classificacao,
         valor: valor,
-        // dataVencimento: formattedDataVencimento,
         dataVencimento: dataVencimento,
         recorrente: recorrente,
         status: status,
@@ -65,15 +62,12 @@ const Lancamento = ({ route }) => {
         tipo: tipo,
         classificacao: classificacao,
         valor: valor,
-        // dataVencimento: formattedDataVencimento,
         dataVencimento: dataVencimento,
         recorrente: recorrente,
         status: status,
         descricao: descricao,
         userId: userId
       }).then((res) => {
-        // resetState();
-        // navigation.navigate("Extrato");
         navigation.navigate('Extrato');
       });
     }

@@ -4,11 +4,15 @@ import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useUser } from '../context/UserContext.js';
 import { useNavigation } from '@react-navigation/native';
-import { Badge } from 'react-native-paper';
 
 const Header = ({ navigation }) => {
   
-  const { userId, name } = useUser();
+  const { name, logout } = useUser();
+  const { navigate } = useNavigation();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Appbar.Header style={styles.appbar}>
@@ -19,9 +23,9 @@ const Header = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Text style={styles.userName}>Olá {name}</Text>
-        <View style={styles.bellIcon}>
-          <Icon name="bell" size={30} color="darkblue" />
-        </View>
+        <TouchableOpacity onPress={handleLogout}>
+          <Icon name="sign-out" size={27} color="darkblue" style={styles.logoutIcon} />
+        </TouchableOpacity>
       </View>
     </Appbar.Header>
   );
@@ -49,13 +53,11 @@ const styles = {
   userName: {
     marginLeft: 1,
   },
-  bellIcon: {
-    position: 'absolute',
-    left: 195,
-    marginLeft: 50,
+  logoutIcon: {
+    marginLeft: 200,
   },
   badge: {
-  marginLeft: 15,
+    marginLeft: 15,
   },
 };
 
