@@ -9,6 +9,7 @@ import { getLancamentos } from "../services/lancamento.services";
 import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
+import moment from "moment";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -22,10 +23,51 @@ const Usuario = () => {
   const [saldoTotal, setSaldoTotal] = useState(0);
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
+  const [somasPorMes, setSomasPorMes] = useState([])
+  // const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
+  // const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
 
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
+
+      const sumsByMonth = Array(12).fill(0);
+      // const sumsReceitaByMonth = Array(12).fill(0);
+      // const sumsDespesaByMonth = Array(12).fill(0);
+
+      for (let month = 0; month < 12; month++) {
+        const startDate = moment(`01/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
+        const endDate = moment(`${moment(startDate, 'DD/MM/YYYY').daysInMonth()}/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
+
+        const receitasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Receita');
+        const despesasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Despesa');
+
+        let sumReceitas = 0;
+        receitasPorData.forEach((element) => {
+          const formatedElement = formatCurrency(element.valor);
+          sumReceitas += formatedElement;
+        });
+
+        let sumDespesas = 0;
+        despesasPorData.forEach((element) => {
+          const formatedElement = formatCurrency(element.valor);
+          sumDespesas += formatedElement;
+        });
+
+        const saldoMensal = sumReceitas - sumDespesas
+
+        sumsByMonth[month] = setCurrencyFormat(saldoMensal);
+        // sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
+        // sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
+
+      }
+
+      setSomasPorMes(sumsByMonth);
+      // setSomasReceitasPorMes(sumsReceitaByMonth);
+      // setSomasDespesasPorMes(sumsDespesaByMonth);
+      // console.log(sumsReceitaByMonth)
+      // console.log(sumsDespesaByMonth)
+      console.log(somasPorMes)
 
       const saldoParaReceita = calculateTotalAmount(lancamentos, "Receita");
       const receita = setCurrencyFormat(saldoParaReceita);
@@ -72,6 +114,21 @@ const Usuario = () => {
     }
 
     return total;
+  };
+
+  const filterLancamentosByDate = (lancamentos, startDate, endDate, tipo) => {
+    const dateObject1 = moment(startDate, 'DD/MM/YYYY').toDate();
+    const dateObject2 = moment(endDate, 'DD/MM/YYYY').toDate();
+
+    return lancamentos.filter((item) => {
+      const dataFormatada = moment(item.dataVencimento, 'DD/MM/YYYY').toDate();
+      return (
+        dataFormatada >= dateObject1 &&
+        dataFormatada <= dateObject2 &&
+        item.status === 'Efetivado' &&
+        item.tipo === tipo
+      );
+    });
   };
 
   return (

@@ -53,7 +53,7 @@ const Chat = () => {
       formatedMessage.includes('INSERIR')
     ) {
       appendMessages(
-        createResponseMessage('Vá até a tela inicial para inserir um novo Lançamento,' +
+        createResponseMessage('Vá até a tela inicial para inserir um novo Lançamento, ' +
           'localize o rodapé e selecione o botão "Lançamento". ' +
           'Insira os dados e aperte salvar para concluir a operação.')
       );
