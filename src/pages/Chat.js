@@ -1,111 +1,130 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  TextInput,
-  Button,
-  Text,
-} from "react-native";
-import { List, Divider } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { useUser } from "../context/UserContext.js";
-import { useIsFocused } from "@react-navigation/native";
-import { getMessages, postMessages } from "../services/chat.services";
-import HeaderPages from "../components/headerPages";
-import MyButton from "../components/button.js";
+import React, { useState, useCallback, useEffect } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
+import { useNavigation } from '@react-navigation/native';
+import HeaderPages from '../components/headerPages';
+import { dicasEconomia } from '../assets/textos/comoEconomizar';
 
 const Chat = () => {
+
   const navigation = useNavigation();
 
-  const { name, userId } = useUser();
-
-  const isFocused = useIsFocused();
-
-  const [mensagem, setMensagem] = useState([]);
-
-  const [text, setText] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    updateMessages();
-  }, [isFocused]);
+    setMessages([
+      {
+        _id: Math.random(),
+        text: 'Bem vindo ao Smart Wallet helpchat, como posso ajudar?',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'Smart Wallet',
+        },
+      },
+    ]);
+  }, []);
 
-  const updateMessages = () => {
-    getMessages().then((dados) => {
-      const mensagens = dados.filter((user) => user.userId === userId);
-      setMensagem(mensagens);
-    });
+  const appendMessages = (responseMessages) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, responseMessages)
+    );
   };
 
-  const handleSendMessage = () => {
-    postMessages({
-      nome: name,
-      mensagem: text,
-      userId: userId,
-    }).then((res) => {
-      updateMessages();
-      setText("");
-      navigation.navigate("Chat");
-    });
+  const createResponseMessage = (texto) => {
+    return [
+      {
+        _id: Math.random(),
+        text: texto,
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'Smart Wallet',
+        },
+      },
+    ];
   };
+
+  const onSend = useCallback((newMessages = []) => {
+    const formatedMessage = newMessages[0].text.toUpperCase();
+    appendMessages(newMessages)
+    if (
+      formatedMessage.includes('INSERIR LANÇAMENTO') ||
+      formatedMessage.includes('INSERIR LANÇAMENTOS') ||
+      formatedMessage.includes('INSERIR')
+    ) {
+      appendMessages(
+        createResponseMessage('Vá até a tela inicial para inserir um novo Lançamento, ' +
+          'localize o rodapé e selecione o botão "Lançamento". ' +
+          'Insira os dados e aperte salvar para concluir a operação.')
+      );
+
+    } else if (
+      formatedMessage.includes('EDITAR LANÇAMENTO') ||
+      formatedMessage.includes('EDITAR LANÇAMENTOS') ||
+      formatedMessage.includes('EDITAR')
+    ) {
+      appendMessages(
+        createResponseMessage('Para editar um lançamento vá até a tela inicial, ' +
+        'localize o rodapé e selecione o botão "Extrato". ' +
+        'Nessa tela, localize o lançamento que deseja alterar e selecione o icone do lápis, ' +
+        'realize as alterações necessárias e clique em salvar para modificar a operação.')
+      );
+
+    } else if (
+      formatedMessage.includes('EXCLUIR LANÇAMENTO') ||
+      formatedMessage.includes('EXCLUIR LANÇAMENTOS') || 
+      formatedMessage.includes('EXCLUIR')
+    ) {
+      appendMessages(
+        createResponseMessage('Para excluir um lançamento vá até a tela inicial, ' +
+        'localize o rodapé e selecione o botão "Extrato". ' +
+        'Nessa tela, localize o lançamento que deseja excluir e ' +
+        'selecione o icone da lixeira e confirme a operação para remover o lançamento.')
+      );
+
+    } else if (
+      formatedMessage.includes('EXTRATO')
+    ) {
+      appendMessages(createResponseMessage('Vá até a tela inicial, localize o rodapé e ' +
+      'selecione o botão de "Extrato" para acessar o extrato de sua conta.'));
+
+    } else if (
+      formatedMessage.includes('COMO ECONOMIZAR') ||
+      formatedMessage.includes('ECONOMIA') ||
+      formatedMessage.includes('DICA') ||
+      formatedMessage.includes('DICAS') ||
+      formatedMessage.includes('ECONOMIZAR')) {
+      const dicaAleatoria = Math.floor(Math.random() * 13);
+      appendMessages(
+        createResponseMessage(dicasEconomia[dicaAleatoria])
+      );
+    } else {
+      appendMessages(
+        createResponseMessage(
+          'Desculpe, não entendi o que você está tentando me dizer. Tente perguntar coisas como:\n\n' +
+            '"Como inserir um lançamento"\n' +
+            '"Como editar um lançamento"\n' +
+            '"Como excluir um lançamento"\n' +
+            '"Como acessar meu extrato"\n' +
+            '"Como economizar" ou "Dicas"'
+        )
+      );
+    }
+  }, []);
 
   return (
     <>
       <HeaderPages navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.body}>
-          <FlatList
-            data={mensagem}
-            renderItem={({ item }) => (
-              <List.Item title={name + ":"} description={item.mensagem} />
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-        <View style={{ margin: 10, marginBottom: 10, marginTop: 10 }}>
-          <Divider
-            style={{
-              borderColor: "blue",
-              borderWidth: 0.5,
-              marginTop: 5,
-              marginBottom: 5,
-              marginLeft: 5,
-              marginRight: 15,
-            }}
-          />
-          <TextInput
-          placeholder="digite aqui sua mensagem.."
-            mode="outlined"
-            style={{
-              marginLeft: 10,
-              marginRight: 10,
-              marginBottom: 5,
-              fontSize: 14,
-              height: 40,
-              backgroundColor: "Whitesmoke",
-            }}
-          />
-
-<MyButton onPress={handleSendMessage} title="Enviar" color="darkblue"/>
-        </View>
-      </View>
+      <GiftedChat
+        messages={messages}
+        onSend={(newMessages) => onSend(newMessages)}
+        user={{
+          _id: 1,
+        }}
+      />
     </>
+    
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-  },
-  body: {
-    flex: 1,
-    backgroundColor: "#FFF",
-    margin: 8,
-  },
-  enviar: {
-    paddingLeft: 10,
-},
-});
 
 export default Chat;
