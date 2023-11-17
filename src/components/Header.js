@@ -34,7 +34,7 @@ const Header = ({ navigation }) => {
 const styles = {
   appbar: {
     backgroundColor: 'whitesmoke',
-    marginTop: 35,
+    marginTop: 15,
     marginBottom: 20,
   },
   logo: {
@@ -47,7 +47,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 20,
     marginLeft: 20,
   },
   userName: {
@@ -56,9 +56,7 @@ const styles = {
   logoutIcon: {
     marginLeft: 200,
   },
-  badge: {
-    marginLeft: 15,
-  },
+
 };
 
 export default Header;

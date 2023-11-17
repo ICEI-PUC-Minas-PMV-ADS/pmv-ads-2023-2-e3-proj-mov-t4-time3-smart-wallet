@@ -23,16 +23,16 @@ const Usuario = () => {
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
   const [somasPorMes, setSomasPorMes] = useState([])
-  // const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
-  // const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
+  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
+  const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
 
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
 
       const sumsByMonth = Array(12).fill(0);
-      // const sumsReceitaByMonth = Array(12).fill(0);
-      // const sumsDespesaByMonth = Array(12).fill(0);
+      const sumsReceitaByMonth = Array(12).fill(0);
+      const sumsDespesaByMonth = Array(12).fill(0);
 
       for (let month = 0; month < 12; month++) {
         const startDate = moment(`01/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
@@ -56,16 +56,16 @@ const Usuario = () => {
         const saldoMensal = sumReceitas - sumDespesas
 
         sumsByMonth[month] = setCurrencyFormat(saldoMensal);
-        // sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
-        // sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
+        sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
+        sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
 
       }
 
       setSomasPorMes(sumsByMonth);
-      // setSomasReceitasPorMes(sumsReceitaByMonth);
-      // setSomasDespesasPorMes(sumsDespesaByMonth);
-      // console.log(sumsReceitaByMonth)
-      // console.log(sumsDespesaByMonth)
+      setSomasReceitasPorMes(sumsReceitaByMonth);
+      setSomasDespesasPorMes(sumsDespesaByMonth);
+      console.log(sumsReceitaByMonth)
+      console.log(sumsDespesaByMonth)
       console.log(somasPorMes)
 
       const saldoParaReceita = calculateTotalAmount(lancamentos, "Receita");
