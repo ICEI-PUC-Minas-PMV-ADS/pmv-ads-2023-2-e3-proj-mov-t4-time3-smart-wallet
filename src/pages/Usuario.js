@@ -91,6 +91,18 @@ const Usuario = () => {
     { x: 'Dez', y: 15 },
   ];
 
+  const SwiperComponent = () => (
+    <Swiper style={styles.wrapper} showsButtons={true}>
+      <View style={styles.slide1}>
+        <Text style={styles.text}>Slide 1</Text>
+      </View>
+      <View style={styles.slide2}>
+        <Text style={styles.text}>Slide 2</Text>
+      </View>
+      {/* Add more slides as needed */}
+    </Swiper>
+  );  
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -181,26 +193,18 @@ const Usuario = () => {
         }}
       />
 
-      <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <View style={{paddingBottom: 50, marginBottom: 50,}}>
-      <Swiper showsButtons={true}>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Energia Elétrica</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Slide 2</Text>
-        </View>
-      </Swiper>
-      </View>
+<Text style={styles.evolucao}>Próximos Eventos</Text>
+<SwiperComponent />
 
-      <TouchableOpacity
-        style={styles.chatButton}
-        onPress={() => navigation.navigate("Chat")}
-      >
-        <IconButton icon="chat-processing" size={50} color="#000080" />
-      </TouchableOpacity>
+<TouchableOpacity
+  style={styles.chatButton}
+  onPress={() => navigation.navigate("Chat")}
+>
+  <IconButton icon="chat-processing" size={50} color="#000080" />
+</TouchableOpacity>
 
-      <FooterNavigation navigation={navigation} />
+<FooterNavigation navigation={navigation} />
+
     </View>
   );
 };
