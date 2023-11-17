@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import Input from '../components/Input';
-import { Alert as CustomAlert } from 'react-native';
-import Container from '../components/Container';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../context/UserContext';
 import MyButton from '../components/button';

@@ -11,7 +11,6 @@ import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
 
-import Icon from "react-native-vector-icons/MaterialIcons";
 import Swiper from 'react-native-swiper';
 
 const Usuario = () => {
@@ -80,6 +79,11 @@ const Usuario = () => {
       const somaSaldo = saldoParaReceita - saldoParaDespesa;
       const saldo = setCurrencyFormat(somaSaldo);
       setSaldoTotal(saldo);
+
+      const percentualDespesas = (saldoParaDespesa / saldoParaReceita) * 100;
+      if (percentualDespesas > 75) {
+        alert("As despesas ultrapassaram 75% das suas receitas!");
+      }
     });
   }, [isFocused, userId]);
 
@@ -156,6 +160,7 @@ const Usuario = () => {
         subtitleStyle={{
           color: "white",
           fontSize: 30,
+          fontWeight: 900,
           paddingTop: 10,
           paddingBottom: 20,
         }}
@@ -199,9 +204,20 @@ const Usuario = () => {
         </Card>
       </View>
 
+      <Divider
+        style={{
+          borderColor: "gray",
+          borderWidth: 0.2,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 0,
+          marginTop: 10,
+        }}
+      />
+
       <Text style={styles.evolucao}>Evolução Mensal</Text>
 <View>
-<VictoryChart width={430} height={230} theme={VictoryTheme.material}>
+<VictoryChart width={430} height={200} theme={VictoryTheme.material}>
           <VictoryBar
             data={data}
             x="x"
@@ -214,8 +230,8 @@ const Usuario = () => {
 </View>
 <Divider
         style={{
-          borderColor: "darkblue",
-          borderWidth: 0.5,
+          borderColor: "gray",
+          borderWidth: 0.2,
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 0,
@@ -224,37 +240,24 @@ const Usuario = () => {
       />
 
       <Text style={styles.evolucao}>Próximos Eventos</Text>
-
-<Swiper style={styles.wrapper} showsButtons={true}>
-      <View style={styles.slide1}>
-        <Text style={styles.text}>Energia Elétrica
-        </Text>
+      <View style={{paddingBottom: 50, marginBottom: 50,}}>
+      <Swiper showsButtons={true}>
+        <View style={styles.slide1}>
+          <Text style={styles.text}>Energia Elétrica</Text>
+        </View>
+        <View style={styles.slide2}>
+          <Text style={styles.text}>Slide 2</Text>
+        </View>
+      </Swiper>
       </View>
-      <View style={styles.slide2}>
-        <Text style={styles.text}>Slide 2</Text>
-      </View>
-    </Swiper>
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          margin: 10,
-        }}
+      <TouchableOpacity
+        style={styles.chatButton}
+        onPress={() => navigation.navigate("Chat")}
       >
-        <TouchableOpacity
-          style={styles.chatButton}
-          onPress={() => navigation.navigate("Chat")}
-        >
-          <IconButton icon="chat-processing" size={35} color="#000080" />
-          <Text
-            style={{ textAlign: "center", color: "darkblue", marginLeft: 5, paddingBottom: 10,}}
-          >
-            CHAT
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <IconButton icon="chat-processing" size={50} color="#000080" />
+      </TouchableOpacity>
+
       <FooterNavigation navigation={navigation} />
     </View>
   );
@@ -266,66 +269,87 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   card: {
-    backgroundColor: "#000080",
-    color: "white",
-    alignContent: "center",
+    backgroundColor: "darkblue",
+    borderColor: "whitesmoke",
+    borderWidth: 0.3,
     borderRadius: 17,
+    alignContent: "center",
     margin: 5,
-    marginTop: 15,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 35,
+    marginRight: 35,
   },
   cardContainer: {
     flexDirection: "row",
     margin: 5,
     justifyContent: "center",
+    marginBottom: 0,
+    paddingBottom: 0,
   },
   receita: {
     backgroundColor: "#F0FFF0",
-    width: "50%",
+    width: "43%",
+    borderWidth: 0.3,
     borderRadius: 17,
-    marginLeft: 20,
+    marginLeft: 40,
+    marginRight: 7,
+    textAlign: "left",
+    alignContent: "space-between",
   },
   despesa: {
     backgroundColor: "#FFC0CB",
-    width: "50%",
+    width: "43%",
+    borderWidth: 0.3,
     borderRadius: 17,
-    marginRight: 30,
+    marginRight: 40,
   },
   verExtratoText: {
     color: "white",
     fontSize: 12,
     marginRight: 10,
+    fontWeight: 900,
   },
   evolucao: {
     fontSize: 15,
-    padding: 15,
+    margin: 15,
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
+    marginTop: 10,
+    marginBottom: 10,
   },
   wrapper: {
-  height: 300,
   },
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'aliceblue',
-    height: 300,
+    backgroundColor: '#9DD6EB',
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'aliceblue',
+    backgroundColor: '#97CAE5',
   },
   text: {
-    color: 'darkblue',
-    fontSize: 15,
+    color: '#fff',
+    fontSize: 30,
     fontWeight: 'bold',
-    textAlign: "left",
+  },
+  chatButton: {
+    position: 'absolute',
+    bottom: 50,
+    right: 10,
+    zIndex: 2,
   },
 });
 
 export default Usuario;
+
+
+/*style={{
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  margin: 10,
+}}*/

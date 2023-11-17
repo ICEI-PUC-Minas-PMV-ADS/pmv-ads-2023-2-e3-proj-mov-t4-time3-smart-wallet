@@ -3,19 +3,16 @@ import {
   Alert,
   View,
   Text,
-  TextInput,
-  Button,
   StyleSheet,
   Image,
-  KeyboardAvoidingView,
-  Modal,
-  forwardRef, 
+  TouchableOpacity, 
   ScrollView,
 } from "react-native";
 import Input from "../components/Input";
 import MyButton from "../components/button";
 import { useNavigation } from "@react-navigation/native";
 import { register } from "../services/auth.services.js";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Cadastro = () => {
   const navigation = useNavigation();
@@ -24,12 +21,10 @@ const Cadastro = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [nameError, setNameError] = useState(""); 
 
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleCadastro = async () => {
     if (!validateName(name) || !validateEmail(email) || !validatePassword(password)) {
@@ -136,9 +131,15 @@ const Cadastro = () => {
               placeholder="Digite sua senha"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              secureTextEntry={!showPassword}
               style={styles.input}
             />
+            <TouchableOpacity
+              style={styles.showPasswordButton}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Icon name={showPassword ? 'eye-slash' : 'eye'} size={20} color="darkblue" />
+            </TouchableOpacity>
           </View>
           <Text style={styles.passwordInfo}>
             *Deve conter 1 letra maiúscula, 1 minúscula e pelo menos 1 número
