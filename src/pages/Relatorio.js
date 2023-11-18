@@ -1,91 +1,80 @@
-import * as React from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { BarChart } from 'react-native-chart-kit';
-import { useNavigation } from '@react-navigation/native';
-import { Card } from 'react-native-paper';
-import { Svg } from 'react-native-svg';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import FooterNavigation from '../components/footer';
-import HeaderPages from '../components/headerPages'; 
+// Relatorio.js
 
-const Usuario = () => {
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import FooterNavigation from '../components/footer';
+import HeaderPages from '../components/headerPages';
+import { getLancamentos } from '../services/lancamento.services';
+
+const Relatorio = () => {
   const navigation = useNavigation();
+
+  // State para armazenar os lançamentos pendentes
+  const [lancamentosPendentes, setLancamentosPendentes] = useState([]);
+
+  useEffect(() => {
+    // Obtém os lançamentos
+    getLancamentos()
+      .then((dados) => {
+        console.log('Todos os lançamentos:', dados);
+
+        // Filtra os lançamentos pendentes
+        const lancamentosPendentes = dados.filter(
+          (lancamento) => lancamento.status.toLowerCase() === 'pendente'
+        );
+        console.log('Lançamentos pendentes:', lancamentosPendentes);
+
+        // Atualiza o estado com os lançamentos pendentes
+        setLancamentosPendentes(lancamentosPendentes);
+      })
+      .catch((error) => {
+        console.error('Erro ao obter lançamentos:', error);
+      });
+  }, []); // Executa apenas uma vez, quando o componente é montado
+
+  console.log('Lançamentos pendentes no estado:', lancamentosPendentes);
 
   return (
     <View style={styles.container}>
       <HeaderPages navigation={navigation} />
 
-      <Card.Title
-        title="Próximos Eventos"
-        style={{ backgroundColor: 'white' }}
-        titleStyle={{ color: 'darkblue', fontSize: 10, textAlign: 'left' }}
-        right={() => <View />}
-      />
+      <ScrollView>
+        <Text style={styles.title}>Lançamentos Pendentes</Text>
+        {lancamentosPendentes.map((item) => (
+          <View key={item.id} style={styles.lancamentoContainer}>
+            <Text>{`Vencimento: ${item.dataVencimento || 'N/A'}`}</Text>
+            <Text>{`Tipo: ${item.tipo}`}</Text>
+            <Text>{`Classificação: ${item.classificacao}`}</Text>
+            <Text>{`Valor: ${item.valor || 'N/A'}`}</Text>
+            <Text style={{ color: item.status === 'Efetivado' ? 'green' : 'red' }}>
+              {`Status: ${item.status}`}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
 
-      <Card.Title
-        title="Energia Elétrica"
-        subtitle="R$ 550,00"
-        style={{ backgroundColor: 'whitesmoke' }}
-        titleStyle={{
-          color: 'darkred',
-          fontWeight: 'bold',
-          fontSize: 18,
-          textAlign: 'center',
-        }}
-        subtitleStyle={{
-          color: 'darkred',
-          fontSize: 20,
-          fontWeight: 'bold',
-          textAlign: 'center',
-        }}
-        right={() => <View />}
-      />
-
-<FooterNavigation navigation={navigation} />
-
+      <FooterNavigation navigation={navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    card: {
-      backgroundColor: 'darkblue',
-      color: 'white',
-      alignContent: 'center',
-      borderRadius: 10,
-      margin: 5,
-      marginTop: 15,
-    },
-    cardContainer: {
-      flexDirection: 'row',
-      margin: 5,
-      justifyContent: 'center',
-    },
-    receita: {
-      backgroundColor: '#7FFFD4',
-      width: '50%',
-      borderRadius: 10,
-    },
-    despesa: {
-      backgroundColor: '#FFB6C1',
-      width: '50%',
-      borderRadius: 10,
-    },
-    verExtratoText: {
-      color: 'white',
-      fontSize: 12,
-      marginRight: 10,
-    },
-    evolucao: {
-      fontSize: 15,
-      padding: 20,
-      fontWeight: '700',
-      color: 'darkblue',
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    marginLeft: 10,
+  },
+  lancamentoContainer: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 10,
+    padding: 10,
+  },
+});
 
-export default Usuario;
+export default Relatorio;

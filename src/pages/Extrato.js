@@ -65,6 +65,10 @@ const Extrato = () => {
     }
   };
 
+  const lancamentosPendentes = lancamentos.filter(lancamento => lancamento.status === 'pendente');
+
+  
+
   return (
     <View style={styles.container}>
       <HeaderPages navigation={navigation} />

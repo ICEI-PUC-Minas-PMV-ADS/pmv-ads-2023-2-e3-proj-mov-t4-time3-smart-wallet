@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
 import { getLancamentos } from "../services/lancamento.services";
@@ -10,8 +9,10 @@ import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
-
+import { LineChart } from 'react-native-chart-kit';
+import { Dimensions } from 'react-native';
 import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Usuario = () => {
   const navigation = useNavigation();
@@ -25,7 +26,10 @@ const Usuario = () => {
   const [somasPorMes, setSomasPorMes] = useState([])
   const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
   const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
-
+  
+  const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
+  const [mostrarInformacoes, setMostrarInformacoes] = useState(false);
+ 
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
@@ -84,6 +88,10 @@ const Usuario = () => {
       if (percentualDespesas > 75) {
         alert("As despesas ultrapassaram 75% das suas receitas!");
       }
+
+      const lancamentosPendentes = lancamentos.filter((lancamento) => lancamento.status.toLowerCase() === 'pendente');
+      setLancamentosPendentes(lancamentosPendentes);
+
     });
   }, [isFocused, userId]);
 
@@ -135,26 +143,71 @@ const Usuario = () => {
     });
   };
 
-  const data = [
-    { x: 'Jan', y: 10 },
-    { x: 'Fev', y: 20 },
-    { x: 'Mar', y: 15 },
-    { x: 'Abr', y: 15 },
-    { x: 'Mai', y: 15 },
-    { x: 'Jun', y: 15 },
-    { x: 'Jul', y: 15 },
-    { x: 'Ago', y: 15 },
-    { x: 'Set', y: 15 },
-    { x: 'Nov', y: 15 },
-    { x: 'Dez', y: 15 },
-  ];
+
+  const SwiperComponent = () => (
+    <Swiper
+    style={styles.swiperWrapper}
+    showsButtons={true}
+    buttonWrapperStyle={styles.buttonWrapper}
+    nextButton={<Icon name="chevron-right" size={20} color="blue" />}
+    prevButton={<Icon name="chevron-left" size={20} color="blue" />}
+  >
+      {lancamentosPendentes.map((item, index) => (
+        <View key={index} style={styles.slide}>
+          <View style={styles.lancamentoContainer}>
+            <Text style={styles.swiperText}>{`Vencimento: ${item.dataVencimento || 'N/A'}`}</Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: item.tipo === "Receita" ? "green" : "red",
+              }}
+            >
+              {item.tipo === "Receita" ? (
+                <>
+                  <Icon name="upload" size={20} color="green" /> Tipo:{" "}
+                  {item.tipo}
+                </>
+              ) : (
+                <>
+                  <Icon name="download" size={20} color="red" /> Tipo:{" "}
+                  {item.tipo}
+                </>
+              )}
+            </Text>
+            <Text style={styles.swiperText}>{`Classificação: ${item.classificacao}`}</Text>
+            <Text style={styles.swiperText}>{`Valor: ${item.valor || 'N/A'}`}</Text>
+            <Text style={{ color: item.status === 'Efetivado' ? 'green' : 'red', backgroundColor:
+                        item.status === "Efetivado" ? "lightgreen" : "pink", }}>
+              {`Status: ${item.status}`}
+            </Text>
+          </View>
+        </View>
+      ))}
+    </Swiper>
+  );
+
+  const screenWidth = Dimensions.get('window').width;
+
+  const chartData = {
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+    datasets: [
+      {
+        data: [500, 1000, 800, 1200, 600, 1500, 900, 1300, 700, 1100, 1000, 1400],
+        color: () => 'green',
+      },
+      {
+        data: [700, 800, 500, 200, 100, 500, 500, 200, 100, 10, 55, 40],
+        color: () => 'red',
+      },
+    ],
+  };
 
   return (
-    <View style={styles.container}>
+<View style={styles.container}>
       <Header navigation={navigation} />
       <Card.Title
         title="Saldo"
-        subtitle={saldoTotal}
+        subtitle={mostrarInformacoes ? saldoTotal : "****"}
         style={styles.card}
         titleStyle={{ color: "white", fontSize: 12, paddingTop: 10 }}
         subtitleStyle={{
@@ -166,6 +219,9 @@ const Usuario = () => {
         }}
         right={(props) => (
           <View style={styles.Container}>
+            <TouchableOpacity onPress={() => setMostrarInformacoes(!mostrarInformacoes)}>
+              <Icon name={mostrarInformacoes ? "eye-slash" : "eye"} size={20} color="white" />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>
               <Text style={styles.verExtratoText}>Ver Extrato</Text>
             </TouchableOpacity>
@@ -177,7 +233,7 @@ const Usuario = () => {
         <Card style={styles.receita}>
           <Card.Title
             title="Receitas"
-            subtitle={receita}
+            subtitle={mostrarInformacoes ? receita : "****"}
             titleStyle={{
               color: "darkgreen",
               fontSize: 12,
@@ -193,7 +249,7 @@ const Usuario = () => {
         <Card style={styles.despesa}>
           <Card.Title
             title="Despesas"
-            subtitle={despesa}
+            subtitle={mostrarInformacoes ? despesa : "****"}
             titleStyle={{ color: "darkred", fontSize: 12, fontWeight: "bold" }}
             subtitleStyle={{
               color: "darkred",
@@ -204,30 +260,41 @@ const Usuario = () => {
         </Card>
       </View>
 
+      <Text style={styles.evolucao}>Evolução Mensal</Text>
+
       <Divider
         style={{
           borderColor: "gray",
           borderWidth: 0.2,
           marginLeft: 20,
           marginRight: 20,
-          marginBottom: 0,
-          marginTop: 10,
+          marginTop: 5,
+          marginBottom: 25,
         }}
       />
 
-      <Text style={styles.evolucao}>Evolução Mensal</Text>
-<View>
-<VictoryChart width={430} height={200} theme={VictoryTheme.material}>
-          <VictoryBar
-            data={data}
-            x="x"
-            y="y"
-            style={{
-              data: { fill: "darkblue" },
-            }}
-          />
-        </VictoryChart>
-</View>
+      <LineChart
+          data={chartData}
+          width={screenWidth}
+          height={200}
+          yAxisLabel=""
+          chartConfig={{
+            backgroundColor: 'whitesmoke',
+            backgroundGradientFrom: 'whitesmoke',
+            backgroundGradientTo: 'whitesmoke',
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+          }}
+        />
+
+<Text style={styles.evolucao}>Lançamentos Pendentes e à Vencer</Text>
 <Divider
         style={{
           borderColor: "gray",
@@ -235,30 +302,21 @@ const Usuario = () => {
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 0,
-          marginTop: 0,
+          marginTop: 5,
         }}
       />
 
-      <Text style={styles.evolucao}>Próximos Eventos</Text>
-      <View style={{paddingBottom: 50, marginBottom: 50,}}>
-      <Swiper showsButtons={true}>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Energia Elétrica</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Slide 2</Text>
-        </View>
-      </Swiper>
-      </View>
+<SwiperComponent />
 
-      <TouchableOpacity
-        style={styles.chatButton}
-        onPress={() => navigation.navigate("Chat")}
-      >
-        <IconButton icon="chat-processing" size={50} color="#000080" />
-      </TouchableOpacity>
+<TouchableOpacity
+  style={styles.chatButton}
+  onPress={() => navigation.navigate("Chat")}
+>
+  <IconButton icon="chat-processing" size={50} color="#000080" />
+</TouchableOpacity>
 
-      <FooterNavigation navigation={navigation} />
+<FooterNavigation navigation={navigation} />
+
     </View>
   );
 };
@@ -314,42 +372,57 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 25,
+    marginBottom: 5,
   },
   wrapper: {
-  },
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
   },
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
   },
+slide:{
+  backgroundColor: "#FFF0F5",
+    color: "red",
+    paddingTop: 15,
+    paddingBottom: 40,
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  swiperText: {
+    fontSize: 15,
+  },
+  swiperHeaderText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  buttonWrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 50,
+    paddingBottom: 70,
+    alignItems: 'center',
+    zIndex: 2,
+  },
+  buttonText: {
+    fontSize: 35,
+    color: 'blue',
+  },
   chatButton: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 27,
     right: 10,
     zIndex: 2,
   },
 });
 
 export default Usuario;
-
-
-/*style={{
-  flexDirection: "row",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  margin: 10,
-}}*/
