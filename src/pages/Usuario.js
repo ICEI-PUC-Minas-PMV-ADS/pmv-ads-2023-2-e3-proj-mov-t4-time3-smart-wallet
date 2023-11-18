@@ -27,7 +27,8 @@ const Usuario = () => {
   const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
   const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
   const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
-
+  const [mostrarInformacoes, setMostrarInformacoes] = useState(false);
+  
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
@@ -201,11 +202,11 @@ const Usuario = () => {
   };
 
   return (
-    <View style={styles.container}>
+<View style={styles.container}>
       <Header navigation={navigation} />
       <Card.Title
         title="Saldo"
-        subtitle={saldoTotal}
+        subtitle={mostrarInformacoes ? saldoTotal : "****"}
         style={styles.card}
         titleStyle={{ color: "white", fontSize: 12, paddingTop: 10 }}
         subtitleStyle={{
@@ -217,6 +218,9 @@ const Usuario = () => {
         }}
         right={(props) => (
           <View style={styles.Container}>
+            <TouchableOpacity onPress={() => setMostrarInformacoes(!mostrarInformacoes)}>
+              <Icon name={mostrarInformacoes ? "eye-slash" : "eye"} size={20} color="white" />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>
               <Text style={styles.verExtratoText}>Ver Extrato</Text>
             </TouchableOpacity>
@@ -228,7 +232,7 @@ const Usuario = () => {
         <Card style={styles.receita}>
           <Card.Title
             title="Receitas"
-            subtitle={receita}
+            subtitle={mostrarInformacoes ? receita : "****"}
             titleStyle={{
               color: "darkgreen",
               fontSize: 12,
@@ -244,7 +248,7 @@ const Usuario = () => {
         <Card style={styles.despesa}>
           <Card.Title
             title="Despesas"
-            subtitle={despesa}
+            subtitle={mostrarInformacoes ? despesa : "****"}
             titleStyle={{ color: "darkred", fontSize: 12, fontWeight: "bold" }}
             subtitleStyle={{
               color: "darkred",
@@ -255,17 +259,18 @@ const Usuario = () => {
         </Card>
       </View>
 
+      <Text style={styles.evolucao}>Evolução Mensal</Text>
+
       <Divider
         style={{
           borderColor: "gray",
           borderWidth: 0.2,
           marginLeft: 20,
           marginRight: 20,
-          marginTop: 15,
+          marginTop: 5,
+          marginBottom: 25,
         }}
       />
-
-      <Text style={styles.evolucao}>Evolução Mensal</Text>
 
       <LineChart
           data={chartData}
@@ -288,6 +293,7 @@ const Usuario = () => {
           }}
         />
 
+<Text style={styles.evolucao}>Lançamentos Pendentes e à Vencer</Text>
 <Divider
         style={{
           borderColor: "gray",
@@ -295,11 +301,10 @@ const Usuario = () => {
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 0,
-          marginTop: 10,
+          marginTop: 5,
         }}
       />
 
-<Text style={styles.evolucao}>Lançamentos Pendentes</Text>
 <SwiperComponent />
 
 <TouchableOpacity
@@ -366,8 +371,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "darkblue",
     textAlign: "left",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 25,
+    marginBottom: 5,
   },
   wrapper: {
   },
@@ -377,20 +382,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 slide:{
-  backgroundColor: "white",
+  backgroundColor: "#FFF0F5",
     color: "red",
-    paddingTop: 20,
+    paddingTop: 15,
+    paddingBottom: 40,
     textAlign: "center",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    paddingBottom: 20,
   },
   swiperText: {
-    fontSize: 16,
+    fontSize: 15,
   },
   swiperHeaderText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 10,
   },
