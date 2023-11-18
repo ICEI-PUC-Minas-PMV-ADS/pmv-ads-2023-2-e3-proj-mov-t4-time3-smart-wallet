@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderRadius: 17,
     alignContent: "center",
-    margin: 5,
+    margin: 10,
     marginLeft: 35,
     marginRight: 35,
   },

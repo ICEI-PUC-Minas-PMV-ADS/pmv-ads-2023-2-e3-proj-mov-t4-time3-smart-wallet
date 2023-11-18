@@ -34,7 +34,7 @@ const Header = ({ navigation }) => {
 const styles = {
   appbar: {
     backgroundColor: 'whitesmoke',
-    marginTop: 15,
+    marginTop: 35,
     marginBottom: 20,
   },
   logo: {
