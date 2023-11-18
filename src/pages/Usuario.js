@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
@@ -9,10 +15,10 @@ import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
-import { LineChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { LineChart } from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import Swiper from "react-native-swiper";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Usuario = () => {
   const navigation = useNavigation();
@@ -23,13 +29,13 @@ const Usuario = () => {
   const [saldoTotal, setSaldoTotal] = useState(0);
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
-  const [somasPorMes, setSomasPorMes] = useState([])
-  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
-  const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
-  
-  const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
+  const [somasPorMes, setSomasPorMes] = useState([]);
+  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([]);
+  const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([]);
+
+  const [lancamentosPendentes, setLancamentosPendentes] = useState([]);
   const [mostrarInformacoes, setMostrarInformacoes] = useState(false);
- 
+
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
@@ -39,11 +45,26 @@ const Usuario = () => {
       const sumsDespesaByMonth = Array(12).fill(0);
 
       for (let month = 0; month < 12; month++) {
-        const startDate = moment(`01/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
-        const endDate = moment(`${moment(startDate, 'DD/MM/YYYY').daysInMonth()}/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
+        const startDate = moment(`01/${month + 1}/2023`, "DD/MM/YYYY").format(
+          "DD/MM/YYYY"
+        );
+        const endDate = moment(
+          `${moment(startDate, "DD/MM/YYYY").daysInMonth()}/${month + 1}/2023`,
+          "DD/MM/YYYY"
+        ).format("DD/MM/YYYY");
 
-        const receitasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Receita');
-        const despesasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Despesa');
+        const receitasPorData = filterLancamentosByDate(
+          lancamentos,
+          startDate,
+          endDate,
+          "Receita"
+        );
+        const despesasPorData = filterLancamentosByDate(
+          lancamentos,
+          startDate,
+          endDate,
+          "Despesa"
+        );
 
         let sumReceitas = 0;
         receitasPorData.forEach((element) => {
@@ -57,20 +78,21 @@ const Usuario = () => {
           sumDespesas += formatedElement;
         });
 
-        const saldoMensal = sumReceitas - sumDespesas
+        const saldoMensal = sumReceitas - sumDespesas;
 
         sumsByMonth[month] = setCurrencyFormat(saldoMensal);
-        sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
-        sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
-
+        // sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
+        // sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
+        sumsReceitaByMonth[month] = sumReceitas;
+        sumsDespesaByMonth[month] = sumDespesas;
       }
 
       setSomasPorMes(sumsByMonth);
       setSomasReceitasPorMes(sumsReceitaByMonth);
       setSomasDespesasPorMes(sumsDespesaByMonth);
-      console.log(sumsReceitaByMonth)
-      console.log(sumsDespesaByMonth)
-      console.log(somasPorMes)
+      // console.log(sumsReceitaByMonth);
+      // console.log(sumsDespesaByMonth);
+      // console.log(somasPorMes);
 
       const saldoParaReceita = calculateTotalAmount(lancamentos, "Receita");
       const receita = setCurrencyFormat(saldoParaReceita);
@@ -89,9 +111,10 @@ const Usuario = () => {
         alert("As despesas ultrapassaram 75% das suas receitas!");
       }
 
-      const lancamentosPendentes = lancamentos.filter((lancamento) => lancamento.status.toLowerCase() === 'pendente');
+      const lancamentosPendentes = lancamentos.filter(
+        (lancamento) => lancamento.status.toLowerCase() === "pendente"
+      );
       setLancamentosPendentes(lancamentosPendentes);
-
     });
   }, [isFocused, userId]);
 
@@ -129,33 +152,34 @@ const Usuario = () => {
   };
 
   const filterLancamentosByDate = (lancamentos, startDate, endDate, tipo) => {
-    const dateObject1 = moment(startDate, 'DD/MM/YYYY').toDate();
-    const dateObject2 = moment(endDate, 'DD/MM/YYYY').toDate();
+    const dateObject1 = moment(startDate, "DD/MM/YYYY").toDate();
+    const dateObject2 = moment(endDate, "DD/MM/YYYY").toDate();
 
     return lancamentos.filter((item) => {
-      const dataFormatada = moment(item.dataVencimento, 'DD/MM/YYYY').toDate();
+      const dataFormatada = moment(item.dataVencimento, "DD/MM/YYYY").toDate();
       return (
         dataFormatada >= dateObject1 &&
         dataFormatada <= dateObject2 &&
-        item.status === 'Efetivado' &&
+        item.status === "Efetivado" &&
         item.tipo === tipo
       );
     });
   };
 
-
   const SwiperComponent = () => (
     <Swiper
-    style={styles.swiperWrapper}
-    showsButtons={true}
-    buttonWrapperStyle={styles.buttonWrapper}
-    nextButton={<Icon name="chevron-right" size={20} color="blue" />}
-    prevButton={<Icon name="chevron-left" size={20} color="blue" />}
-  >
+      style={styles.swiperWrapper}
+      showsButtons={true}
+      buttonWrapperStyle={styles.buttonWrapper}
+      nextButton={<Icon name="chevron-right" size={20} color="blue" />}
+      prevButton={<Icon name="chevron-left" size={20} color="blue" />}
+    >
       {lancamentosPendentes.map((item, index) => (
         <View key={index} style={styles.slide}>
           <View style={styles.lancamentoContainer}>
-            <Text style={styles.swiperText}>{`Vencimento: ${item.dataVencimento || 'N/A'}`}</Text>
+            <Text style={styles.swiperText}>{`Vencimento: ${
+              item.dataVencimento || "N/A"
+            }`}</Text>
             <Text
               style={{
                 fontWeight: "bold",
@@ -174,10 +198,19 @@ const Usuario = () => {
                 </>
               )}
             </Text>
-            <Text style={styles.swiperText}>{`Classificação: ${item.classificacao}`}</Text>
-            <Text style={styles.swiperText}>{`Valor: ${item.valor || 'N/A'}`}</Text>
-            <Text style={{ color: item.status === 'Efetivado' ? 'green' : 'red', backgroundColor:
-                        item.status === "Efetivado" ? "lightgreen" : "pink", }}>
+            <Text
+              style={styles.swiperText}
+            >{`Classificação: ${item.classificacao}`}</Text>
+            <Text style={styles.swiperText}>{`Valor: ${
+              item.valor || "N/A"
+            }`}</Text>
+            <Text
+              style={{
+                color: item.status === "Efetivado" ? "green" : "red",
+                backgroundColor:
+                  item.status === "Efetivado" ? "lightgreen" : "pink",
+              }}
+            >
               {`Status: ${item.status}`}
             </Text>
           </View>
@@ -186,24 +219,63 @@ const Usuario = () => {
     </Swiper>
   );
 
-  const screenWidth = Dimensions.get('window').width;
+  const screenWidth = Dimensions.get("window").width;
 
   const chartData = {
-    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+    labels: [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
-        data: [500, 1000, 800, 1200, 600, 1500, 900, 1300, 700, 1100, 1000, 1400],
-        color: () => 'green',
+        data: [
+          somasReceitasPorMes[0],
+          somasReceitasPorMes[1],
+          somasReceitasPorMes[2],
+          somasReceitasPorMes[3],
+          somasReceitasPorMes[4],
+          somasReceitasPorMes[5],
+          somasReceitasPorMes[6],
+          somasReceitasPorMes[7],
+          somasReceitasPorMes[8],
+          somasReceitasPorMes[9],
+          somasReceitasPorMes[10],
+          somasReceitasPorMes[11],
+        ],
+        color: () => "green",
       },
       {
-        data: [700, 800, 500, 200, 100, 500, 500, 200, 100, 10, 55, 40],
-        color: () => 'red',
+        data: [
+          somasDespesasPorMes[0],
+          somasDespesasPorMes[1],
+          somasDespesasPorMes[2],
+          somasDespesasPorMes[3],
+          somasDespesasPorMes[4],
+          somasDespesasPorMes[5],
+          somasDespesasPorMes[6],
+          somasDespesasPorMes[7],
+          somasDespesasPorMes[8],
+          somasDespesasPorMes[9],
+          somasDespesasPorMes[10],
+          somasDespesasPorMes[11]
+        ],
+        color: () => "red",
       },
     ],
   };
 
   return (
-<View style={styles.container}>
+    <View style={styles.container}>
       <Header navigation={navigation} />
       <Card.Title
         title="Saldo"
@@ -219,8 +291,14 @@ const Usuario = () => {
         }}
         right={(props) => (
           <View style={styles.Container}>
-            <TouchableOpacity onPress={() => setMostrarInformacoes(!mostrarInformacoes)}>
-              <Icon name={mostrarInformacoes ? "eye-slash" : "eye"} size={20} color="white" />
+            <TouchableOpacity
+              onPress={() => setMostrarInformacoes(!mostrarInformacoes)}
+            >
+              <Icon
+                name={mostrarInformacoes ? "eye-slash" : "eye"}
+                size={20}
+                color="white"
+              />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Extrato")}>
               <Text style={styles.verExtratoText}>Ver Extrato</Text>
@@ -274,28 +352,28 @@ const Usuario = () => {
       />
 
       <LineChart
-          data={chartData}
-          width={screenWidth}
-          height={200}
-          yAxisLabel=""
-          chartConfig={{
-            backgroundColor: 'whitesmoke',
-            backgroundGradientFrom: 'whitesmoke',
-            backgroundGradientTo: 'whitesmoke',
-            decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-          }}
-        />
+        data={chartData}
+        width={screenWidth}
+        height={200}
+        yAxisLabel=""
+        chartConfig={{
+          backgroundColor: "whitesmoke",
+          backgroundGradientFrom: "whitesmoke",
+          backgroundGradientTo: "whitesmoke",
+          decimalPlaces: 2,
+          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          style: {
+            borderRadius: 16,
+          },
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+        }}
+      />
 
-<Text style={styles.evolucao}>Lançamentos Pendentes e à Vencer</Text>
-<Divider
+      <Text style={styles.evolucao}>Lançamentos Pendentes e à Vencer</Text>
+      <Divider
         style={{
           borderColor: "gray",
           borderWidth: 0.2,
@@ -306,17 +384,16 @@ const Usuario = () => {
         }}
       />
 
-<SwiperComponent />
+      <SwiperComponent />
 
-<TouchableOpacity
-  style={styles.chatButton}
-  onPress={() => navigation.navigate("Chat")}
->
-  <IconButton icon="chat-processing" size={50} color="#000080" />
-</TouchableOpacity>
+      <TouchableOpacity
+        style={styles.chatButton}
+        onPress={() => navigation.navigate("Chat")}
+      >
+        <IconButton icon="chat-processing" size={50} color="#000080" />
+      </TouchableOpacity>
 
-<FooterNavigation navigation={navigation} />
-
+      <FooterNavigation navigation={navigation} />
     </View>
   );
 };
@@ -376,15 +453,14 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 5,
   },
-  wrapper: {
-  },
+  wrapper: {},
   text: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-slide:{
-  backgroundColor: "#FFF0F5",
+  slide: {
+    backgroundColor: "#FFF0F5",
     color: "red",
     paddingTop: 15,
     paddingBottom: 40,
@@ -399,28 +475,28 @@ slide:{
   },
   swiperHeaderText: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   buttonWrapper: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 50,
     paddingBottom: 70,
-    alignItems: 'center',
+    alignItems: "center",
     zIndex: 2,
   },
   buttonText: {
     fontSize: 35,
-    color: 'blue',
+    color: "blue",
   },
   chatButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 27,
     right: 10,
     zIndex: 2,
