@@ -24,8 +24,10 @@ const Usuario = () => {
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
   const [somasPorMes, setSomasPorMes] = useState([])
-  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
-  const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
+
+  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState(Array(12).fill(0));
+const [somasDespesasPorMes, setSomasDespesasPorMes] = useState(Array(12).fill(0));
+
   
   const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
   const [mostrarInformacoes, setMostrarInformacoes] = useState(false);
@@ -45,7 +47,7 @@ const Usuario = () => {
         const receitasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Receita');
         const despesasPorData = filterLancamentosByDate(lancamentos, startDate, endDate, 'Despesa');
 
-        let sumReceitas = 0;
+        /*let sumReceitas = 0;
         receitasPorData.forEach((element) => {
           const formatedElement = formatCurrency(element.valor);
           sumReceitas += formatedElement;
@@ -59,15 +61,23 @@ const Usuario = () => {
 
         const saldoMensal = sumReceitas - sumDespesas
 
-        sumsByMonth[month] = setCurrencyFormat(saldoMensal);
-        sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
-        sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
+        sumsByMonth[month] = saldoMensal;
+        sumsReceitaByMonth[month] = sumReceitas;
+        sumsDespesaByMonth[month] = sumDespesas;*/
+
+        const sumReceitas = receitasPorData.reduce((acc, element) => acc + formatCurrency(element.valor), 0);
+        const sumDespesas = despesasPorData.reduce((acc, element) => acc + formatCurrency(element.valor), 0);
+        const saldoMensal = sumReceitas - sumDespesas;
+      
+        sumsByMonth[month] = saldoMensal;
+        sumsReceitaByMonth[month] = sumReceitas;
+        sumsDespesaByMonth[month] = sumDespesas;
 
       }
 
-      setSomasPorMes(sumsByMonth);
-      setSomasReceitasPorMes(sumsReceitaByMonth);
-      setSomasDespesasPorMes(sumsDespesaByMonth);
+setSomasPorMes(sumsByMonth);
+setSomasReceitasPorMes(sumsReceitaByMonth);
+setSomasDespesasPorMes(sumsDespesaByMonth);
       console.log(sumsReceitaByMonth)
       console.log(sumsDespesaByMonth)
       console.log(somasPorMes)
@@ -186,21 +196,7 @@ const Usuario = () => {
     </Swiper>
   );
 
-  const screenWidth = Dimensions.get('window').width;
 
-  const chartData = {
-    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
-    datasets: [
-      {
-        data: [500, 1000, 800, 1200, 600, 1500, 900, 1300, 700, 1100, 1000, 1400],
-        color: () => 'green',
-      },
-      {
-        data: [700, 800, 500, 200, 100, 500, 500, 200, 100, 10, 55, 40],
-        color: () => 'red',
-      },
-    ],
-  };
 
   return (
 <View style={styles.container}>
@@ -272,27 +268,45 @@ const Usuario = () => {
           marginBottom: 25,
         }}
       />
+<LineChart
+  data={{
+    labels: [
+      'Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+    ],
+    datasets: [
+      {
+        data: somasReceitasPorMes, 
+        color: (opacity = 1) => `rgba(0, 128, 0, ${opacity})`, // Cor para receitas (verde)
+        strokeWidth: 3,
+      },
+      {
+        data: somasDespesasPorMes,
+        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`, // Cor para despesas (vermelho)
+        strokeWidth: 3,
+      },
+    ],
+  }}
+  width={Dimensions.get('window').width - 5} // Largura do gráfico
+  height={220} // Altura do gráfico
+  yAxisLabel="R$"
+  yAxisSuffix=""
+  yAxisInterval={1} // Intervalo do eixo Y
+  chartConfig={{
+    backgroundGradientFrom: '#fff',
+    backgroundGradientTo: '#fff',
+    decimalPlaces: 0, // Número de casas decimais
+    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Cor do texto
+    labelColor: (opacity = 1) => `rgba(0, 0, 139, ${opacity})`, // Cor dos rótulos do eixo X
+    style: {
+      borderRadius: 16,
+    },
+    propsForDots: {
+      r: '5',
+      strokeWidth: '5',
+    },
+  }}
+/>
 
-      <LineChart
-          data={chartData}
-          width={screenWidth}
-          height={200}
-          yAxisLabel=""
-          chartConfig={{
-            backgroundColor: 'whitesmoke',
-            backgroundGradientFrom: 'whitesmoke',
-            backgroundGradientTo: 'whitesmoke',
-            decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-          }}
-        />
 
 <Text style={styles.evolucao}>Lançamentos Pendentes e à Vencer</Text>
 <Divider
@@ -365,6 +379,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginRight: 10,
     fontWeight: 900,
+    paddingTop: 10,
   },
   evolucao: {
     fontSize: 15,
@@ -385,7 +400,7 @@ const styles = StyleSheet.create({
 slide:{
   backgroundColor: "#FFF0F5",
     color: "red",
-    paddingTop: 15,
+    paddingTop: 10,
     paddingBottom: 40,
     textAlign: "center",
     justifyContent: "center",
@@ -398,7 +413,7 @@ slide:{
   swiperHeaderText: {
     fontSize: 15,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   buttonWrapper: {
     position: 'absolute',
