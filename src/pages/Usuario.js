@@ -26,9 +26,10 @@ const Usuario = () => {
   const [somasPorMes, setSomasPorMes] = useState([])
   const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
   const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
+  
   const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
   const [mostrarInformacoes, setMostrarInformacoes] = useState(false);
-  
+ 
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
