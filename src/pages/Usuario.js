@@ -363,8 +363,9 @@ const styles = StyleSheet.create({
   verExtratoText: {
     color: "white",
     fontSize: 12,
-    marginRight: 10,
+    paddingRight: 25,
     fontWeight: 900,
+    paddingTop: 15,
   },
   evolucao: {
     fontSize: 15,
@@ -394,6 +395,7 @@ slide:{
   },
   swiperText: {
     fontSize: 15,
+    paddingTop: 7,
   },
   swiperHeaderText: {
     fontSize: 15,
