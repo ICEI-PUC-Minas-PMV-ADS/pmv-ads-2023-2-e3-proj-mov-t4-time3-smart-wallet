@@ -13,7 +13,7 @@ Para cada requisito funcional, pode ser entregue um artefato desse tipo
 |RF-003| A aplicação deve emitir alertas, quando as despesas atingirem 75% do valor das receitas. | | 
 |RF-004| A aplicação deve permitir que o usuário faça cadastro.  | src/pages/Cadastro.js |
 |RF-005| A aplicação deve permitir que o usuário faça login.  | src/pages/Login.js |
-|RF-006| A aplicação deve apresentar um gráfico de receitas versus despesas|  | 
+|RF-006| A aplicação deve apresentar um gráfico de receitas versus despesas| src/pages/Usuario.js | 
 |RF-007| A aplicação deve emitir alertas próximo aos vencimentos dos pagamentos cadastrados   |  |
 |RF-008| A aplicação deve ter uma página com a Visão Geral dos Lançamentos(Despesas/Receitas) com Status de Efetivado ou Pendente, identificados com cores. | src/pages/Extrato.js | 
 |RF-009| A aplicação deve ter a funcionalidade de ocultar o saldo  | src/pages/Usuario.js | 
