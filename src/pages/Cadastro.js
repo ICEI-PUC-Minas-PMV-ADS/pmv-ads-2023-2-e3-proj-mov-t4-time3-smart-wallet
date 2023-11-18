@@ -56,6 +56,33 @@ const Cadastro = () => {
     });
   };
 
+  // const validateName = (inputName) => {
+  //   if (inputName.trim() === "") {
+  //     setNameError("Nome é obrigatório");
+  //     return false;
+  //   } else {
+  //     setNameError("");
+  //     return true;
+  //   }
+  // };
+
+  // const validateEmail = (inputEmail) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   const isValid = emailRegex.test(inputEmail);
+
+  //   setEmailError(isValid ? "" : "Email inválido");
+    
+  //   return isValid;
+  // };
+
+  // const validatePassword = (inputPassword) => {
+  //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  //   const isValid = passwordRegex.test(inputPassword);
+
+  //   setPasswordError(isValid ? "" : "Senha inválida");
+    
+  //   return isValid;
+  // };
 
   return (
     <ScrollView style={styles.container} behavior="padding" enabled>
