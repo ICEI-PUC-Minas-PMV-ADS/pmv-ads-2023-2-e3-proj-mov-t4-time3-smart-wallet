@@ -10,7 +10,8 @@ import FooterNavigation from "../components/footer";
 import Header from "../components/Header";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
-
+import { LineChart } from 'react-native-chart-kit';
+import { Dimensions } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 const Usuario = () => {
@@ -23,16 +24,16 @@ const Usuario = () => {
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
   const [somasPorMes, setSomasPorMes] = useState([])
-  // const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
-  // const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
+  const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
+  const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
 
   useEffect(() => {
     getLancamentos().then((dados) => {
       const lancamentos = dados.filter((user) => user.userId === userId);
 
       const sumsByMonth = Array(12).fill(0);
-      // const sumsReceitaByMonth = Array(12).fill(0);
-      // const sumsDespesaByMonth = Array(12).fill(0);
+      const sumsReceitaByMonth = Array(12).fill(0);
+      const sumsDespesaByMonth = Array(12).fill(0);
 
       for (let month = 0; month < 12; month++) {
         const startDate = moment(`01/${month + 1}/2023`, 'DD/MM/YYYY').format('DD/MM/YYYY');
@@ -56,16 +57,16 @@ const Usuario = () => {
         const saldoMensal = sumReceitas - sumDespesas
 
         sumsByMonth[month] = setCurrencyFormat(saldoMensal);
-        // sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
-        // sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
+        sumsReceitaByMonth[month] = setCurrencyFormat(sumReceitas);
+        sumsDespesaByMonth[month] = setCurrencyFormat(sumDespesas);
 
       }
 
       setSomasPorMes(sumsByMonth);
-      // setSomasReceitasPorMes(sumsReceitaByMonth);
-      // setSomasDespesasPorMes(sumsDespesaByMonth);
-      // console.log(sumsReceitaByMonth)
-      // console.log(sumsDespesaByMonth)
+      setSomasReceitasPorMes(sumsReceitaByMonth);
+      setSomasDespesasPorMes(sumsDespesaByMonth);
+      console.log(sumsReceitaByMonth)
+      console.log(sumsDespesaByMonth)
       console.log(somasPorMes)
 
       const saldoParaReceita = calculateTotalAmount(lancamentos, "Receita");
@@ -135,19 +136,6 @@ const Usuario = () => {
     });
   };
 
-  const data = [
-    { x: 'Jan', y: 10 },
-    { x: 'Fev', y: 20 },
-    { x: 'Mar', y: 15 },
-    { x: 'Abr', y: 15 },
-    { x: 'Mai', y: 15 },
-    { x: 'Jun', y: 15 },
-    { x: 'Jul', y: 15 },
-    { x: 'Ago', y: 15 },
-    { x: 'Set', y: 15 },
-    { x: 'Nov', y: 15 },
-    { x: 'Dez', y: 15 },
-  ];
 
   const SwiperComponent = () => (
     <Swiper style={styles.wrapper} showsButtons={true}>
@@ -159,7 +147,23 @@ const Usuario = () => {
       </View>
       {/* Add more slides as needed */}
     </Swiper>
-  );  
+  );
+
+  const screenWidth = Dimensions.get('window').width;
+
+  const chartData = {
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+    datasets: [
+      {
+        data: [500, 1000, 800, 1200, 600, 1500, 900, 1300, 700, 1100, 1000, 1400],
+        color: () => 'green',
+      },
+      {
+        data: [700, 800, 500, 200, 100, 500, 500, 200, 100, 10, 55, 40],
+        color: () => 'red',
+      },
+    ],
+  };
 
   return (
     <View style={styles.container}>
@@ -222,24 +226,33 @@ const Usuario = () => {
           borderWidth: 0.2,
           marginLeft: 20,
           marginRight: 20,
-          marginBottom: 0,
-          marginTop: 10,
+          marginTop: 15,
         }}
       />
 
       <Text style={styles.evolucao}>Evolução Mensal</Text>
-<View>
-<VictoryChart width={430} height={200} theme={VictoryTheme.material}>
-          <VictoryBar
-            data={data}
-            x="x"
-            y="y"
-            style={{
-              data: { fill: "darkblue" },
-            }}
-          />
-        </VictoryChart>
-</View>
+
+      <LineChart
+          data={chartData}
+          width={screenWidth}
+          height={170}
+          yAxisLabel=""
+          chartConfig={{
+            backgroundColor: 'whitesmoke',
+            backgroundGradientFrom: 'whitesmoke',
+            backgroundGradientTo: 'whitesmoke',
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+          }}
+        />
+
 <Divider
         style={{
           borderColor: "gray",
@@ -247,7 +260,7 @@ const Usuario = () => {
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 0,
-          marginTop: 0,
+          marginTop: 10,
         }}
       />
 
