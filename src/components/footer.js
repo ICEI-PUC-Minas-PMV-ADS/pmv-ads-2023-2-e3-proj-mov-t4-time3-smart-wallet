@@ -7,7 +7,6 @@ const FooterNavigation = ({ navigation }) => {
     <View style={styles.footer}>
       <NavItem text="   Extrato" icon="file" onPress={() => navigation.navigate("Extrato")} />
       <NavItem text="   Lançamento" icon="plus-square" onPress={() => navigation.navigate("Lancamento")} />
-      <NavItem text="   Relatorio" icon="plus-square" onPress={() => navigation.navigate("Relatorio")} />
     </View>
   );
 };

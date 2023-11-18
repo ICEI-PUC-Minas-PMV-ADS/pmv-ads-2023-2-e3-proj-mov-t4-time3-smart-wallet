@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Card } from "react-native-paper";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
 import { getLancamentos } from "../services/lancamento.services";
@@ -13,6 +12,7 @@ import moment from "moment";
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Usuario = () => {
   const navigation = useNavigation();
@@ -26,6 +26,7 @@ const Usuario = () => {
   const [somasPorMes, setSomasPorMes] = useState([])
   const [somasReceitasPorMes, setSomasReceitasPorMes] = useState([])
   const [somasDespesasPorMes, setSomasDespesasPorMes] = useState([])
+  const [lancamentosPendentes, setLancamentosPendentes] = useState([]); 
 
   useEffect(() => {
     getLancamentos().then((dados) => {
@@ -85,6 +86,10 @@ const Usuario = () => {
       if (percentualDespesas > 75) {
         alert("As despesas ultrapassaram 75% das suas receitas!");
       }
+
+      const lancamentosPendentes = lancamentos.filter((lancamento) => lancamento.status.toLowerCase() === 'pendente');
+      setLancamentosPendentes(lancamentosPendentes);
+
     });
   }, [isFocused, userId]);
 
@@ -138,14 +143,44 @@ const Usuario = () => {
 
 
   const SwiperComponent = () => (
-    <Swiper style={styles.wrapper} showsButtons={true}>
-      <View style={styles.slide1}>
-        <Text style={styles.text}>Slide 1</Text>
-      </View>
-      <View style={styles.slide2}>
-        <Text style={styles.text}>Slide 2</Text>
-      </View>
-      {/* Add more slides as needed */}
+    <Swiper
+    style={styles.swiperWrapper}
+    showsButtons={true}
+    buttonWrapperStyle={styles.buttonWrapper}
+    nextButton={<Icon name="chevron-right" size={20} color="blue" />}
+    prevButton={<Icon name="chevron-left" size={20} color="blue" />}
+  >
+      {lancamentosPendentes.map((item, index) => (
+        <View key={index} style={styles.slide}>
+          <View style={styles.lancamentoContainer}>
+            <Text style={styles.swiperText}>{`Vencimento: ${item.dataVencimento || 'N/A'}`}</Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: item.tipo === "Receita" ? "green" : "red",
+              }}
+            >
+              {item.tipo === "Receita" ? (
+                <>
+                  <Icon name="upload" size={20} color="green" /> Tipo:{" "}
+                  {item.tipo}
+                </>
+              ) : (
+                <>
+                  <Icon name="download" size={20} color="red" /> Tipo:{" "}
+                  {item.tipo}
+                </>
+              )}
+            </Text>
+            <Text style={styles.swiperText}>{`Classificação: ${item.classificacao}`}</Text>
+            <Text style={styles.swiperText}>{`Valor: ${item.valor || 'N/A'}`}</Text>
+            <Text style={{ color: item.status === 'Efetivado' ? 'green' : 'red', backgroundColor:
+                        item.status === "Efetivado" ? "lightgreen" : "pink", }}>
+              {`Status: ${item.status}`}
+            </Text>
+          </View>
+        </View>
+      ))}
     </Swiper>
   );
 
@@ -235,7 +270,7 @@ const Usuario = () => {
       <LineChart
           data={chartData}
           width={screenWidth}
-          height={170}
+          height={200}
           yAxisLabel=""
           chartConfig={{
             backgroundColor: 'whitesmoke',
@@ -264,7 +299,7 @@ const Usuario = () => {
         }}
       />
 
-<Text style={styles.evolucao}>Próximos Eventos</Text>
+<Text style={styles.evolucao}>Lançamentos Pendentes</Text>
 <SwiperComponent />
 
 <TouchableOpacity
@@ -336,37 +371,52 @@ const styles = StyleSheet.create({
   },
   wrapper: {
   },
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
   },
+slide:{
+  backgroundColor: "white",
+    color: "red",
+    paddingTop: 20,
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    paddingBottom: 20,
+  },
+  swiperText: {
+    fontSize: 16,
+  },
+  swiperHeaderText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  buttonWrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 50,
+    paddingBottom: 70,
+    alignItems: 'center',
+    zIndex: 2,
+  },
+  buttonText: {
+    fontSize: 35,
+    color: 'blue',
+  },
   chatButton: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 27,
     right: 10,
     zIndex: 2,
   },
 });
 
 export default Usuario;
-
-
-/*style={{
-  flexDirection: "row",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  margin: 10,
-}}*/
