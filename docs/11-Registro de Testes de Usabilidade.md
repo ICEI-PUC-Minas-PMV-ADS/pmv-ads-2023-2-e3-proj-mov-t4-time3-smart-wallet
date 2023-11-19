@@ -77,7 +77,7 @@ Nossos testes foram realizados com os seguintes voluntários:
 Usuário 01: Homem, 27 anos, ensino médio completo.<br>
 Usuário 02: Homem, 30 anos, ensino médio completo.<br>
 Usuário 03: Mulher, 54 anos, ensino médio completo.<br>
-Usuário 04: Homem, 56 anos, ensino médio imcompleto.<br>
+Usuário 04: Homem, 56 anos, ensino médio incompleto.<br>
 
 
 <h2>Relatório</h2>
