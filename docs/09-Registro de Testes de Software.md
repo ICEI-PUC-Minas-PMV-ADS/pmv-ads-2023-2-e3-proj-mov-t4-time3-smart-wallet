@@ -26,9 +26,13 @@ https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-sm
 |  **CT-07 –  Visão Geral dos Lançamentos**  |
 |  https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115051179/c908b1b3-449c-477b-acb4-e4e8897712a5  |
 |  **CT-08 – Ocultar o Saldo**  |
-| https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115051179/fe81bf68-b339-443e-a307-a9b8c512c59b   |
+|https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115051179/95ed270d-6aee-467c-baa8-7d7092b6ba04   |
 |  **CT-09 – Funcionalidade de Chat** 	|
 | https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/assets/115051179/fa7d4a83-dd1e-4468-a7e7-71d27b6de3ad  |
+
+
+
+
 
 
 
