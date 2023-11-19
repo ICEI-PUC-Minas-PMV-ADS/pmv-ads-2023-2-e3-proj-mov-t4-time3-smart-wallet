@@ -9,31 +9,37 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 | **Caso de Teste** 	| **CTU-01– Gerenciar lançamentos"**  	|
 |                    	| **CTU-01.1 – Adicionar Receitas"**  	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as receitas  |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar a opção do tipo Receitas;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Salvar informações.<br>
 |                   	| **CTU-01.2 – Adicionar Despesas"**  	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as despesas |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar a opção do tipo Despesa;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Salvar informações.<br>
 
 
 | **Caso de Teste** 	| **CTU-02– Informar saldo"**  	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a atualização do saldo na página inicial de acordo com os lançamentos |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar o Tipo desejado;<br>6. Preencher todas as informações da página (Classificação, Valor, Vencimento etc);<br>6. Salvar informações.<br>7. Visualizar página de extrato e voltar para a página inicial, utilizando a seta no canto superior esquerdo;<br>8. Visualizar o saldo atualizado no banner de Saldo.<br>
 
 | **Caso de Teste** 	| **CTU-03 – Emitir alerta"**  	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Receber alerta da aplicação ao atingir 75% das despesas em relação às receitas |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Preencher todas as informações da página, como: Tipo, Classificação, Valor, Vencimento etc;<br>6. Salvar informações;<br>7. Visualizar extrato;<br>8. Ao atingir 75% das despesas em relação às receitas, a aplicação emitirá um alerta.<br>
 
 
 | **Caso de Teste** 	| **CTU-04 – Realizar o LOGIN.**    	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a funcionalidade de login dos usuários. |
 | Ações necessárias 	|  1.  Acessar o aplicativo a partir de um aparelho móvel<br>	2. Visualizar a tela de login da aplicação<br>3. Inserir o e-mail no campo indicado<br>4. Inserir a senha no campo indicado<br>5. Realizar o Login clicando em “Entrar".<br>
 |                     | **CTU-04.1 – Validar exigências de login.**  	|
+|:---:	|:---:	|
 | Objetivo do Teste 	| Avaliar as exigências de login. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Tentar realizar o login com dados incorretos, ou não preencher um dos campos exigidos;<br>4. Visualizar mensagem de erro.<br>
 
