@@ -8,13 +8,13 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 | **Caso de Teste** 	| **CTU-01– Gerenciar lançamentos"**  	|
-|---------	|-------	|
-|                    	| **CTU-01.1 – Adicionar Receitas"**  	|
-|---------	|-------	|
+|:---:	|:---:	|
+|                    	| **CTU-01.1 – Adicionar Receitas**  	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as receitas  |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar a opção do tipo Receitas;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Salvar informações.<br>
-|                   	| **CTU-01.2 – Adicionar Despesas"**  	|
+|                   	| `CTU-01.2 – Adicionar Despesas`  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as despesas |
