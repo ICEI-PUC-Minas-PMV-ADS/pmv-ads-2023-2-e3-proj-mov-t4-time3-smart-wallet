@@ -21,7 +21,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 
-| **Caso de Teste** 	| **CTU-02– Informar saldo"**  	|
+| **Caso de Teste** 	| **CTU-02– Informar saldo**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a atualização do saldo na página inicial de acordo com os lançamentos |
