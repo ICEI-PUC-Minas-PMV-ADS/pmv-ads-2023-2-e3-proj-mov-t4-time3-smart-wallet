@@ -32,12 +32,12 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Preencher todas as informações da página, como: Tipo, Classificação, Valor, Vencimento etc;<br>6. Salvar informações;<br>7. Visualizar extrato;<br>8. Ao atingir 75% das despesas em relação às receitas, a aplicação emitirá um alerta.<br>
 
 
-| **Caso de Teste** 	| **`CTU-04 – Realizar o LOGIN.`**    	|
+| **Caso de Teste** 	| **CTU-04 – Realizar o LOGIN.**    	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a funcionalidade de login dos usuários. |
 | Ações necessárias 	|  1.  Acessar o aplicativo a partir de um aparelho móvel<br>	2. Visualizar a tela de login da aplicação<br>3. Inserir o e-mail no campo indicado<br>4. Inserir a senha no campo indicado<br>5. Realizar o Login clicando em “Entrar".<br>
-|                     | **CTU-04.1 – Validar exigências de login.**  	|
+|                     | **`CTU-04.1 – Validar exigências de login.`**  	|
 | Objetivo do Teste 	| Avaliar as exigências de login. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Tentar realizar o login com dados incorretos, ou não preencher um dos campos exigidos;<br>4. Visualizar mensagem de erro.<br>
 
