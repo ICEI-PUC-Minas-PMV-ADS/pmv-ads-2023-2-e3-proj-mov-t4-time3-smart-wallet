@@ -120,7 +120,7 @@ Sugestões e considerações dos usuários:
 - Criar opção de alterar senha.
 
 
-**05 - Gráficos .** 
+**05 - Gráficos** 
 
 Média da nota: 4,00
 
@@ -128,7 +128,7 @@ Sugestões e considerações dos usuários:
 - NÃO HOUVERAM.
 
 
-**06 - Cadastro".** 
+**06 - Cadastro** 
 
 Média da nota: 3,50
 
@@ -136,7 +136,7 @@ Sugestões e considerações dos usuários:
 - NÃO HOUVERAM.
 
 
-**07 - Extrato.** 
+**07 - Extrato** 
 
 Média da nota: 4,5
 
@@ -150,7 +150,7 @@ Média da nota: 5,0
 Sugestões e considerações dos usuários: 
 - NÃO HOUVERAM.
 
-**09 - Chat.** 
+**09 - Chat** 
 
 Média da nota: 5,0
 
