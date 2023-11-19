@@ -14,7 +14,7 @@ Cenários de testes utilizados na realização dos testes da aplicação AgendAI
 | Caso de Teste	| **CT-02 - Informar Saldo** 	|
 |	Requisito Associado 	| RF-002 - A aplicação deve gerar um saldo pegando o valor das receitas e subtraindo aos das despesas.  |
 | Objetivo do Teste 	| Verificar se o sistema é capaz de gerar saldos a partir das receitas informadas.   |
-| Passos 	| 1- Após o usuário executar com sucesso a etapa de lançamento 2- Volte para a tela de usuário onde estará exibido o "Saldo" como a diferen~ça exata entre as "Receitas" e "Despesas"|
+| Passos 	| 1- Após o usuário executar com sucesso a etapa de lançamento 2- Volte para a tela de usuário onde estará exibido o "Saldo" como a diferença exata entre as "Receitas" e "Despesas"|
 |Critério de Êxito | - O usuário conseguir verificar seu saldo com sucesso. |
 |  	|  	|
 | Caso de Teste	| **CT-03 – Emitir Alertas** |
