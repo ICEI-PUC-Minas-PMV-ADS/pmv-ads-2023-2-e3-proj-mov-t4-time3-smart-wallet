@@ -167,7 +167,7 @@ Sugestões e considerações dos usuários:
 | **Correção** | **Foi implementada?** |
 | --- | --- |
 | Criar a função para o usuário trocar senha. | A ser implementado |
-| Auementar as caixas de texto que estiverem fora do padrão | A ser implementado |
+| Aumentar as caixas de texto que estiverem fora do padrão | A ser implementado |
 
 
 **Conclusão**
