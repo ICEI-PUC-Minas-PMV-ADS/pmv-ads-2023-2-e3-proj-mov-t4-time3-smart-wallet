@@ -8,9 +8,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 | **Caso de Teste** 	| **CTU-01– Gerenciar lançamentos"**  	|
-|:---:	|:---:	|
-|                    	| **CTU-01.1 – Adicionar Receitas**  	|
-|:---:	|:---:	|
+|                    	| **`CTU-01.1 – Adicionar Receitas`** 	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as receitas  |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar a opção do tipo Receitas;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Salvar informações.<br>
@@ -33,13 +31,11 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Preencher todas as informações da página, como: Tipo, Classificação, Valor, Vencimento etc;<br>6. Salvar informações;<br>7. Visualizar extrato;<br>8. Ao atingir 75% das despesas em relação às receitas, a aplicação emitirá um alerta.<br>
 
 
-| **Caso de Teste** 	| **CTU-04 – Realizar o LOGIN.**    	|
-|:---:	|:---:	|
+| **Caso de Teste** 	| **`CTU-04 – Realizar o LOGIN.`**    	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a funcionalidade de login dos usuários. |
 | Ações necessárias 	|  1.  Acessar o aplicativo a partir de um aparelho móvel<br>	2. Visualizar a tela de login da aplicação<br>3. Inserir o e-mail no campo indicado<br>4. Inserir a senha no campo indicado<br>5. Realizar o Login clicando em “Entrar".<br>
 |                     | **CTU-04.1 – Validar exigências de login.**  	|
-|:---:	|:---:	|
 | Objetivo do Teste 	| Avaliar as exigências de login. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Tentar realizar o login com dados incorretos, ou não preencher um dos campos exigidos;<br>4. Visualizar mensagem de erro.<br>
 
@@ -55,20 +51,21 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 |:---:	|:---:	|
 | Objetivo do Teste 	| Avaliar a funcionalidade de cadastro de usuários. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel;<br>2. Visualizar a tela de login da aplicação;<br>3. Clicar na opção “Cadastre-se”; <br>4. Preencher todos os campos do formulário de usuários;<br>5. Confirmar a criação do usuário clicando em “Cadastrar";<br>6. Acessar novamente a tela de LOGIN.<br>
-|                    	| **CTU-06.1 – Validar exigências de cadastro.**  	|
+|                    	| **`CTU-06.1 – Validar exigências de cadastro.`**  	|
 |:---:	|:---:	|
 | Objetivo do Teste 	| Avaliar as exigências de cadastro. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação;<br>3. Tentar realizar o login sem ter os dados cadastrados;<br>4. Visualizar mensagem de erro;<br>5. Realizar a criação do usuário clicando em “Cadastrar";<br>6. Inserir todos os dados seguindo todas as regras, caso contrário, outra tela de erro será exibida.<br>
 
-| **Caso de Teste** 	| **CTU-07 – Visualizar extrato - Opção 01"**  	|
+
+| **Caso de Teste** 	| **CTU-07 – Visualizar extrato - `Opção 01`**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Verificar o extrato geral das receitas e despesas |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar o Tipo desejado;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Ao salvar as informações, o usuário será direcionado para a página de extrato.<br>
-|                  	| **CTU-07.1 – Visualizar extrato - Opção 02"**  	|
+|                  	| **CTU-07.1 – Visualizar extrato - `Opção 02`**  	|
 |:---:	|:---:	|
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Extrato";<br>5. Visualizar a página completa.<br>
-|                  	| **CTU-07.2 – Visualizar extrato - Opção 03"**  	|
+|                  	| **CTU-07.2 – Visualizar extrato - `Opção 03`**  	|
 |:---:	|:---:	|
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4.Clicar na opção "Ver extrato" na página inicial (banner Saldo);<br>5. Visualizar a página completa.<br>
 
