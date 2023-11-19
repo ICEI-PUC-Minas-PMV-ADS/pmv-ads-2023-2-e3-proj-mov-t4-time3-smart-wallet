@@ -8,6 +8,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 | **Caso de Teste** 	| **CTU-01– Gerenciar lançamentos"**  	|
+|:---:	|:---:	|
 |                    	| **`CTU-01.1 – Adicionar Receitas`** 	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de adicionar as receitas  |
@@ -32,6 +33,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 | **Caso de Teste** 	| **`CTU-04 – Realizar o LOGIN.`**    	|
+|:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a funcionalidade de login dos usuários. |
 | Ações necessárias 	|  1.  Acessar o aplicativo a partir de um aparelho móvel<br>	2. Visualizar a tela de login da aplicação<br>3. Inserir o e-mail no campo indicado<br>4. Inserir a senha no campo indicado<br>5. Realizar o Login clicando em “Entrar".<br>
@@ -63,10 +65,8 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 | Objetivo do Teste 	| Verificar o extrato geral das receitas e despesas |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Lançamento";<br>5. Selecionar o Tipo desejado;<br>6. Preencher as demais informações da página (Classificação, Valor, Vencimento etc);<br>6. Ao salvar as informações, o usuário será direcionado para a página de extrato.<br>
 |                  	| **CTU-07.1 – Visualizar extrato - `Opção 02`**  	|
-|:---:	|:---:	|
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4. Clicar na aba "Extrato";<br>5. Visualizar a página completa.<br>
 |                  	| **CTU-07.2 – Visualizar extrato - `Opção 03`**  	|
-|:---:	|:---:	|
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Realizar o login com dados corretos;<br>4.Clicar na opção "Ver extrato" na página inicial (banner Saldo);<br>5. Visualizar a página completa.<br>
 
 
