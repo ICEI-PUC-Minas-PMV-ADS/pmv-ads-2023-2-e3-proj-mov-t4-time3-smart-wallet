@@ -39,19 +39,19 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 
-| **Caso de Teste** 	| **CTU-04 – Realizar o LOGIN.**    	|
+| **Caso de Teste** 	| **CTU-04 – Realizar o LOGIN**    	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a funcionalidade de login dos usuários. |
 | Ações necessárias 	|  1.  Acessar o aplicativo a partir de um aparelho móvel<br>	2. Visualizar a tela de login da aplicação<br>3. Inserir o e-mail no campo indicado<br>4. Inserir a senha no campo indicado<br>5. Realizar o Login clicando em “Entrar".<br>
-|                     | **`CTU-04.1 – Validar exigências de login.`**  	|
+|                     | **`CTU-04.1 – Validar exigências de login`**  	|
 | Objetivo do Teste 	| Avaliar as exigências de login. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação; <br>3. Tentar realizar o login com dados incorretos, ou não preencher um dos campos exigidos;<br>4. Visualizar mensagem de erro.<br>
 
 
 
 
-| **Caso de Teste** 	| **CTU-05 – Visualizar gráfico de receitas"**  	|
+| **Caso de Teste** 	| **CTU-05 – Visualizar gráfico de receitas**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Visualizar gráfico de receitas e despesas atualizados de acordo com os lançamentos |
@@ -60,11 +60,11 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 
-| 	                  | **CTU-06 - Cadastrar novo usuário.**  	|
+| 	                  | **CTU-06 - Cadastrar novo usuário**  	|
 |:---:	|:---:	|
 | Objetivo do Teste 	| Avaliar a funcionalidade de cadastro de usuários. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel;<br>2. Visualizar a tela de login da aplicação;<br>3. Clicar na opção “Cadastre-se”; <br>4. Preencher todos os campos do formulário de usuários;<br>5. Confirmar a criação do usuário clicando em “Cadastrar";<br>6. Acessar novamente a tela de LOGIN.<br>
-|                    	| **`CTU-06.1 – Validar exigências de cadastro.`**  	|
+|                    	| **`CTU-06.1 – Validar exigências de cadastro`**  	|
 | Objetivo do Teste 	| Avaliar as exigências de cadastro. |
 | Ações necessárias 	|  1. Acessar o aplicativo a partir de um aparelho móvel; <br>2. Visualizar a tela de login da aplicação;<br>3. Tentar realizar o login sem ter os dados cadastrados;<br>4. Visualizar mensagem de erro;<br>5. Realizar a criação do usuário clicando em “Cadastrar";<br>6. Inserir todos os dados seguindo todas as regras, caso contrário, outra tela de erro será exibida.<br>
 
@@ -84,7 +84,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 
-| **Caso de Teste** 	| **CTU-08 – Ocultar saldo"**  	|
+| **Caso de Teste** 	| **CTU-08 – Ocultar saldo**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Verificar a possibilidadae de mostrar e esconder saldo total. |
@@ -93,7 +93,7 @@ Aqui estão as atividades a serem realizadas pelos participantes, que serão cui
 
 
 
-| **Caso de Teste** 	| **CTU-09 – Funcionalidade do chat"**  	|
+| **Caso de Teste** 	| **CTU-09 – Funcionalidade do chat**  	|
 |:---:	|:---:	|
 |	Perfil	| Usuário (todos) |
 | Objetivo do Teste 	| Avaliar a possibilidade de interação com o chat |
