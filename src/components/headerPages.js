@@ -45,11 +45,6 @@ const styles = {
   userName: {
     marginLeft: 1,
   },
-  bellIcon: {
-    position: 'absolute',
-    left: 195,
-    marginLeft: 40,
-  },
 };
 
 export default headerPages;

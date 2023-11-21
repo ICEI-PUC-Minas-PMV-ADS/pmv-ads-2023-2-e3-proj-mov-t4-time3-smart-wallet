@@ -73,17 +73,6 @@ const Lancamento = ({ route }) => {
     }
   };
 
-  // const resetState = () => {
-  //   setTipo("");
-  //   setClassificacao("");
-  //   setValor("");
-  //   setDatavencimento("");
-  //   setRecorrente("");
-  //   setStatus("");
-  //   setDescricao("");
-  // };
-
-
   return (
     <KeyboardAvoidingView style={styles.container}>
             <HeaderPages navigation={navigation} />

@@ -6,7 +6,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useUser } from "../context/UserContext.js";
 import { getLancamentos } from "../services/lancamento.services";
 import FooterNavigation from "../components/footer";
-import Header from "../components/Header";
+import Header from "../components/Header.js";
 import { IconButton } from "react-native-paper";
 import moment from "moment";
 import { LineChart } from 'react-native-chart-kit';
@@ -423,18 +423,18 @@ slide:{
     right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 50,
+    paddingHorizontal: 70,
     paddingBottom: 70,
     alignItems: 'center',
     zIndex: 2,
   },
   buttonText: {
     fontSize: 35,
-    color: 'blue',
+    color: 'darkblue',
   },
   chatButton: {
     position: 'absolute',
-    bottom: 27,
+    bottom: 40,
     right: 10,
     zIndex: 2,
   },

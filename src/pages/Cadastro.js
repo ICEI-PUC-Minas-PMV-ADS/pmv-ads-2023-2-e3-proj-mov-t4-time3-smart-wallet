@@ -5,7 +5,7 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity, 
+  TouchableOpacity,
   ScrollView,
 } from "react-native";
 import Input from "../components/Input";
@@ -20,6 +20,9 @@ const Cadastro = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const emailInputRef = useRef(null);
@@ -71,7 +74,7 @@ const Cadastro = () => {
     const isValid = emailRegex.test(inputEmail);
 
     setEmailError(isValid ? "" : "Email inválido");
-    
+
     return isValid;
   };
 
@@ -80,7 +83,7 @@ const Cadastro = () => {
     const isValid = passwordRegex.test(inputPassword);
 
     setPasswordError(isValid ? "" : "Senha inválida");
-    
+
     return isValid;
   };
 
@@ -90,8 +93,8 @@ const Cadastro = () => {
         <Image
           source={require("../assets/logoSmartWallet.png")}
           style={{
-            width: 250, 
-            height: 150, 
+            width: 250,
+            height: 150,
             marginTop: 100,
             marginBottom: 20,
           }}
@@ -107,7 +110,8 @@ const Cadastro = () => {
               onChangeText={setName}
               style={styles.input}
             />
-          </View>  
+          </View>
+          {nameError !== "" && <Text style={styles.errorText}>{nameError}</Text>}
         </View>
 
         <View style={styles.inputContainer}>
@@ -121,6 +125,7 @@ const Cadastro = () => {
               style={styles.input}
             />
           </View>
+          {emailError !== "" && <Text style={styles.errorText}>{emailError}</Text>}
         </View>
 
         <View style={styles.inputContainer}>
@@ -141,6 +146,7 @@ const Cadastro = () => {
               <Icon name={showPassword ? 'eye-slash' : 'eye'} size={20} color="darkblue" />
             </TouchableOpacity>
           </View>
+          {passwordError !== "" && <Text style={styles.errorText}>{passwordError}</Text>}
           <Text style={styles.passwordInfo}>
             *Deve conter 1 letra maiúscula, 1 minúscula e pelo menos 1 número
           </Text>
@@ -193,6 +199,13 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "gray",
     paddingBottom: 10,
+  },
+  showPasswordButton: {
+    position: 'absolute',
+    right: 0,
+  },
+  errorText: {
+    color: 'red',
   },
 });
 

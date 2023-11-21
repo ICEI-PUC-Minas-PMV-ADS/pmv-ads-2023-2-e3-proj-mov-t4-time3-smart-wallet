@@ -1,9 +1,14 @@
 import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
-const Input = forwardRef(({ style, ...props }, ref) => (
-  <TextInput ref={ref} style={[styles.input, style]} {...props} />
-));
+const Input = (props) => {
+  return (
+      <TextInput 
+        style={styles.input}
+        {...props}      
+      />)
+    ;
+};
 
 const styles = StyleSheet.create({
   input: {

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Usuario from "../pages/Usuario";
 import Lancamento from "../pages/Lancamento";
-import Relatorio from "../pages/Relatorio";
+import Perfil from "../pages/Perfil";
 import Extrato from "../pages/Extrato";
 import Chat from "../pages/Chat";
 
@@ -26,8 +26,8 @@ const Main = () => (
       }}
     />
     <Stack.Screen
-      name="Relatorio"
-      component={Relatorio}
+      name="Perfil"
+      component={Perfil}
       options={{
         header: () => null,
       }}

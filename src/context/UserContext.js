@@ -5,12 +5,14 @@ export const UserContext = createContext();
 export default function UserProvider({ children }) {
   const [signed, setSigned] = useState(false);
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [userId, setUserId] = useState('');
 
   const logout = () => {
     setSigned(false);
     setUserId('');
     setName('');
+    setEmail('');
   };
 
   return (
@@ -23,6 +25,8 @@ export default function UserProvider({ children }) {
         name,
         setName,
         logout,
+        email,
+        setEmail,
       }}>
       {children}
     </UserContext.Provider>
@@ -31,6 +35,6 @@ export default function UserProvider({ children }) {
 
 export function useUser() {
   const context = useContext(UserContext);
-  const { signed, setSigned, userId, setUserId, name, setName, logout } = context;
-  return { signed, setSigned, userId, setUserId, name, setName, logout };
+  const { signed, setSigned, userId, setUserId, name, setName, email, setEmail, logout } = context;
+  return { signed, setSigned, userId, setUserId, name, setName, email, setEmail,logout };
 }
