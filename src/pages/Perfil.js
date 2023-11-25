@@ -5,24 +5,51 @@ import {
   TextInput,
   Image,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { Appbar, Divider } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { useUser } from "../context/UserContext.js";
+import { useUser } from "../context/UserContext";
 import Icon from "react-native-vector-icons/FontAwesome";
-import MyButton from "../components/button.js";
+import MyButton from "../components/button";
 
 const UserProfile = () => {
   const navigation = useNavigation();
-  const { name, email, logout } = useUser();
+  const { id: userId, name, userEmail, logout } = useUser(); // Alteração 1
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleChangePassword = () => {
-    // Lógica para atualizar a senha no servidor (pode ser implementada conforme a sua estrutura)
-    // Certifique-se de lidar com erros e sucesso adequadamente.
-    console.log("Senha atualizada com sucesso!");
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmNewPassword) {
+      console.log("As senhas não coincidem");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://smartwallet.loca.lt/users/${userId}`, { // Alteração 2 https://smartwallet.loca.lt/users
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currentPassword: currentPassword, // Alteração 2
+          newPassword: newPassword,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Erro ao atualizar a senha:", errorData.error);
+        // Pode ser útil exibir a mensagem de erro no cliente
+        return;
+      }
+
+      console.log("Senha atualizada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar a senha:", error.message);
+    }
   };
 
   const handleLogout = () => {
@@ -55,43 +82,60 @@ const UserProfile = () => {
       <View style={styles.userContainer}>
         <View style={styles.userIconContainer}>
           <TouchableOpacity onPress={handleLogout}>
-            <Icon
-              name="user"
-              size={75}
-              color="darkblue"
-            />
+            <Icon name="user" size={75} color="darkblue" />
           </TouchableOpacity>
         </View>
 
         <View style={styles.userInfoContainer}>
-          <Text style={{ fontSize: 16 }}>Nome: {name}</Text>
-          <Text style={{ fontSize: 16 }}>E-mail: {email}</Text>
+          <Text style={styles.userInfoText}>Nome: {name}</Text>
+          <Text style={styles.userInfoText}>E-mail: {userEmail}</Text>
         </View>
       </View>
 
-      <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 15, marginLeft: 5, marginRight: 5 }} />
+      <Divider style={styles.divider} />
 
       <View style={styles.passwordContainer}>
-        <Text style={styles.sectionTitle}>Trocar Senha</Text>
+        <Text style={styles.sectionTitle}>
+          Trocar Senha
+          <TouchableOpacity
+            style={styles.showPasswordButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Icon
+              name={showPassword ? "eye-slash" : "eye"}
+              size={20}
+              paddingLeft={20}
+              color="darkblue"
+            />
+          </TouchableOpacity>
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Senha Atual"
-          secureTextEntry
+          secureTextEntry={!showPassword}
           value={currentPassword}
           onChangeText={(text) => setCurrentPassword(text)}
         />
         <TextInput
           style={styles.input}
           placeholder="Nova Senha"
-          secureTextEntry
+          secureTextEntry={!showPassword}
           value={newPassword}
           onChangeText={(text) => setNewPassword(text)}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirmar Nova Senha"
+          secureTextEntry={!showPassword}
+          value={confirmNewPassword}
+          onChangeText={(text) => setConfirmNewPassword(text)}
+        />
+
         <MyButton
           title="Trocar Senha"
           onPress={handleChangePassword}
           color="#010D8C"
-          style={{ marginBottom: 10 }}
+          style={styles.changePasswordButton}
         />
       </View>
 
@@ -118,25 +162,20 @@ const styles = StyleSheet.create({
     color: "darkblue",
     fontWeight: "bold",
   },
-  passwordContainer: {
-    width: "90%",
+  userContainer: {
+    flexDirection: "row",
     paddingLeft: 40,
-    paddingRight: 20,
-    marginTop: 50,
+    paddingTop: 20,
+    alignItems: "center",
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 8,
-    color: "darkblue",
-    fontWeight: "bold",
+  userIconContainer: {
+    marginRight: 20,
   },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingLeft: 8,
+  userInfoContainer: {
+    flex: 1,
+  },
+  userInfoText: {
+    fontSize: 16,
   },
   appbar: {
     backgroundColor: "whitesmoke",
@@ -159,6 +198,36 @@ const styles = StyleSheet.create({
   logoutIcon: {
     marginLeft: 220,
   },
+  divider: {
+    borderColor: "darkblue",
+    borderWidth: 0.5,
+    marginTop: 15,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  passwordContainer: {
+    width: "90%",
+    paddingLeft: 40,
+    paddingRight: 20,
+    marginTop: 50,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 8,
+    color: "darkblue",
+    fontWeight: "bold",
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+  },
+  changePasswordButton: {
+    marginBottom: 10,
+  },
   footer: {
     width: "100%",
     height: 250,
@@ -171,18 +240,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     top: 52,
-  },
-  userContainer: {
-    flexDirection: 'row',
-    paddingLeft: 40,
-    paddingTop: 20,
-    alignItems: 'center',
-  },
-  userIconContainer: {
-    marginRight: 20,
-  },
-  userInfoContainer: {
-    flex: 1,
   },
 });
 
