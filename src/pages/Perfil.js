@@ -12,10 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../context/UserContext";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MyButton from "../components/button";
+import { editarSenha } from "../services/auth.services";
 
-const UserProfile = () => {
+const UserProfile = ({ route }) => {
+  const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
-  const { id: userId, name, userEmail, logout } = useUser(); // Alteração 1
+  const { userId, name, userEmail, logout } = useUser(); // Alteração 1
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -25,31 +27,16 @@ const UserProfile = () => {
     if (newPassword !== confirmNewPassword) {
       console.log("As senhas não coincidem");
       return;
-    }
-
-    try {
-      const response = await fetch(`https://smartwallet.loca.lt/users/${userId}`, { // Alteração 2 https://smartwallet.loca.lt/users
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currentPassword: currentPassword, // Alteração 2
-          newPassword: newPassword,
-        }),
+    } else {
+      editarSenha({
+        email: userEmail,
+        password: newPassword,
+        id: userId
+      }).then((res) => {
+        navigation.goBack();
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Erro ao atualizar a senha:", errorData.error);
-        // Pode ser útil exibir a mensagem de erro no cliente
-        return;
-      }
-
-      console.log("Senha atualizada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao atualizar a senha:", error.message);
     }
+
   };
 
   const handleLogout = () => {

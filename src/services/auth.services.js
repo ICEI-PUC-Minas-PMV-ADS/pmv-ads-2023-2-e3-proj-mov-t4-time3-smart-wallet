@@ -38,3 +38,23 @@ export const login = async (param) => {
     return null;
   }
 }
+
+export const editarSenha = async (param) => {
+  try{
+    return await API.put(`${BASE_URL}/users/${param.id}`, param).then( 
+      response => {
+        return response.data;
+      },
+      error =>{
+
+        console.log('Server responded with status code:', error.response.status);
+        console.log('Response data:', error.response.data);
+        console.log(error);
+        return  null;
+      }
+    );
+  }catch(error){
+    console.log(error);
+    return null;
+  }
+}
