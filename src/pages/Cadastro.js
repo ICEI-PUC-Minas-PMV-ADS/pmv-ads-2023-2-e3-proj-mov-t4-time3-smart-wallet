@@ -30,10 +30,10 @@ const Cadastro = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleCadastro = async () => {
-    if (!validateName(name) || !validateEmail(email) || !validatePassword(password)) {
-      setErrorModalVisible(true);
-      return;
-    }
+    // if (!validateName(name) || !validateEmail(email) || !validatePassword(password)) {
+    //   setErrorModalVisible(true);
+    //   return;
+    // }
 
     register({
       name: name,
@@ -58,7 +58,6 @@ const Cadastro = () => {
       }
     });
   };
-
   const validateName = (inputName) => {
     if (inputName.trim() === "") {
       setNameError("Nome é obrigatório");
@@ -78,9 +77,9 @@ const Cadastro = () => {
     return isValid;
   };
 
-  const validatePassword = (inputPassword) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-    const isValid = passwordRegex.test(inputPassword);
+  // const validatePassword = (inputPassword) => {
+  //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  //   const isValid = passwordRegex.test(inputPassword);
 
     setPasswordError(isValid ? "" : "Senha inválida");
 
