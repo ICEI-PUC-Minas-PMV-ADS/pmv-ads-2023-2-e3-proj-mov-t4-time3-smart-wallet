@@ -121,6 +121,13 @@ const Chat = () => {
         user={{
           _id: 1,
         }}
+        placeholder="Digite uma mensagem..."
+        renderChatBackground={() => (
+          <Image
+            source={require('')}
+            style={styles.backgroundImage}
+          />
+        )}
       />
     </>
     

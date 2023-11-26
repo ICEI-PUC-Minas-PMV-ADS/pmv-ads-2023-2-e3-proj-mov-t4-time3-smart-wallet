@@ -90,9 +90,11 @@ const Lancamento = ({ route }) => {
             <Text style={styles.label}>Tipo</Text>
             <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5 }} />
             <Picker
+            
               style={styles.picker}
               selectedValue={tipo}
               onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
+              mode="outlined"
             >
               <Picker.Item label="Selecione o Tipo" value="" />
               <Picker.Item label="Receita" value="Receita" />
@@ -102,6 +104,7 @@ const Lancamento = ({ route }) => {
             <Text style={styles.label}>Classificação</Text>
             <Divider style={{ borderColor: 'darkblue', borderWidth: 0.5, marginTop: 5, marginLeft: 5, marginRight: 5 }} />
             <Picker
+                          mode="outlined"
               style={styles.picker}
               selectedValue={classificacao}
               onValueChange={(itemValue, itemIndex) =>
@@ -174,7 +177,8 @@ const Lancamento = ({ route }) => {
                   <Text style={styles.label}>Vencimento</Text>
                   <TouchableOpacity onPress={() => setShow(true)}>
                     <TextInput
-                      style={{ fontSize: 14, color: "darkblue", height: 50 }}
+                                  mode="outlined"
+                      style={{ fontSize: 14, color: "darkblue", height: 40 }}
                       value={dataVencimento}
                       left={<TextInput.Icon name="calendar" />}
                       editable={false}
@@ -226,7 +230,8 @@ const Lancamento = ({ route }) => {
             <Text style={styles.label}>Descrição</Text>          
             <TextInput
               mode="outlined"
-              style={{marginLeft: 10, marginRight: 10, marginBottom: 5, fontSize: 14, color: "darkblue", height: 40,}}
+              placeholder="digite a sua descrição..."
+              style={styles.input}
               value={descricao}
               onChangeText={(itemValue) => setDescricao(itemValue)}
             />
@@ -271,15 +276,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: "black",
     fontSize: 5,
+    height: 50,
   },
   formContainer: {
     padding: 1,
     marginTop: 1,
   },
   input: {
-    marginBottom: 10,
-    margin: 0,
-    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "darkblue",
+    marginBottom: 20,
+    marginTop: 10,
+    height: 50,
+    width: "100%", // Ajuste para o layout
   },
   submitButton: {
     marginTop: 1,

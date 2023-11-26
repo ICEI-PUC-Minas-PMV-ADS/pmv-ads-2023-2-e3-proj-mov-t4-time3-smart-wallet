@@ -17,7 +17,7 @@ import { editarSenha } from "../services/auth.services";
 const UserProfile = ({ route }) => {
   const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
-  const { userId, name, userEmail, logout } = useUser(); // Alteração 1
+  const { userId, name, userEmail, logout } = useUser();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -37,7 +37,6 @@ const UserProfile = ({ route }) => {
         navigation.goBack();
       });
     }
-
   };
 
   const handleLogout = () => {
@@ -97,20 +96,15 @@ const UserProfile = ({ route }) => {
             />
           </TouchableOpacity>
         </Text>
+
         <TextInput
-          style={styles.input}
-          placeholder="Senha Atual"
-          secureTextEntry={!showPassword}
-          value={currentPassword}
-          onChangeText={(text) => setCurrentPassword(text)}
-        />
-        <TextInput
-          style={styles.input}
           placeholder="Nova Senha"
           secureTextEntry={!showPassword}
           value={newPassword}
           onChangeText={(text) => setNewPassword(text)}
+          style={styles.input}
         />
+
         <TextInput
           style={styles.input}
           placeholder="Confirmar Nova Senha"
@@ -194,27 +188,28 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   passwordContainer: {
-    width: "90%",
-    paddingLeft: 40,
-    paddingRight: 20,
-    marginTop: 50,
+    flexDirection: "column",
+    alignItems: "center",
+    marginVertical: 10,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 8,
+    marginTop: 35,
     color: "darkblue",
-    fontWeight: "bold",
+    textAlign: "left",
+  },
+  showPasswordButton: {
+    marginLeft: 20,
   },
   input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingLeft: 8,
-  },
-  changePasswordButton: {
-    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: "darkblue",
+    marginBottom: 20,
+    marginTop: 10,
+    height: 50,
+    width: "80%", // Ajuste para o layout
   },
   footer: {
     width: "100%",

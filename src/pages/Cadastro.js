@@ -92,12 +92,7 @@ const Cadastro = () => {
       <View style={styles.innerContainer}>
         <Image
           source={require("../assets/logoSmartWallet.png")}
-          style={{
-            width: 250,
-            height: 150,
-            marginTop: 100,
-            marginBottom: 20,
-          }}
+          style={styles.logo}
           resizeMode="contain"
         />
 
@@ -172,6 +167,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logo: {
+    width: 250,
+    height: 150,
+    marginTop: 100,
+    marginBottom: 20,
   },
   inputContainer: {
     width: '80%',
