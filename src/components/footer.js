@@ -5,8 +5,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const FooterNavigation = ({ navigation }) => {
   return (
     <View style={styles.footer}>
-      <NavItem text="   Extrato" icon="file" onPress={() => navigation.navigate("Extrato")} />
-      <NavItem text="   Lançamento" icon="plus-square" onPress={() => navigation.navigate("Lancamento")} />
+      <NavItem text=" Extrato" icon="file" onPress={() => navigation.navigate("Extrato")} />
+      <NavItem text=" Lançamento" icon="plus-square" onPress={() => navigation.navigate("Lancamento")} />
+      <NavItem text=" Perfil" icon="user" onPress={() => navigation.navigate("Perfil")} />
     </View>
   );
 };
@@ -16,7 +17,7 @@ const NavItem = ({ text, icon, onPress }) => (
     <View style={styles.navItemContent}>
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.navItemText}>
-          <Icon name={icon} size={20} color="darkblue" /> {text}
+          <Icon name={icon} size={25} color="darkblue" /> {text}
         </Text>
       </TouchableOpacity>
     </View>

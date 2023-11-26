@@ -52,9 +52,10 @@ const styles = {
   },
   userName: {
     marginLeft: 1,
+    fontSize:14,
   },
   logoutIcon: {
-    marginLeft: 200,
+    marginLeft: 180,
   },
 
 };

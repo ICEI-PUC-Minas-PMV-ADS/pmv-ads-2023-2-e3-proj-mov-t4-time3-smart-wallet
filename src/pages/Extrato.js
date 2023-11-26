@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     backgroundColor: "white",
-    height: 35,
+    height: 45,
   },
   modalContainer: {
     flex: 1,
