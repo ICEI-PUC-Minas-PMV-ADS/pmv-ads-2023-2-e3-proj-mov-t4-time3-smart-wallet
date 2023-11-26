@@ -44,6 +44,7 @@ const styles = {
   },
   userName: {
     marginLeft: 1,
+    fontSize:14,
   },
 };
 

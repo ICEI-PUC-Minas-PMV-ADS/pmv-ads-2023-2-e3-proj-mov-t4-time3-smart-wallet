@@ -156,7 +156,7 @@ const Lancamento = ({ route }) => {
                   <TextInput
                     mode="outlined"
                     keyboardType="numeric"
-                    style={{ fontSize: 14, color: "darkblue", height: 40 }}
+                    style={{ fontSize: 14, color: "darkblue", height: 45 }}
                     value={valor}
                     onChangeText={(itemValue) => {
                       const numericValue = itemValue.replace(/[^0-9]/g, '');
@@ -178,7 +178,7 @@ const Lancamento = ({ route }) => {
                   <TouchableOpacity onPress={() => setShow(true)}>
                     <TextInput
                                   mode="outlined"
-                      style={{ fontSize: 14, color: "darkblue", height: 40 }}
+                      style={{ fontSize: 14, color: "darkblue", height: 45 }}
                       value={dataVencimento}
                       left={<TextInput.Icon name="calendar" />}
                       editable={false}
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderColor: "darkblue",
-    marginBottom: 20,
+    marginBottom:5,
     marginTop: 10,
     height: 50,
     width: "100%", // Ajuste para o layout

@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     color: "darkblue",
     textAlign: "left",
+    marginLeft: 0,
   },
   showPasswordButton: {
     marginLeft: 20,

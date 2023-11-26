@@ -124,13 +124,12 @@ const Chat = () => {
         placeholder="Digite uma mensagem..."
         renderChatBackground={() => (
           <Image
-            source={require('')}
+            source={require('../assets/logoBackground.png')}
             style={styles.backgroundImage}
           />
         )}
       />
     </>
-    
   );
 };
 
