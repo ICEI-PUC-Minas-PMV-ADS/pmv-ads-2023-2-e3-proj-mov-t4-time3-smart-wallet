@@ -29,6 +29,7 @@ const UserProfile = ({ route }) => {
       return;
     } else {
       editarSenha({
+        name: name,
         email: userEmail,
         password: newPassword,
         id: userId
