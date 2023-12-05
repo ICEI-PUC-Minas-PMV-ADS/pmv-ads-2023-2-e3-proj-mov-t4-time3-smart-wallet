@@ -8,4 +8,4 @@ Conjunto de slides em um arquivo PowerPoint ou PDF com a apresentação do proje
 
 *Smart Wallet*
 
-Link da apresentação: https://www.canva.com/design/DAF1aVHEFQY/QzFccZbvKhK0qT5wQvQ9uQ/view?utm_content=DAF1aVHEFQY&utm_campaign=designshare&utm_medium=link&utm_source=editor
+- [Link da apresentação](https://www.canva.com/design/DAF1aVHEFQY/QzFccZbvKhK0qT5wQvQ9uQ/view?utm_content=DAF1aVHEFQY&utm_campaign=designshare&utm_medium=link&utm_source=editor)
