@@ -1,6 +1,6 @@
 # Apresentação
 
-<span style="color:red">Pré-requisitos: [Todos os demais artefatos](docs)</span>
+<span style="color:red">Pré-requisitos: [Todos os demais artefatos](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet/tree/main/docs)</span>
 
 ## Projeto Smart Wallet
 
