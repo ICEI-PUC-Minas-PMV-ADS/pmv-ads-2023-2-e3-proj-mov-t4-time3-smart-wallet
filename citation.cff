@@ -1,0 +1,23 @@
+message: Please cite this software using these metadata.
+title: SMART WALLET
+authors:
+  - family-names: Melo de Lima
+    given-names:  Leonardo
+  - family-names: Monteiro de Souza
+    given-names: Joe
+  - family-names: Buck Alves
+    given-names: Leonardo
+  - family-names: Cristine Santana Oliveira
+    given-names: Thaís
+  - family-names: Gomes da Silva
+    given-names: Thiago
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Curcino de Lima
+    given-names: Mateus
+keywords:
+  - Carteira Digital
+  - Gerenciamento de finanças
+repository-code: https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t4-time3-smart-wallet
+version: 1.0.0
+date-released: 2023-12-04
